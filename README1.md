@@ -6,7 +6,7 @@ T-Coin 挖掘模拟器是一个基于 Python 和 Tkinter 的桌面应用程序�
 
 **版本号：** `0.1.1`
 **作者：** AnonUSAl
-**开源地址：** [GitHub 仓库](https://www.google.com/search?q=https://github.com/AnonUsAl/T-Coin) (假设的链接)
+**开源地址：** [GitHub 仓库](https://www.google.com/search?q=https://github.com/AnonUsAl)
 
 ### 🛠️ 安装与运行
 
@@ -86,5 +86,6 @@ python tcoin_miner.py
 | **待处理交易** | 等待被矿工打包到下一个区块中的交易列表。 | 每次成功挖矿后，此列表将被清空。 |
 
 ### 💬 关于我们
+
 
 点击 **“关于我们”** 按钮，您可以获取作者（AnonUSAl）的联系方式、论坛地址以及软件更新信息。欢迎通过提供的渠道联系作者并反馈 Bug 或建议！
