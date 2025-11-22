@@ -1,14 +1,258 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <title>内容正在开发 敬请期待</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-Coin 挖掘模拟器 - 0.1.1 下载</title>
+    <link rel="icon" href="https://img.icons8.com/ios-filled/50/bitcoin.png" type="image/png">
+    <style>
+        /* --- 颜色变量定义 (Light Mode) --- */
+        :root {
+            --color-background: #f7f9fc;
+            --color-card-bg: #ffffff;
+            --color-text-primary: #1e293b;
+            --color-text-secondary: #64748b;
+            --color-brand-green: #10b981; /* 成功/主要按钮色 */
+            --color-brand-blue: #3b82f6; /* 链接/强调色 */
+            --color-border: #e2e8f0;
+            --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* --- 颜色变量定义 (Dark Mode) --- */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-background: #1f2937;
+                --color-card-bg: #374151;
+                --color-text-primary: #f3f4f6;
+                --color-text-secondary: #9ca3af;
+                --color-brand-green: #34d399;
+                --color-brand-blue: #60a5fa;
+                --color-border: #4b5563;
+                --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        /* --- 基础样式 --- */
+        body {
+            font-family: var(--font-family);
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* --- 顶部下载卡片 --- */
+        .download-hero {
+            background-color: var(--color-card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-subtle);
+            text-align: center;
+            margin-bottom: 50px;
+            border: 1px solid var(--color-border);
+        }
+
+        .logo-text {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--color-text-primary);
+            margin-bottom: 10px;
+        }
+
+        .logo-text span {
+            color: var(--color-brand-green);
+        }
+
+        .version-tag {
+            display: inline-block;
+            background-color: var(--color-brand-blue);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        /* 下载按钮 (CTA) */
+        .download-btn {
+            display: inline-block;
+            background-color: var(--color-brand-green);
+            color: white;
+            padding: 18px 50px;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.6);
+        }
+
+        .download-info {
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        /* --- 特性列表 --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background-color: var(--color-card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-subtle);
+            border-top: 4px solid var(--color-brand-blue);
+        }
+
+        .feature-card h3 {
+            color: var(--color-brand-blue);
+            font-size: 20px;
+            margin-top: 0;
+            font-weight: 600;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--color-text-secondary);
+            font-size: 16px;
+        }
+
+        /* --- 额外信息/底部 --- */
+        .footer-links {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-links a {
+            color: var(--color-brand-blue);
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links p {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+    </style>
 </head>
-
 <body>
-    <h1>内容正在开发 敬请期待</h1>
-    <p>详情请咨询3353739856</p>
-</body>
 
+    <div class="container">
+
+        <div class="download-hero">
+
+            <p class="logo-text">
+                T-Coin <span>Miner</span> Simulator
+            </p>
+
+            <div class="version-tag">
+                最新版本 0.1.1
+            </div>
+
+            <p style="font-size: 20px; color: var(--color-text-primary);">
+                在本地体验工作量证明 (PoW) 挖矿、交易签名和区块链验证的核心机制。
+            </p>
+
+            <a href="anonusal.github.io/Tb_Minner.py" class="download-btn">
+                立即下载 (Python ZIP)
+            </a>
+
+            <p class="download-info">
+                ⚠️ 注意：此为 Python 源代码模拟器，需要 Python 3.x 环境运行。<br>
+                文件大小：约 50 KB
+            </p>
+
+        </div>
+
+        <h2 style="text-align: center; color: var(--color-text-primary); margin-bottom: 30px;">
+            核心模拟特性
+        </h2>
+
+        <div class="features-grid">
+
+            <div class="feature-card">
+                <h3>💻 完整的 PoW 挖矿</h3>
+                <p>
+                    模拟工作量证明 (Proof-of-Work) 机制，通过计算 Nonce 来竞争打包区块，并自动获取矿工奖励。支持持续挖矿模式。
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>✍️ 钱包与交易签名</h3>
+                <p>
+                    模拟钱包创建、公私钥对，以及使用私钥签名交易。所有用户交易都会被添加到待处理列表中，等待矿工打包。
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>🔗 区块链持久化与验证</h3>
+                <p>
+                    完整的区块链数据可以保存和加载为 `.json` 文件。内置链条完整性验证功能，确保区块未被篡改。
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>📊 GUI 界面操作</h3>
+                <p>
+                    基于 Tkinter 的 GUI 界面，让您直观查看完整区块数据、账户实时余额和待处理交易，无需命令行操作。
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>敬请期待</h3>
+                <p>敬请期待
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>敬请期待</h3>
+                <p>敬请期待
+                </p>
+            </div>
+
+        </div>
+
+        <div class="footer-links">
+            <p style="font-size: 16px;">
+                🎉 欢迎加入开源项目，帮助我们一起修复 Bug！
+            </p>
+            <a href="http://anonusal.tttttttttt.top" target="_blank">作者论坛/社区</a>
+            <span style="color: var(--color-text-secondary);">|</span>
+            <a href="http://anonusal.github.io" target="_blank">软件更新日志</a>
+            <span style="color: var(--color-text-secondary);">|</span>
+            <a href="https://github.com/AnonUsAl/" target="_blank">GitHub 主页</a>
+
+            <p style="margin-top: 15px;">
+                <span style="font-weight: bold;">Tcoin 挖掘模拟器</span> | 由 AnonUSAl 编写 | 版本 0.1.1
+            </p>
+        </div>
+
+    </div>
+
+</body>
 </html>
