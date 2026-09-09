@@ -781,42 +781,75 @@
             line-height: 1.6;
         }
 
-        /* 随机题目顺序开关 */
-        .shuffle-opt {
+        /* 题目乱序开关 */
+        .shuffle-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
             margin-top: 16px;
             padding: 10px 14px;
+            background: var(--panel-soft);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            background: var(--panel-soft);
-            text-align: left;
         }
 
-        .shuffle-opt label {
+        .shuffle-toggle {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 10px;
             cursor: pointer;
-            font-size: 0.86rem;
-            font-weight: 600;
-            color: var(--text);
-            font-family: inherit;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .shuffle-opt input {
+        .shuffle-toggle input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .shuffle-track {
+            width: 40px;
+            height: 22px;
+            border-radius: 11px;
+            background: var(--bar-track);
+            border: 1px solid var(--border-strong);
+            position: relative;
+            transition: background var(--t-fast);
+            flex-shrink: 0;
+        }
+
+        .shuffle-track::after {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
             width: 16px;
             height: 16px;
-            accent-color: var(--primary);
-            cursor: pointer;
-            flex-shrink: 0;
-            margin-top: 2px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+            transition: transform var(--t-fast);
         }
 
-        .shuffle-opt .shuffle-sub {
-            display: block;
-            margin-top: 2px;
-            font-size: 0.72rem;
-            font-weight: 400;
-            color: var(--text-dim);
+        .shuffle-toggle input:checked + .shuffle-track {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .shuffle-toggle input:checked + .shuffle-track::after { transform: translateX(18px); }
+
+        .shuffle-text {
+            font-size: 0.82rem;
+            color: var(--text-soft);
+            font-weight: 600;
+        }
+
+        .shuffle-hint {
+            font-size: 0.7rem;
+            color: var(--text-faint);
             line-height: 1.5;
         }
 
@@ -936,16 +969,28 @@
 
         /* ===== 结果区 ===== */
         .report-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px 18px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px 20px;
             font-size: 0.78rem;
             color: var(--text-dim);
             background: var(--panel-soft);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 9px 14px;
+            padding: 12px 16px;
             margin-bottom: 16px;
+        }
+
+        .report-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .report-meta-item span {
+            font-size: 0.68rem;
+            color: var(--text-faint);
+            letter-spacing: 0.02em;
         }
 
         .report-meta b { color: var(--text-soft); font-weight: 600; }
@@ -1569,6 +1614,74 @@
 
         .btn-print:hover { border-color: var(--primary); color: var(--primary); }
 
+        /* 报告操作按钮组 */
+        .report-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .report-actions .btn-restart,
+        .report-actions .btn-print {
+            flex: 1 1 210px;
+            width: auto;
+            margin-top: 0;
+        }
+
+        /* 文本链接按钮 */
+        .text-link {
+            background: none;
+            border: none;
+            padding: 0;
+            color: var(--primary);
+            font-size: 0.78rem;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .text-link:hover { color: var(--primary-dark); }
+
+        .text-link-inline { font-size: 0.75rem; }
+
+        .mode-card .text-link { margin-top: 10px; }
+
+        /* 维度说明弹窗列表 */
+        .traits-desc-body { max-height: 60vh; overflow-y: auto; }
+
+        .trait-desc-item {
+            display: flex;
+            gap: 10px;
+            padding: 9px 2px;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .trait-desc-item:last-child { border-bottom: none; }
+
+        .trait-desc-idx {
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            border-radius: var(--radius);
+            background: var(--primary-soft);
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trait-desc-main b { font-size: 0.85rem; color: var(--text); }
+
+        .trait-desc-main p {
+            margin: 2px 0 0;
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
         /* 评估历史 */
         .history-card { text-align: left; }
 
@@ -1805,17 +1918,6 @@
             justify-content: flex-end;
         }
 
-        .consent-version {
-            margin-top: 12px;
-            padding-top: 10px;
-            border-top: 1px dashed var(--border);
-            font-size: 0.74rem;
-            color: var(--text-faint);
-            line-height: 1.6;
-        }
-
-        .consent-version a { color: var(--text-dim); }
-
         .modal-btn {
             padding: 9px 22px;
             background: var(--primary);
@@ -1938,6 +2040,8 @@
             .brand-logo svg { width: 26px; height: 26px; }
             .btn-option { padding: 12px 14px; }
             .result-desc { font-size: 0.75rem; }
+            .report-meta { grid-template-columns: repeat(2, 1fr); }
+            .summary-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -1954,7 +2058,6 @@
                 <li>作答数据仅在您的浏览器本地处理，不会上传至任何服务器；关闭页面后自动清除。</li>
                 <li>请按真实感受作答；如正在经历严重情绪困扰，请优先寻求专业帮助或拨打心理援助热线。</li>
             </ul>
-            <p class="consent-version">本页为最新版本；老版本请访问 <a href="http://anonusal.tttttttttt.top/n/" target="_blank" rel="noopener noreferrer nofollow">anonusal.tttttttttt.top/n/</a></p>
         </div>
         <div class="modal-foot">
             <button class="modal-btn" id="consent-btn" type="button">我已阅读并同意，开始使用</button>
@@ -1994,6 +2097,20 @@
     </div>
 </div>
 
+<!-- ===== 维度说明弹窗 ===== -->
+<div class="modal-mask hidden" id="traits-modal" role="dialog" aria-modal="true" aria-labelledby="traits-modal-title">
+    <div class="modal">
+        <div class="modal-head" id="traits-modal-title">20 个核心特征维度说明</div>
+        <div class="modal-body traits-desc-body">
+            <div id="traits-desc-list"></div>
+            <p class="skin-current">以上说明仅用于科普理解，帮助您了解各维度的含义，不构成任何诊断标准。</p>
+        </div>
+        <div class="modal-foot">
+            <button class="modal-btn" id="traits-modal-close" type="button">关闭</button>
+        </div>
+    </div>
+</div>
+
 <div class="layout">
     <!-- ===== 左栏：评估须知 ===== -->
     <aside class="side" aria-label="评估须知">
@@ -2002,7 +2119,7 @@
             <ul class="side-list">
                 <li>请按真实感受作答，选项没有对错之分。</li>
                 <li>建议一次性完成；中途可使用"上一题"返回修改。</li>
-                <li>极简自测约 2 分钟、快速筛查约 5 分钟、标准评估约 8 分钟、深度评估约 12 分钟。</li>
+                <li>极简自测约 3 分钟、快速筛查约 5 分钟、标准评估约 8 分钟、深度评估约 12 分钟。</li>
                 <li>本量表仅供科普教育用途，不构成任何诊断。</li>
             </ul>
         </div>
@@ -2051,12 +2168,12 @@
         <section id="start-area">
             <div class="mode-card">
                 <h2 class="section-title">选择评估模式</h2>
-                <p class="mode-intro">四种评估模式：极简自测覆盖 15 个核心特征维度；其余三种模式均覆盖全部 20 个特征维度，并内置 5 道作答效度校验题。模式越深入，题量越多、分析越细致，请根据您的可用时间选择：</p>
+                <p class="mode-intro">四种评估模式均覆盖全部 20 个核心特征维度：极简自测每维度一题、共 20 题；其余模式题量更多、分析更细致，并内置 5 道作答效度校验题。请根据您的可用时间选择：</p>
                 <div class="plan-list">
                     <button class="plan-card" id="btn-light" type="button">
                         <span class="plan-info">
                             <span class="plan-name">极简自测</span>
-                            <span class="plan-meta">15 题 · 约 2 分钟</span>
+                            <span class="plan-meta">20 题 · 约 3 分钟</span>
                         </span>
                         <span class="plan-arrow" aria-hidden="true">›</span>
                     </button>
@@ -2083,13 +2200,16 @@
                         <span class="plan-arrow" aria-hidden="true">›</span>
                     </button>
                 </div>
-                <div class="shuffle-opt">
-                    <label for="shuffle-toggle">
-                        <input type="checkbox" id="shuffle-toggle">
-                        <span>随机题目顺序<span class="shuffle-sub">每次评估随机打乱题目，减少惯性作答</span></span>
+                <div class="shuffle-option">
+                    <label class="shuffle-toggle" for="shuffle-check">
+                        <input type="checkbox" id="shuffle-check">
+                        <span class="shuffle-track" aria-hidden="true"></span>
+                        <span class="shuffle-text">题目乱序（随机出题）</span>
                     </label>
+                    <span class="shuffle-hint">开启后每次评估题目顺序随机，适合多次复测；关闭则按固定顺序出题。</span>
                 </div>
                 <p class="mode-note">本量表基于简化特征模型编制，仅供科普教育用途，不构成任何临床诊断或医学建议。</p>
+                <button class="text-link" id="traits-desc-btn" type="button">查看 20 个特征维度说明 →</button>
             </div>
         </section>
 
@@ -2116,10 +2236,12 @@
         <!-- ===== 结果区 ===== -->
         <section id="result-area" class="hidden">
             <div class="report-meta">
-                <span>评估编号：<b id="meta-id"></b></span>
-                <span>评估模式：<b id="meta-mode"></b></span>
-                <span>完成时间：<b id="meta-time"></b></span>
-                <span>本次用时：<b id="meta-duration"></b></span>
+                <div class="report-meta-item"><span>评估编号</span><b id="meta-id"></b></div>
+                <div class="report-meta-item"><span>评估模式</span><b id="meta-mode"></b></div>
+                <div class="report-meta-item"><span>完成时间</span><b id="meta-time"></b></div>
+                <div class="report-meta-item"><span>本次用时</span><b id="meta-duration"></b></div>
+                <div class="report-meta-item"><span>完成题量</span><b id="meta-total"></b></div>
+                <div class="report-meta-item"><span>报告用途</span><b>自我了解 · 科普参考</b></div>
             </div>
 
             <!-- 结果正常（绿色恭喜） -->
@@ -2160,6 +2282,30 @@
                 </div>
             </div>
 
+            <!-- 评估摘要 -->
+            <div class="module-card summary-card" id="summary-box">
+                <div class="section-title">评估摘要</div>
+                <div class="summary-grid">
+                    <div class="summary-cell">
+                        <span class="summary-label">总体信号强度</span>
+                        <span class="summary-value" id="summary-level">—</span>
+                    </div>
+                    <div class="summary-cell">
+                        <span class="summary-label">主要特征方向</span>
+                        <span class="summary-value" id="summary-traits">—</span>
+                    </div>
+                    <div class="summary-cell">
+                        <span class="summary-label">严重信号</span>
+                        <span class="summary-value" id="summary-severe">—</span>
+                    </div>
+                    <div class="summary-cell">
+                        <span class="summary-label">参考匹配</span>
+                        <span class="summary-value" id="summary-match">—</span>
+                    </div>
+                </div>
+                <p class="summary-note" id="summary-note"></p>
+            </div>
+
             <!-- 严重程度评估 -->
             <div class="module-card hidden" id="severity-box">
                 <div class="severity-row">
@@ -2186,8 +2332,9 @@
             </div>
 
             <div class="traits-overview" id="traits-overview">
-                <div class="section-title">维度评估（15 项核心维度）</div>
+                <div class="section-title">维度评估（20 项核心维度）</div>
                 <p class="overview-hint">评分基于您全部回答加权计算（−1.00 完全不符合 ～ +1.00 完全符合），程度按评分绝对值分四级：轻度 / 中度 / 重度 / 极重度。</p>
+                <p class="overview-stats" id="overview-stats"></p>
                 <div class="traits-grid" id="traits-grid"></div>
             </div>
 
@@ -2211,6 +2358,12 @@
                 <div id="advice-content"></div>
             </div>
 
+            <!-- 报告落款 -->
+            <div class="report-footer">
+                <div class="report-footer-line">本报告由「心理健康多维自评量表」依据您的在线作答自动生成，仅供自我了解与科普参考，不构成临床诊断或医学建议。如存在持续困扰，请及时寻求精神科或心理专业人员的帮助。</div>
+                <div class="report-footer-meta">量表编制：AnonUsAl · 云术工作室　|　版本 V2.2　|　生成时间：<span id="report-gen-time"></span></div>
+            </div>
+
             <!-- 评估历史（本地保存） -->
             <div class="module-card history-card hidden" id="history-box">
                 <div class="section-title">评估历史（仅保存在本机）</div>
@@ -2218,8 +2371,12 @@
                 <button class="btn-clear-history" id="history-clear-btn" type="button">清除历史记录</button>
             </div>
 
-            <button class="btn-restart" id="restart-btn" type="button">重新评估</button>
-            <button class="btn-print" id="print-btn" type="button">导出报告（打印 / PDF）</button>
+            <div class="report-actions">
+                <button class="btn-restart" id="restart-btn" type="button">重新评估</button>
+                <button class="btn-print" id="copy-summary-btn" type="button">复制报告摘要</button>
+                <button class="btn-print" id="export-txt-btn" type="button">导出报告（TXT）</button>
+                <button class="btn-print" id="print-btn" type="button">导出报告（打印 / PDF）</button>
+            </div>
         </section>
 
         <!-- ===== 声明 ===== -->
@@ -2229,12 +2386,12 @@
                 <span>本量表基于简化特征模型编制，仅供<b>科普教育用途</b>，不具备任何临床心理学或精神医学诊断功能，评估结果不应作为就医依据。</span>
             </div>
             <div class="help-line" id="help-line">如您或身边的人正经历情绪困扰，请及时寻求专业心理帮助，可拨打全国统一心理援助热线<a href="tel:12356">12356</a>（24 小时、免费）。</div>
-            <div class="credit-line">本量表由 AnonUsAl 编制</div>
+            <div class="credit-line">本量表由 AnonUsAl 编制 · 版本 V2.2</div>
             <div class="promo-line">
                 <span>云术工作室 · 免费专业量表服务：<a href="https://pt.cldery.com/" target="_blank" rel="noopener noreferrer nofollow">pt.cldery.com</a></span>
             </div>
             <div class="promo-line">
-                <span>老版本：<a href="http://anonusal.tttttttttt.top/n/" target="_blank" rel="noopener noreferrer nofollow">anonusal.tttttttttt.top/n/</a></span>
+                <span>了解更多：<a href="https://cldery.com/" target="_blank" rel="noopener noreferrer nofollow">云术工作室</a> · <a href="https://anonusal.cldery.com/" target="_blank" rel="noopener noreferrer nofollow">AnonUsAl</a></span>
             </div>
         </footer>
     </div>
@@ -2250,13 +2407,15 @@
             </ul>
             <div class="side-hotline">全国统一心理援助热线<br><a href="tel:12356">12356</a>（24 小时 · 免费）</div>
             <div class="side-hotline">云术工作室 · 免费专业量表服务<br><a href="https://pt.cldery.com/" target="_blank" rel="noopener noreferrer nofollow">pt.cldery.com</a>（免费使用）</div>
+            <div class="side-hotline">了解更多：<a href="https://cldery.com/" target="_blank" rel="noopener noreferrer nofollow">云术工作室</a> · <a href="https://anonusal.cldery.com/" target="_blank" rel="noopener noreferrer nofollow">AnonUsAl</a></div>
         </div>
         <div class="side-card">
             <div class="side-title">关于本量表</div>
             <ul class="side-list">
-                <li>覆盖 20 个核心特征维度（极简自测覆盖其中 15 个）。</li>
+                <li>覆盖全部 20 个核心特征维度，四种模式均可完整评估。</li>
                 <li>内置 5 道作答效度校验题，用于判断回答一致性。</li>
                 <li>结果按特征相似度给出参考排序，仅反映回答倾向。</li>
+                <li><button class="text-link text-link-inline" id="traits-desc-btn2" type="button">查看 20 个特征维度说明</button></li>
             </ul>
             <p class="side-note" id="side-note">如困扰持续存在，建议咨询精神科或心理专业人员。</p>
         </div>
@@ -2339,6 +2498,36 @@ const conditions = [
         name: "间歇性暴怒障碍 (IED)",
         desc: "以反复出现的冲动性攻击行为爆发为特征的障碍。",
         traits: { impulse: 1.0, mania: 0.3, panic: 0.3, compulsion: 0.2, trauma: 0.2, sleep_issue: 0.3, suicide: 0.2, low_mood: 0.2, somatization: 0.15, hallucination: 0.05, anhedonia: 0.1, energy_loss: 0.2, irritability: 0.9, self_esteem: 0.1, paranoia: 0.3, appetite: 0.1 }
+    },
+    {
+        id: "panic_d",
+        name: "惊恐障碍 (Panic Disorder)",
+        desc: "以突发、强烈的惊恐发作及对再次发作的担忧为核心表现的焦虑障碍。",
+        traits: { panic: 1.0, somatization: 0.8, sleep_issue: 0.4, social_fear: 0.3, low_mood: 0.2, energy_loss: 0.4, mania: -0.5, irritability: 0.3, suicide: 0.15, impulse: 0.1, compulsion: 0.1, trauma: 0.1, appetite: 0.1 }
+    },
+    {
+        id: "insomnia",
+        name: "失眠障碍 (Insomnia)",
+        desc: "以入睡困难、维持睡眠困难或早醒并影响日间功能为主要表现的睡眠障碍。",
+        traits: { sleep_issue: 1.0, energy_loss: 0.8, focus_loss: 0.5, irritability: 0.4, low_mood: 0.3, panic: 0.3, anhedonia: 0.2, appetite: 0.2, mania: -0.3, suicide: 0.1, social_fear: 0.1 }
+    },
+    {
+        id: "bulimia",
+        name: "神经性贪食症 (Bulimia)",
+        desc: "以反复暴食和补偿性行为（催吐、导泻、过度运动等）为特征的进食障碍。",
+        traits: { body_image: 0.9, appetite: 0.8, impulse: 0.6, low_mood: 0.4, self_esteem: 0.4, energy_loss: 0.3, irritability: 0.3, anhedonia: 0.2, panic: 0.2, suicide: 0.2, mania: -0.3 }
+    },
+    {
+        id: "dysthymia",
+        name: "持续性抑郁障碍 (Dysthymia)",
+        desc: "以长期（通常两年以上）、程度相对较轻的持续抑郁心境为特征的心境障碍。",
+        traits: { low_mood: 0.8, anhedonia: 0.6, energy_loss: 0.7, self_esteem: 0.6, sleep_issue: 0.4, appetite: 0.3, irritability: 0.3, mania: -0.3, social_fear: 0.2, suicide: 0.2, panic: 0.1 }
+    },
+    {
+        id: "bpd",
+        name: "边缘型人格障碍 (BPD)",
+        desc: "以情绪不稳定、冲动行为与人际关系冲突为特征的持久行为模式。",
+        traits: { impulse: 0.8, irritability: 0.8, low_mood: 0.6, suicide: 0.6, trauma: 0.4, self_esteem: 0.5, mania: 0.3, paranoia: 0.3, panic: 0.3, sleep_issue: 0.3, anhedonia: 0.2 }
     }
 ];
 
@@ -2381,9 +2570,9 @@ const allQuestions = [
     { id: "suicide_dup", trait: "suicide", kind: "dup", text: "极度低落的时候，你是否曾经冒出过伤害自己或一了百了的想法？" },
 
     /* --- 严重度问（频率、持续时间、对生活的影响） --- */
-    { id: "low_mood_sev", trait: "low_mood", kind: "sev", text: "情绪持续低落、内心空虚的状态是否几乎每天出现，且已持续超过两周、影响到工作或生活？" },
+    { id: "low_mood_sev", trait: "low_mood", kind: "sev", text: "这种低落空虚的状态是否几乎每天出现，且已持续超过两周、影响到工作或生活？" },
     { id: "anhedonia_sev", trait: "anhedonia", kind: "sev", text: "兴趣丧失的情况，是否已经明显影响了你的学习、工作或人际交往？" },
-    { id: "mania_sev", trait: "mania", kind: "sev", text: "精力异常高涨、几乎不需要休息的状态是否曾持续多日，并让你做出平时不会做的冲动决定？" },
+    { id: "mania_sev", trait: "mania", kind: "sev", text: "这种精力高涨的状态是否曾持续多日，并让你做出平时不会做的冲动决定？" },
     { id: "panic_sev", trait: "panic", kind: "sev", text: "紧张心慌的发作是否频繁到干扰日常活动，或让你开始回避某些场合？" },
     { id: "compulsion_sev", trait: "compulsion", kind: "sev", text: "反复的念头或动作是否每天耗费你大量时间，甚至明知不必要也无法停止？" },
     { id: "trauma_sev", trait: "trauma", kind: "sev", text: "创伤记忆的闯入是否频繁到让你难以入睡、回避相关场景或影响正常生活？" },
@@ -2391,10 +2580,10 @@ const allQuestions = [
     { id: "focus_sev", trait: "focus_loss", kind: "sev", text: "注意力难以集中的问题是否从小就有，并一直影响你的学业、工作或日常效率？" },
     { id: "social_sev", trait: "social_fear", kind: "sev", text: "对社交场合的恐惧或不适，是否已让你主动回避聚会、放弃机会？" },
     { id: "body_sev", trait: "body_image", kind: "sev", text: "对体重体型的担忧是否已让体重明显下降，或影响到你的健康和生活？" },
-    { id: "somatization_sev", trait: "somatization", kind: "sev", text: "查不出明确原因的身体不适（如头痛、胃痛、心慌、乏力）是否频繁到影响你的工作、学习或睡眠，甚至让你反复就医做检查？" },
-    { id: "hallucination_sev", trait: "hallucination", kind: "sev", text: "听到或看到不存在之物、旁人无法验证的经历是否反复出现，并让你困扰、害怕或影响生活？" },
-    { id: "impulse_sev", trait: "impulse", kind: "sev", text: "冲动失控行为（摔东西、吼人、动手等）是否反复出现，并已影响你的人际关系、工作，或带来过麻烦？" },
-    { id: "suicide_sev", trait: "suicide", kind: "sev", text: "结束生命（自杀）的念头是否频繁出现，或你是否已经认真想过具体的方式和计划？" },
+    { id: "somatization_sev", trait: "somatization", kind: "sev", text: "这些身体不适是否频繁到影响你的工作、学习或睡眠，甚至让你反复就医做检查？" },
+    { id: "hallucination_sev", trait: "hallucination", kind: "sev", text: "这类“听到或看到不存在之物”的经历是否反复出现，并让你困扰、害怕或影响生活？" },
+    { id: "impulse_sev", trait: "impulse", kind: "sev", text: "这类冲动失控是否反复出现，并已影响你的人际关系、工作，或带来过麻烦？" },
+    { id: "suicide_sev", trait: "suicide", kind: "sev", text: "这些念头是否频繁出现，或你已经认真想过具体的方式和计划？" },
     /* --- 深度补充：一致性复问（第 2 组） --- */
     { id: "low_mood_dup2", trait: "low_mood", kind: "dup", text: "即使遇到值得开心的事，你是否也常常感觉不到快乐，心里始终压着一块石头？" },
     { id: "anhedonia_dup2", trait: "anhedonia", kind: "dup", text: "对过去的爱好（运动、游戏、阅读、追剧等），你现在是否几乎提不起劲？" },
@@ -2413,10 +2602,10 @@ const allQuestions = [
     { id: "suicide_dup2", trait: "suicide", kind: "dup", text: "你是否曾在痛苦至极时觉得“离开才是解脱”，即使理性上知道不该这样想？" },
 
     /* --- 深度补充：严重度问（第 2 组） --- */
-    { id: "low_mood_sev2", trait: "low_mood", kind: "sev", text: "持续的低落感受是否让你觉得未来没有希望，甚至影响到吃饭、做事的基本动力？" },
+    { id: "low_mood_sev2", trait: "low_mood", kind: "sev", text: "这种低落的感受是否让你觉得未来没有希望，甚至影响到吃饭、做事的基本动力？" },
     { id: "anhedonia_sev2", trait: "anhedonia", kind: "sev", text: "提不起兴趣的状态是否已持续数周以上，让你觉得生活变得单调、没有盼头？" },
-    { id: "mania_sev2", trait: "mania", kind: "sev", text: "精力异常高涨的时期是否曾让你做出挥霍金钱、冒险投资或冲动辞工等事后后悔的决定？" },
-    { id: "panic_sev2", trait: "panic", kind: "sev", text: "紧张心慌的发作是否频繁（如一周多次），并让你总在担心“下一次什么时候来”？" },
+    { id: "mania_sev2", trait: "mania", kind: "sev", text: "高涨期是否曾让你做出挥霍金钱、冒险投资或冲动辞工等事后后悔的决定？" },
+    { id: "panic_sev2", trait: "panic", kind: "sev", text: "这种紧张心慌是否频繁发作（如一周多次），并让你总在担心“下一次什么时候来”？" },
     { id: "compulsion_sev2", trait: "compulsion", kind: "sev", text: "反复确认、清洗或整理是否每天占用你一小时以上，且明知不必要也停不下来？" },
     { id: "trauma_sev2", trait: "trauma", kind: "sev", text: "闪回或噩梦是否频繁到让你刻意回避相关的人、地点或话题？" },
     { id: "sleep_sev2", trait: "sleep_issue", kind: "sev", text: "睡眠不足是否让你白天头痛、烦躁、注意力下降，并已持续一个月以上？" },
@@ -2424,13 +2613,13 @@ const allQuestions = [
     { id: "social_sev2", trait: "social_deficits", kind: "sev", text: "社交互动的吃力是否从小如此，并让你在集体中经常感到格格不入？" },
     { id: "social_fear_sev2", trait: "social_fear", kind: "sev", text: "对社交场合的恐惧是否让你错过机会（聚会、面试、公开课），并为此自责？" },
     { id: "body_sev2", trait: "body_image", kind: "sev", text: "对体重体型的执念是否已让你明显消瘦、乏力或出现闭经等健康问题？" },
-    { id: "somatization_sev2", trait: "somatization", kind: "sev", text: "查不出原因的身体不适是否让你反复请假、多次就医，却始终找不到明确的器质病因？" },
-    { id: "hallucination_sev2", trait: "hallucination", kind: "sev", text: "这些“听到或看到不存在之物”的异常感知，是否让你怀疑自己是不是出问题了，并害怕被别人知道？" },
+    { id: "somatization_sev2", trait: "somatization", kind: "sev", text: "身体不适是否让你反复请假、多次就医，却始终找不到明确的器质病因？" },
+    { id: "hallucination_sev2", trait: "hallucination", kind: "sev", text: "这些异常感知是否让你怀疑自己是不是出问题了，并害怕被别人知道？" },
     { id: "impulse_sev2", trait: "impulse", kind: "sev", text: "冲动行为是否曾让你与亲友决裂、丢掉工作，或卷入冲突和纠纷？" },
-    { id: "suicide_sev2", trait: "suicide", kind: "sev", text: "结束生命（自杀）的念头是否已经影响你的正常生活，让你难以专注、吃不下饭或睡不着觉？" },
+    { id: "suicide_sev2", trait: "suicide", kind: "sev", text: "这些念头是否已经影响你的正常生活，让你难以专注、吃不下饭或睡不着觉？" },
 
     /* --- 深度补充：生活场景题（第 1 组） --- */
-    { id: "low_mood_life1", trait: "low_mood", kind: "life", text: "你是否存在“晨重夜轻”的变化——早晨醒来时情绪与精力最为低落、明显没力气起床，到傍晚才逐渐缓解？" },
+    { id: "low_mood_life1", trait: "low_mood", kind: "life", text: "早上醒来时，你是否经常觉得比晚上更沉重、更没力气起床？" },
     { id: "anhedonia_life1", trait: "anhedonia", kind: "life", text: "面对以前很期待的事情（聚会、旅行、新电影），你是否反而觉得麻烦、想推掉？" },
     { id: "mania_life1", trait: "mania", kind: "life", text: "高涨时你是否觉得自己无所不能，可以同时搞定很多事情、几乎不需要休息？" },
     { id: "panic_life1", trait: "panic", kind: "life", text: "想到即将要去人多的场合（地铁、课堂、商场），你是否会提前开始紧张？" },
@@ -2496,7 +2685,7 @@ const allQuestions = [
     { id: "paranoia_main", trait: "paranoia", kind: "main", text: "你是否常觉得别人在议论你、针对你，即使没有明显证据？" },
     { id: "paranoia_dup", trait: "paranoia", kind: "dup", text: "你是否经常怀疑身边人的意图，觉得他们表面友善、背后另有目的？" },
     { id: "paranoia_dup2", trait: "paranoia", kind: "dup", text: "一些普通事件（如别人看你一眼、低声说话），是否常被你解读为针对自己？" },
-    { id: "paranoia_sev", trait: "paranoia", kind: "sev", text: "对他人的怀疑、觉得被议论或针对的想法，是否已经影响到你信任他人，甚至让你难以与人正常相处？" },
+    { id: "paranoia_sev", trait: "paranoia", kind: "sev", text: "这些怀疑是否已经影响到你信任他人，甚至让你难以与人正常相处？" },
     { id: "paranoia_sev2", trait: "paranoia", kind: "sev", text: "你是否曾因为坚信被针对而与人激烈对峙，事后却发现是误会？" },
     { id: "paranoia_life1", trait: "paranoia", kind: "life", text: "在公共场合，你是否常觉得陌生人在注意或议论你？" },
     { id: "paranoia_life2", trait: "paranoia", kind: "life", text: "朋友或同事的玩笑，你是否常觉得是在含沙射影地针对你？" },
@@ -2529,28 +2718,45 @@ const traitLabels = {
     energy_loss: "精力下降", irritability: "易怒烦躁", self_esteem: "自我价值感", paranoia: "多疑猜疑", appetite: "食欲变化"
 };
 
+/* 20 个特征维度的科普说明（仅用于理解各维度含义） */
+const TRAIT_DESC = {
+    low_mood: "持续的情绪低落、悲伤或内心空虚，是常见的心境信号。",
+    anhedonia: "对原本感兴趣的活动失去兴趣或愉悦感，感受变得平淡。",
+    mania: "情绪异常高涨、精力过盛、思维奔逸或冲动增多。",
+    panic: "过度的担心、紧张不安，可伴有心慌、呼吸急促等躯体反应。",
+    compulsion: "反复出现难以控制的念头，或不得不重复某些行为。",
+    trauma: "对创伤性事件反复回忆、闪回，或刻意回避相关情境。",
+    sleep_issue: "入睡困难、易醒、早醒或睡眠质量差，影响日间状态。",
+    focus_loss: "难以集中注意力、容易分心、健忘或难以按计划完成任务。",
+    social_deficits: "在理解与参与人际互动上存在困难，社交过程感觉吃力。",
+    social_fear: "在社交或表现场合感到强烈紧张，并倾向于回避。",
+    body_image: "对自身体型、体重过度关注或持续不满。",
+    somatization: "出现查无明确原因的身体不适，如头痛、胃痛、乏力等。",
+    hallucination: "听到或看到他人无法感知的声音或景象。",
+    impulse: "难以控制的冲动或攻击行为，事后常感后悔。",
+    suicide: "觉得活着没有意义，或闪过结束生命的念头（需特别重视）。",
+    energy_loss: "持续精力不足、疲乏无力，休息后也难以恢复。",
+    irritability: "容易发怒、烦躁，情绪波动明显。",
+    self_esteem: "自我评价偏低，觉得自己不够好、缺乏价值感。",
+    paranoia: "对他人动机过度怀疑、猜忌，难以信任。",
+    appetite: "食欲明显增加或减少，体重随之波动。"
+};
+const TRAIT_DESC_ORDER = ["low_mood", "anhedonia", "mania", "panic", "compulsion", "trauma",
+    "sleep_issue", "focus_loss", "social_deficits", "social_fear", "body_image", "somatization",
+    "hallucination", "impulse", "suicide", "energy_loss", "irritability", "self_esteem",
+    "paranoia", "appetite"];
+
 const ANSWER_LEVELS = [1.0, 0.5, 0, -0.5, -1.0]; // 与按钮顺序对应
 const KEY_MAP = { "1": 1.0, "2": 0.5, "3": 0, "4": -0.5, "5": -1.0 };
 let MAIN_ROUND = 20;       // 主问数：全部模式均先问 20 个核心特征主问
 let MAX_QUESTIONS = 45;     // 总题数（按模式设置：fast 45 / standard 65 / deep 105）
-const MODE_TOTAL = { light: 15, fast: 45, standard: 65, deep: 105 };       // 各模式总题量
+const MODE_TOTAL = { light: 20, fast: 45, standard: 65, deep: 105 };       // 各模式总题量
 const MODE_EXTRA = { light: 0, fast: 1, standard: 2, deep: 4 };           // 各模式每维度补充题数（主问之外）
 const MODE_NAME = { light: "极简自测", fast: "快速筛查", standard: "标准评估", deep: "深度评估" };
+let shuffleEnabled = false;   // 题目乱序开关状态（由页面开关控制，默认开启见事件绑定初始化）
 const SEVERE_WEIGHT = { suicide: 1.6, hallucination: 1.6, somatization: 1.3, impulse: 1.3, paranoia: 1.3 }; // 严重议题优先被问
 let gameMode = "fast";      // fast | standard | deep
 let deepSequence = [];      // 当前模式的预生成题目序列
-
-/* 随机题目顺序开关（localStorage 记忆） */
-const shuffleToggle = document.getElementById("shuffle-toggle");
-let shuffleOn = false;
-if (shuffleToggle) {
-    try { shuffleOn = localStorage.getItem("mind-quiz-shuffle") === "1"; } catch (e) { /* ignore */ }
-    shuffleToggle.checked = shuffleOn;
-    shuffleToggle.addEventListener("change", () => {
-        shuffleOn = shuffleToggle.checked;
-        try { localStorage.setItem("mind-quiz-shuffle", shuffleOn ? "1" : "0"); } catch (e) { /* ignore */ }
-    });
-}
 
 function shuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -2560,24 +2766,16 @@ function shuffle(arr) {
     return arr;
 }
 
-/* 各模式序列：极简=前 15 个核心主问；其余=20 个主问（严重特征优先）→ 每维度按模式配额轮转补充题 → 均匀插入 5 道效度题 */
+/* 各模式序列：极简=全部 20 个核心主问（随机顺序）；其余=20 个主问（随机顺序）→ 每维度按模式配额轮转补充题 → 均匀插入 5 道效度题 */
 function buildSequence(mode) {
     const extraPer = MODE_EXTRA[mode] || 2;
     const mains = allQuestions
         .filter(q => q.kind === "main")
         .sort((a, b) => (SEVERE_WEIGHT[b.trait] || 1) - (SEVERE_WEIGHT[a.trait] || 1));
+    if (shuffleEnabled) shuffle(mains); // 可选功能：开启题目乱序时随机打乱主问顺序
 
-    // 极简自测：仅取严重特征优先排序后的前 15 个核心主问
-    if (mode === "light") {
-        if (!shuffleOn) return mains.slice(0, 15);
-        // 随机模式：5 个严重特征题必须保留（不漏安全议题），其余 10 个随机抽取，整体打乱
-        const severe = mains.filter(q => SEVERE_WEIGHT[q.trait]);
-        const rest = shuffle(mains.filter(q => !SEVERE_WEIGHT[q.trait])).slice(0, 10);
-        return shuffle(severe.concat(rest));
-    }
-
-    // 随机模式：全部主问打乱顺序（严重特征题仍在其中），再按配额补充与插入效度题
-    const base = shuffleOn ? shuffle(mains.slice()) : mains.slice();
+    // 极简自测：取全部 20 个核心主问（每维度一题，顺序随机）
+    if (mode === "light") return mains.slice(0, 20);
 
     const extras = {};
     for (const q of allQuestions) {
@@ -2586,8 +2784,8 @@ function buildSequence(mode) {
     }
     for (const t in extras) shuffle(extras[t]);
 
-    const seq = base.slice();
-    const order = base.map(q => q.trait).concat(Object.keys(extras).filter(t => !base.some(q => q.trait === t)));
+    const seq = mains.slice();
+    const order = mains.map(q => q.trait).concat(Object.keys(extras).filter(t => !mains.some(q => q.trait === t)));
     const quota = MAIN_ROUND + Object.keys(extras).length * extraPer;
     let guard = 0;
     while (seq.length < quota && guard++ < 3000) {
@@ -2680,6 +2878,14 @@ const els = {
     metaTime: document.getElementById("meta-time"),
     printBtn: document.getElementById("print-btn"),
     printMeta: document.getElementById("print-meta"),
+    metaTotal: document.getElementById("meta-total"),
+    summaryLevel: document.getElementById("summary-level"),
+    summaryTraits: document.getElementById("summary-traits"),
+    summarySevere: document.getElementById("summary-severe"),
+    summaryMatch: document.getElementById("summary-match"),
+    summaryNote: document.getElementById("summary-note"),
+    overviewStats: document.getElementById("overview-stats"),
+    reportGenTime: document.getElementById("report-gen-time"),
     historyBox: document.getElementById("history-box"),
     historyList: document.getElementById("history-list"),
     historyClearBtn: document.getElementById("history-clear-btn")
@@ -2943,6 +3149,8 @@ function showResults() {
     }
     stopClock();
     els.metaDuration.textContent = formatDuration(Date.now() - quizStart);
+    els.metaTotal.textContent = `${history.length} 题`;
+    if (els.reportGenTime) els.reportGenTime.textContent = els.metaTime.textContent;
 
     const scores = computeScores(userAnswers);
     const traitScores = getTraitScores(userAnswers);
@@ -3099,10 +3307,35 @@ function showResults() {
         });
     }
 
-    // 维度评估：15 项核心维度，逐项显示评分与程度分级（轻度/中度/重度/极重度）
+    // 评估摘要：总体信号强度 / 主要特征方向 / 严重信号 / 参考匹配
+    const posCount = Object.keys(traitScores).filter(t => traitScores[t] > 0.3).length;
+    const sumLevel = isNormal ? "未见明显信号" : (sev ? sev.level : "信号较弱");
+    const sumLevelCls = isNormal ? "sum-ok"
+        : (sev && sev.level === "较明显") ? "sum-severe"
+        : (sev && sev.level === "中度") ? "sum-warn" : "sum-ok";
+    els.summaryLevel.textContent = sumLevel;
+    els.summaryLevel.className = `summary-value ${sumLevelCls}`;
+    els.summaryTraits.textContent = topTraits.length > 0 ? topTraits.join("、") : "无明显特征方向";
+    els.summarySevere.textContent = severeUnique.length > 0 ? "检出（详见安全提示）" : "未检出";
+    els.summarySevere.className = `summary-value ${severeUnique.length > 0 ? "sum-severe" : "sum-ok"}`;
+    els.summaryMatch.textContent = shown.length > 0 ? `${shown[0].cond.name}（匹配度 ${shown[0].score}%）` : "未达提示阈值";
+    let summaryNote;
+    if (severeUnique.length > 0) {
+        summaryNote = "本次回答包含需要重视的安全信号，请优先参照上方安全提示采取行动，并尽快安排专业评估。";
+    } else if (isNormal) {
+        summaryNote = "各维度信号整体平稳，未发现达到关注标准的异常信号；建议保持规律作息与适度运动，并定期自我关注。";
+    } else if (posCount <= 2) {
+        summaryNote = `本次评估在 ${posCount} 项特征上出现正向信号，程度尚不突出；建议参考下方针对性建议，并在 2–4 周后复测观察变化。`;
+    } else {
+        summaryNote = `本次评估在 ${posCount} 项特征上检出正向信号，以「${topTraits.join("、")}」较为明显；建议结合专业建议进行自我调节，必要时寻求专业评估。`;
+    }
+    els.summaryNote.textContent = summaryNote;
+
+    // 维度评估：20 项核心维度，逐项显示评分与程度分级（轻度/中度/重度/极重度）
     const CORE_TRAITS = ["low_mood", "anhedonia", "mania", "panic", "compulsion", "trauma",
-        "sleep_issue", "focus_loss", "social_deficits", "social_fear", "somatization",
-        "hallucination", "impulse", "suicide", "paranoia"];
+        "sleep_issue", "focus_loss", "social_deficits", "social_fear", "body_image", "somatization",
+        "hallucination", "impulse", "suicide", "energy_loss", "irritability", "self_esteem",
+        "paranoia", "appetite"];
 
     function traitLevel(s) {
         if (s < -0.25) return { text: "未见异常", cls: "lvl-none" };
@@ -3142,6 +3375,20 @@ function showResults() {
             <span class="trait-row-level ${lv.cls}">${lv.text}</span>
         </div>`;
     }).join("");
+
+    // 维度统计：各程度项数分布
+    const lvCount = {};
+    CORE_TRAITS.forEach(t => {
+        const s = traitScores[t];
+        if (s === undefined) { lvCount["无数据"] = (lvCount["无数据"] || 0) + 1; return; }
+        const lv = traitLevel(s);
+        lvCount[lv.text] = (lvCount[lv.text] || 0) + 1;
+    });
+    const statParts = [];
+    ["极重度", "重度", "中度", "轻度", "正常", "未见异常", "无数据"].forEach(k => {
+        if (lvCount[k]) statParts.push(`${k} ${lvCount[k]} 项`);
+    });
+    els.overviewStats.textContent = statParts.length > 0 ? `程度分布：${statParts.join(" · ")}` : "";
 
     // 特征剖面雷达图
     renderRadar(traitScores, CORE_TRAITS);
@@ -3220,7 +3467,7 @@ if (els.historyClearBtn) {
     });
 }
 
-/* ===== 特征剖面雷达图：15 维度，正向信号蓝色区域、负向信号灰点 ===== */
+/* ===== 特征剖面雷达图：20 维度，正向信号蓝色区域、负向信号灰点 ===== */
 function renderRadar(scores, coreTraits) {
     const chart = document.getElementById("radar-chart");
     if (!chart) return;
@@ -3266,7 +3513,7 @@ function renderRadar(scores, coreTraits) {
         }
     }
 
-    chart.innerHTML = `<svg viewBox="0 0 ${size} ${size}" role="img" aria-label="15 维度特征剖面雷达图">
+    chart.innerHTML = `<svg viewBox="0 0 ${size} ${size}" role="img" aria-label="20 维度特征剖面雷达图">
         ${grid}${axes}
         <polygon class="poly-neg" points="${negPts.join(" ")}"/>
         <polygon class="poly-pos" points="${posPts.join(" ")}"/>
@@ -3394,9 +3641,149 @@ function buildAdvice(traitScores, sev, severeSignals) {
 }
 
 /* ===== 事件绑定 ===== */
+/* 题目乱序开关：默认开启，选择记忆保存在本地 */
+const shuffleCheck = document.getElementById("shuffle-check");
+shuffleEnabled = (function () {
+    let v;
+    try { v = localStorage.getItem("mind-quiz-shuffle"); } catch (e) { v = null; }
+    return v !== "off"; // 未设置或为 "on" 时默认开启
+})();
+if (shuffleCheck) {
+    shuffleCheck.checked = shuffleEnabled;
+    shuffleCheck.addEventListener("change", () => {
+        shuffleEnabled = shuffleCheck.checked;
+        try { localStorage.setItem("mind-quiz-shuffle", shuffleEnabled ? "on" : "off"); } catch (e) { /* 忽略存储失败 */ }
+    });
+}
+
 document.querySelectorAll(".btn-option").forEach(btn => {
     btn.addEventListener("click", () => submitAnswer(parseFloat(btn.dataset.weight)));
 });
+
+/* 维度说明弹窗 */
+const traitsModal = document.getElementById("traits-modal");
+const traitsDescList = document.getElementById("traits-desc-list");
+function openTraitsDesc() {
+    if (!traitsDescList) return;
+    traitsDescList.innerHTML = TRAIT_DESC_ORDER.map((t, i) => `
+        <div class="trait-desc-item">
+            <span class="trait-desc-idx">${String(i + 1).padStart(2, "0")}</span>
+            <div class="trait-desc-main">
+                <b>${traitLabels[t] || t}</b>
+                <p>${TRAIT_DESC[t] || ""}</p>
+            </div>
+        </div>`).join("");
+    if (traitsModal) traitsModal.classList.remove("hidden");
+}
+document.querySelectorAll("#traits-desc-btn, #traits-desc-btn2").forEach(btn => {
+    if (btn) btn.addEventListener("click", openTraitsDesc);
+});
+const traitsModalClose = document.getElementById("traits-modal-close");
+if (traitsModalClose) traitsModalClose.addEventListener("click", () => traitsModal.classList.add("hidden"));
+if (traitsModal) traitsModal.addEventListener("click", e => { if (e.target === traitsModal) traitsModal.classList.add("hidden"); });
+
+/* 复制报告摘要 */
+function copyText(text, ok) {
+    const done = () => { if (ok) ok(); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+    } else {
+        fallbackCopy(text, done);
+    }
+}
+function fallbackCopy(text, done) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); done(); } catch (e) { /* 忽略 */ }
+    document.body.removeChild(ta);
+}
+const copySummaryBtn = document.getElementById("copy-summary-btn");
+if (copySummaryBtn) {
+    copySummaryBtn.addEventListener("click", () => {
+        const lines = [
+            "心理健康多维自评量表 · 评估报告摘要",
+            `评估编号：${els.metaId.textContent}　评估模式：${els.metaMode.textContent}`,
+            `完成时间：${els.metaTime.textContent}　本次用时：${els.metaDuration.textContent}　完成题量：${els.metaTotal.textContent}`,
+            `总体信号强度：${els.summaryLevel.textContent}`,
+            `主要特征方向：${els.summaryTraits.textContent}`,
+            `严重信号：${els.summarySevere.textContent}`,
+            `参考匹配：${els.summaryMatch.textContent}`,
+            `摘要说明：${els.summaryNote.textContent}`,
+            "本报告由「心理健康多维自评量表」自动生成，仅供自我了解与科普参考，不构成临床诊断或医学建议。"
+        ];
+        copyText(lines.join("\n"), () => {
+            copySummaryBtn.textContent = "已复制 ✓";
+            setTimeout(() => { copySummaryBtn.textContent = "复制报告摘要"; }, 1600);
+        });
+    });
+}
+
+/* 导出报告（TXT） */
+const exportTxtBtn = document.getElementById("export-txt-btn");
+if (exportTxtBtn) {
+    exportTxtBtn.addEventListener("click", () => {
+        const P = [];
+        P.push("心理健康多维自评量表 · 评估报告");
+        P.push("=".repeat(38));
+        P.push(`评估编号：${els.metaId.textContent}`);
+        P.push(`评估模式：${els.metaMode.textContent}`);
+        P.push(`完成时间：${els.metaTime.textContent}`);
+        P.push(`本次用时：${els.metaDuration.textContent}　完成题量：${els.metaTotal.textContent}`);
+        P.push("");
+        if (!els.severeWarning.classList.contains("hidden")) {
+            P.push("【安全提示】");
+            P.push(els.severeWarning.innerText.trim());
+            P.push("");
+        }
+        P.push("【评估摘要】");
+        document.querySelectorAll(".summary-cell").forEach(cell => {
+            P.push(`${cell.querySelector(".summary-label").textContent}：${cell.querySelector(".summary-value").textContent}`);
+        });
+        P.push(`摘要说明：${els.summaryNote.textContent}`);
+        P.push("");
+        if (!els.severityBox.classList.contains("hidden")) {
+            P.push("【严重程度评估】");
+            P.push(`${els.severityLevel.textContent}：${els.severityDetail.textContent}`);
+            P.push("");
+        }
+        if (!els.lieBox.classList.contains("hidden")) {
+            P.push("【作答效度评估】");
+            P.push(`${els.lieLevel.textContent}：${els.lieDetail.textContent}`);
+            P.push("");
+        }
+        P.push("【结果参考】");
+        P.push(els.resultsList.innerText.trim());
+        P.push("");
+        P.push("【维度评估（20 项）】");
+        document.querySelectorAll(".trait-row").forEach(row => {
+            const name = row.querySelector(".trait-row-name").textContent;
+            const score = row.querySelector(".trait-row-score").textContent;
+            const level = row.querySelector(".trait-row-level").textContent;
+            P.push(`${name}　${score}　${level}`);
+        });
+        P.push("");
+        if (!els.adviceBox.classList.contains("hidden")) {
+            P.push("【专业建议】");
+            P.push(els.adviceContent.innerText.trim());
+            P.push("");
+        }
+        P.push("本报告由「心理健康多维自评量表」自动生成，仅供自我了解与科普参考，不构成临床诊断或医学建议。");
+        P.push(`量表编制：AnonUsAl · 云术工作室　|　版本 V2.2　|　生成时间：${els.reportGenTime ? els.reportGenTime.textContent : ""}`);
+        const blob = new Blob(["\ufeff" + P.join("\n")], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `心理健康自评报告_${els.metaId.textContent}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+}
 
 els.backBtn.addEventListener("click", goBack);
 els.exitBtn.addEventListener("click", exitQuiz);
