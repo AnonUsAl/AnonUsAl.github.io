@@ -505,7 +505,18 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        html { scroll-behavior: smooth; }
+
         html, body { min-height: 100%; }
+
+        /* 结果区定位滚动时与视口顶部保留间距 */
+        #result-area { scroll-margin-top: 20px; }
+
+        ::selection { background: var(--primary); color: #fff; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+        }
 
         body {
             font-family: var(--font);
@@ -1169,7 +1180,7 @@
 
         .confidence.high { background: var(--primary-soft); color: var(--primary-dark); border-color: var(--chip-border); }
         .confidence.mid  { background: var(--warn-bg);  color: var(--warn);  border-color: var(--warn-border); }
-        .confidence.low  { background: #f0f4f8;  color: var(--text-dim);  border-color: var(--border); }
+        .confidence.low  { background: var(--panel-soft);  color: var(--text-dim);  border-color: var(--border-strong); }
 
         /* 通用模块卡片 */
         .module-card {
@@ -1903,36 +1914,51 @@
 
         /* ===== 打印 / 导出 PDF ===== */
         @media print {
-            body { background: #fff !important; }
+            body { background: #fff !important; padding: 0; }
 
-            .sidebar, .skin-btn, .skin-current,
-            #consent-modal, #severe-modal, #skin-modal,
+            /* 左右侧栏、头部工具按钮、所有弹窗、答题进度与操作按钮均不打印 */
+            .side, .header-tools, .modal-mask,
             .progress-row, .progress-bar, .quiz-nav, .key-hint,
-            .btn-print, .btn-restart, .promo-line,
+            .report-actions, .promo-line,
             #start-area, #game-area {
                 display: none !important;
             }
 
-            .layout-main {
+            .layout {
                 display: block !important;
                 max-width: none !important;
-                padding: 0 !important;
             }
 
-            .result-area {
+            .sheet {
+                box-shadow: none !important;
+                border: none !important;
+                border-radius: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            #result-area {
                 box-shadow: none !important;
                 border: none !important;
                 border-radius: 0 !important;
                 max-width: 100% !important;
             }
 
-            .module-card, .result-item, .traits-box {
+            .module-card, .result-item, .traits-overview, .traits-box {
                 box-shadow: none !important;
                 break-inside: avoid;
             }
 
             body[data-theme] { background: #fff !important; }
             .report-print-head { display: block; }
+
+            /* 彩色元素打印时保留颜色 */
+            .report-header, .severity-fill, .trait-row-fill, .score-fill,
+            .severity-level, .trait-row-level, .rank-badge, .confidence,
+            .normal-warning, .severe-warning, .result-item.severe {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
 
             .result-head .result-badges, .progress-row, .clock { display: none !important; }
         }
@@ -2184,190 +2210,6 @@
             .summary-grid { grid-template-columns: repeat(2, 1fr); }
         }
     
-/* ===== Formal psychological assessment report layer ===== */
-:root{
-  --report-ink:#1c2832;
-  --report-muted:#687681;
-  --report-line:#cfd6dc;
-  --report-paper:#fbfbfa;
-  --report-navy:#183b55;
-  --report-blue:#234a68;
-}
-.report-page,
-.results-page,
-.result-report,
-#results{
-  color:var(--report-ink);
-}
-.report-cover,
-.results-cover{
-  background:linear-gradient(135deg,#183b55 0%,#234a68 62%,#2d5876 100%) !important;
-  border-radius:8px !important;
-  box-shadow:0 8px 28px rgba(20,40,55,.12) !important;
-}
-.report-cover .eyebrow,
-.results-cover .eyebrow{
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  opacity:.82;
-}
-.report-meta,
-.results-meta{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:10px;
-  margin-top:16px;
-}
-.report-meta-item,
-.results-meta-item{
-  padding:11px 13px;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.16);
-  border-radius:5px;
-}
-.report-meta-item .label,
-.results-meta-item .label{
-  display:block;
-  font-size:11px;
-  letter-spacing:.08em;
-  opacity:.72;
-  margin-bottom:4px;
-}
-.report-section,
-.result-section{
-  position:relative;
-  background:var(--report-paper);
-  border:1px solid var(--report-line);
-  border-radius:6px;
-  box-shadow:0 3px 14px rgba(30,45,58,.045);
-}
-.report-section::before,
-.result-section::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:3px;
-  background:var(--report-navy);
-  border-radius:6px 0 0 6px;
-}
-.report-section-title,
-.result-section-title{
-  letter-spacing:.045em;
-  color:var(--report-navy);
-}
-.report-index,
-.result-index{
-  font-variant-numeric:tabular-nums;
-  color:var(--report-muted);
-}
-.report-summary,
-.result-summary{
-  background:#f2f5f7 !important;
-  border:1px solid #d7dee3 !important;
-}
-.report-note,
-.result-note{
-  border-left:3px solid #8a9aa7;
-  background:#f7f8f8;
-  color:#46545f;
-}
-.report-footer,
-.results-footer{
-  border-top:1px solid var(--report-line);
-  color:#7a858d;
-  font-size:12px;
-}
-@media (max-width:700px){
-  .report-meta,.results-meta{grid-template-columns:1fr;}
-}
-@media print{
-  body{background:#fff !important;}
-  .report-cover,.results-cover{
-    box-shadow:none !important;
-    -webkit-print-color-adjust:exact;
-    print-color-adjust:exact;
-  }
-  .report-section,.result-section{
-    box-shadow:none !important;
-    break-inside:avoid;
-  }
-}
-
-
-/* ===== V2 formal report content components ===== */
-.formal-report-summary{
-  margin:18px 0;
-  padding:18px 20px;
-  border:1px solid #cfd6dc;
-  border-radius:6px;
-  background:#f5f7f8;
-}
-.formal-report-summary h3{
-  margin:0 0 8px;
-  color:#183b55;
-  font-size:16px;
-  letter-spacing:.04em;
-}
-.formal-report-summary p{
-  margin:6px 0;
-  line-height:1.75;
-  color:#46545f;
-}
-.formal-report-disclaimer{
-  margin-top:18px;
-  padding:14px 16px;
-  border:1px solid #d7dee3;
-  border-left:3px solid #6f8290;
-  background:#fafbfb;
-  border-radius:4px;
-  color:#596772;
-  font-size:12px;
-  line-height:1.7;
-}
-.formal-report-level{
-  display:inline-flex;
-  align-items:center;
-  padding:3px 9px;
-  border-radius:999px;
-  border:1px solid #cbd4da;
-  background:#f1f4f6;
-  color:#334957;
-  font-size:12px;
-}
-.formal-report-level.high{
-  background:#faf3e6;
-  border-color:#dfc79e;
-  color:#80551a;
-}
-.formal-report-level.attention{
-  background:#faeeee;
-  border-color:#e0b8b8;
-  color:#8b3636;
-}
-.formal-report-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin:14px 0 4px;
-}
-.formal-report-actions button{
-  border:1px solid #bfcbd3;
-  background:#fff;
-  color:#29485e;
-  padding:8px 12px;
-  border-radius:4px;
-  cursor:pointer;
-}
-.formal-report-actions button:hover{
-  background:#f2f5f7;
-}
-@media print{
-  .formal-report-actions{display:none!important;}
-  .formal-report-summary{break-inside:avoid;}
-}
-
 </style>
 </head>
 <body>
@@ -2481,7 +2323,7 @@
     <div class="sheet-body">
         <!-- ===== 进度 ===== -->
         <div class="progress-row hidden" id="progress-row">
-            <span id="step-label">第 1 / 45 题</span>
+            <span id="step-label">第 1 题</span>
             <span class="clock" id="clock" aria-label="当前时间">--:--:--</span>
             <span class="pct" id="step-pct">0%</span>
         </div>
@@ -2686,7 +2528,7 @@
             <!-- 报告落款 -->
             <div class="report-footer">
                 <div class="report-footer-line">本报告由「心理健康多维自评量表」依据您的在线作答自动生成，仅供自我了解与科普参考，不构成临床诊断或医学建议。如存在持续困扰，请及时寻求精神科或心理专业人员的帮助。</div>
-                <div class="report-footer-meta">量表编制：AnonUsAl · 云术工作室　|　版本 V2.2　|　生成时间：<span id="report-gen-time"></span></div>
+                <div class="report-footer-meta">量表编制：AnonUsAl · 云术工作室　|　版本 V2.3　|　生成时间：<span id="report-gen-time"></span></div>
             </div>
 
             <!-- 评估历史（本地保存） -->
@@ -2711,7 +2553,7 @@
                 <span>本量表基于简化特征模型编制，仅供<b>科普教育用途</b>，不具备任何临床心理学或精神医学诊断功能，评估结果不应作为就医依据。</span>
             </div>
             <div class="help-line" id="help-line">如您或身边的人正经历情绪困扰，请及时寻求专业心理帮助，可拨打全国统一心理援助热线<a href="tel:12356">12356</a>（24 小时、免费）。</div>
-            <div class="credit-line">本量表由 AnonUsAl 编制 · 版本 V2.2</div>
+            <div class="credit-line">本量表由 AnonUsAl 编制 · 版本 V2.3</div>
             <div class="promo-line">
                 <span>云术工作室 · 免费专业量表服务：<a href="https://pt.cldery.com/" target="_blank" rel="noopener noreferrer nofollow">pt.cldery.com</a></span>
             </div>
@@ -2756,7 +2598,7 @@ const conditions = [
         id: "mdd",
         name: "重性抑郁障碍 (MDD)",
         desc: "以持续心境低落、兴趣减退和精力下降为核心表现的心境障碍。",
-        traits: { low_mood: 1.0, anhedonia: 1.0, sleep_issue: 0.8, energy_loss: 0.9, mania: -1.0, panic: 0.2, compulsion: -0.2, trauma: 0.1, social_deficits: 0.1, social_fear: 0.2, body_image: -0.2, somatization: 0.4, hallucination: 0.1, impulse: 0.1, suicide: 0.7, energy_loss: 0.9, irritability: 0.6, self_esteem: 0.9, paranoia: 0.1, appetite: 0.6 }
+        traits: { low_mood: 1.0, anhedonia: 1.0, sleep_issue: 0.8, energy_loss: 0.9, mania: -1.0, panic: 0.2, compulsion: -0.2, trauma: 0.1, social_deficits: 0.1, social_fear: 0.2, body_image: -0.2, somatization: 0.4, hallucination: 0.1, impulse: 0.1, suicide: 0.7, irritability: 0.6, self_esteem: 0.9, paranoia: 0.1, appetite: 0.6 }
     },
     {
         id: "gad",
@@ -2862,174 +2704,174 @@ const conditions = [
  */
 const allQuestions = [
     /* --- 主问 --- */
-    { id: "low_mood", trait: "low_mood", kind: "main", text: "你是否经常感到情绪低落、持久的悲伤或内心空虚？" },
-    { id: "anhedonia", trait: "anhedonia", kind: "main", text: "你是否对以前非常喜爱的活动或爱好失去了乐趣与热情？" },
-    { id: "mania", trait: "mania", kind: "main", text: "你是否经历过一段时间精力极其旺盛、睡眠需求剧减且思维飞速运转的高涨期？" },
-    { id: "panic", trait: "panic", kind: "main", text: "你是否频繁感到不可控制的过度担忧、紧张，甚至伴有心慌或呼吸急促？" },
-    { id: "compulsion", trait: "compulsion", kind: "main", text: "你是否被反复出现的入侵性想法困扰，或者不得不通过重复特定动作（如反复检查、清洗）来缓解焦虑？" },
-    { id: "trauma", trait: "trauma", kind: "main", text: "你是否曾遭遇过极度创伤事件，并且这些创伤记忆会不自觉地侵入脑海？" },
-    { id: "sleep_issue", trait: "sleep_issue", kind: "main", text: "你是否存在严重的入睡困难、易惊醒或早醒等睡眠障碍？" },
-    { id: "focus_loss", trait: "focus_loss", kind: "main", text: "你是否极难长时间集中注意力、经常遗失物品或难以按计划完成日常任务？" },
-    { id: "social_deficits", trait: "social_deficits", kind: "main", text: "你是否难以理解他人的社交暗示或面部表情，或从小在维持人际互动和对等对话上感到吃力？" },
-    { id: "social_fear", trait: "social_fear", kind: "main", text: "你是否对在他人面前说话、被注视或处于社交聚会场合感到极度恐惧和害怕被负面评价？" },
-    { id: "body_image", trait: "body_image", kind: "main", text: "你是否对自己的体重或体型存在强烈的恐惧或歪曲感知，并伴有极端的限制进食行为？" },
-    { id: "somatization", trait: "somatization", kind: "main", text: "你是否经常出现查不出明确原因的身体不适，比如头痛、胃痛、心慌或莫名乏力？" },
-    { id: "hallucination", trait: "hallucination", kind: "main", text: "你是否曾听到别人听不到的声音，或看到别人看不到的东西，并觉得它们真实存在？" },
-    { id: "impulse", trait: "impulse", kind: "main", text: "你是否曾因一时冲动做出过伤害他人、砸坏东西或与人激烈冲突的行为，事后又后悔？" },
-    { id: "suicide", trait: "suicide", kind: "main", text: "过去两周，你是否出现过觉得活着没意思，或闪过结束自己生命念头的时刻？" },
+    { id: "low_mood", trait: "low_mood", kind: "main", text: "你是不是经常情绪低落，心里空落落的，怎么也高兴不起来？" },
+    { id: "anhedonia", trait: "anhedonia", kind: "main", text: "以前特别喜欢做的事，现在是不是觉得没什么意思了？" },
+    { id: "mania", trait: "mania", kind: "main", text: "有没有过那么一段时间，你精力特别旺盛、几乎不用睡觉，脑子还转得飞快？" },
+    { id: "panic", trait: "panic", kind: "main", text: "你是不是总忍不住担心这担心那，一紧张起来还会心慌、喘不上气？" },
+    { id: "compulsion", trait: "compulsion", kind: "main", text: "脑子里会不会反复冒出一些念头，或者你总得反复检查、反复洗手才安心？" },
+    { id: "trauma", trait: "trauma", kind: "main", text: "有没有经历过特别可怕的事，之后那些画面还会不受控制地冒出来？" },
+    { id: "sleep_issue", trait: "sleep_issue", kind: "main", text: "你是不是经常睡不着、半夜容易醒，或者醒得特别早？" },
+    { id: "focus_loss", trait: "focus_loss", kind: "main", text: "是不是很难长时间集中注意力，东西也经常乱放，事情总拖着做不完？" },
+    { id: "social_deficits", trait: "social_deficits", kind: "main", text: "跟人打交道时，你是不是常常看不懂别人的表情和话里的意思，接话也挺吃力？" },
+    { id: "social_fear", trait: "social_fear", kind: "main", text: "在别人面前说话、被人盯着，或者参加聚会时，你是不是特别紧张，怕被人评头论足？" },
+    { id: "body_image", trait: "body_image", kind: "main", text: "你是不是特别在意自己的体重和身材，甚至会因此刻意少吃东西？" },
+    { id: "somatization", trait: "somatization", kind: "main", text: "你是不是经常头疼、胃疼、心慌或者没力气，去医院又查不出什么毛病？" },
+    { id: "hallucination", trait: "hallucination", kind: "main", text: "有没有听到过别人听不到的声音，或者看到过别人看不到的东西，当时还觉得特别真实？" },
+    { id: "impulse", trait: "impulse", kind: "main", text: "有没有一时冲动跟人吵过架、砸过东西，事后又特别后悔？" },
+    { id: "suicide", trait: "suicide", kind: "main", text: "最近这两周，你有没有觉得活着没什么意思，甚至闪过不想活了的念头？" },
 
     /* --- 一致性复问（与主问同特征、换一种说法，用于判断回答回答一致性） --- */
-    { id: "low_mood_dup", trait: "low_mood", kind: "dup", text: "过去两周，你是否大多数时间都情绪低沉、开心不起来，且很难靠自己的努力调整过来？" },
-    { id: "anhedonia_dup", trait: "anhedonia", kind: "dup", text: "那些从前让你乐在其中的事情，现在是否几乎都提不起兴趣去做了？" },
-    { id: "mania_dup", trait: "mania", kind: "dup", text: "你是否曾经连续几天几乎不需要睡觉却依然精力旺盛，思绪一个接一个停不下来？" },
-    { id: "panic_dup", trait: "panic", kind: "dup", text: "你是否经常无来由地感到心慌、坐立难安，总觉得有什么坏事要发生？" },
-    { id: "compulsion_dup", trait: "compulsion", kind: "dup", text: "你是否会忍不住反复检查、整理或清洗，即便心里清楚没必要也停不下来？" },
-    { id: "trauma_dup", trait: "trauma", kind: "dup", text: "过去经历过的可怕事件，是否仍会突然在脑海里闪回，让你像再次经历一样难受？" },
-    { id: "sleep_dup", trait: "sleep_issue", kind: "dup", text: "你的睡眠是否长期处于不稳定状态——难以入睡、半夜易醒或醒得太早，白天精神差？" },
-    { id: "focus_dup", trait: "focus_loss", kind: "dup", text: "你是否常常走神分心、丢三落四，连简单的事也容易拖到最后一刻？" },
-    { id: "social_dup", trait: "social_fear", kind: "dup", text: "被陌生人注视或需要在人前讲话时，你是否会紧张到手心冒汗、语无伦次？" },
-    { id: "body_dup", trait: "body_image", kind: "dup", text: "你是否常常为体重数字或身材比例而焦虑，并为此刻意少吃或拒绝进食？" },
-    { id: "somatization_dup", trait: "somatization", kind: "dup", text: "情绪紧张或压力大时，你是否常常伴随明显的身体反应（胸闷、腹泻、肌肉紧绷），而检查又查不出大问题？" },
-    { id: "hallucination_dup", trait: "hallucination", kind: "dup", text: "你是否有过身边明明没有人，却听到有人说话、叫名字或议论你的经历？" },
-    { id: "impulse_dup", trait: "impulse", kind: "dup", text: "愤怒或受挫时，你是否常常难以控制摔东西、大声吼人甚至动手的冲动？" },
-    { id: "suicide_dup", trait: "suicide", kind: "dup", text: "极度低落的时候，你是否曾经冒出过伤害自己或一了百了的想法？" },
+    { id: "low_mood_dup", trait: "low_mood", kind: "dup", text: "最近这两周，你是不是大部分时间都闷闷不乐，怎么也开心不起来？" },
+    { id: "anhedonia_dup", trait: "anhedonia", kind: "dup", text: "那些以前让你特别开心的事，现在是不是都不想碰了？" },
+    { id: "mania_dup", trait: "mania", kind: "dup", text: "有没有连续好几天几乎不用睡觉，却还是精力满满、脑子停不下来？" },
+    { id: "panic_dup", trait: "panic", kind: "dup", text: "你是不是常常没来由地心慌、坐不住，总觉得有什么不好的事要发生？" },
+    { id: "compulsion_dup", trait: "compulsion", kind: "dup", text: "你是不是会忍不住反复检查、收拾或者洗手，明明知道没必要却停不下来？" },
+    { id: "trauma_dup", trait: "trauma", kind: "dup", text: "以前经历过的吓人的事，会不会突然在脑子里重演，让你像又经历了一遍一样难受？" },
+    { id: "sleep_dup", trait: "sleep_issue", kind: "dup", text: "你的睡眠是不是一直不太好——难入睡、半夜醒或者醒太早，白天也没精神？" },
+    { id: "focus_dup", trait: "focus_loss", kind: "dup", text: "你是不是经常走神、丢三落四，连简单的事也容易拖到最后才做？" },
+    { id: "social_dup", trait: "social_fear", kind: "dup", text: "被陌生人看着、或者要在人前说话时，你会不会紧张到手心冒汗、说话都不利索？" },
+    { id: "body_dup", trait: "body_image", kind: "dup", text: "你会不会总盯着体重数字和身材看，一焦虑就刻意少吃甚至不吃饭？" },
+    { id: "somatization_dup", trait: "somatization", kind: "dup", text: "一紧张或压力大，你身体就跟着出状况，比如胸闷、拉肚子、肌肉发紧，可检查又没事？" },
+    { id: "hallucination_dup", trait: "hallucination", kind: "dup", text: "身边明明没人，你有没有听到过有人说话、叫你名字，或者在议论你？" },
+    { id: "impulse_dup", trait: "impulse", kind: "dup", text: "生气或受挫的时候，你是不是常常忍不住想摔东西、大吼，甚至动手？" },
+    { id: "suicide_dup", trait: "suicide", kind: "dup", text: "特别低落的时候，你有没有闪过伤害自己、或者一了百了的念头？" },
 
     /* --- 严重度问（频率、持续时间、对生活的影响） --- */
-    { id: "low_mood_sev", trait: "low_mood", kind: "sev", text: "这种低落空虚的状态是否几乎每天出现，且已持续超过两周、影响到工作或生活？" },
-    { id: "anhedonia_sev", trait: "anhedonia", kind: "sev", text: "兴趣丧失的情况，是否已经明显影响了你的学习、工作或人际交往？" },
-    { id: "mania_sev", trait: "mania", kind: "sev", text: "这种精力高涨的状态是否曾持续多日，并让你做出平时不会做的冲动决定？" },
-    { id: "panic_sev", trait: "panic", kind: "sev", text: "紧张心慌的发作是否频繁到干扰日常活动，或让你开始回避某些场合？" },
-    { id: "compulsion_sev", trait: "compulsion", kind: "sev", text: "反复的念头或动作是否每天耗费你大量时间，甚至明知不必要也无法停止？" },
-    { id: "trauma_sev", trait: "trauma", kind: "sev", text: "创伤记忆的闯入是否频繁到让你难以入睡、回避相关场景或影响正常生活？" },
-    { id: "sleep_sev", trait: "sleep_issue", kind: "sev", text: "睡眠问题是否让你白天严重疲惫、注意力下降，并已持续较长时间？" },
-    { id: "focus_sev", trait: "focus_loss", kind: "sev", text: "注意力难以集中的问题是否从小就有，并一直影响你的学业、工作或日常效率？" },
-    { id: "social_sev", trait: "social_fear", kind: "sev", text: "对社交场合的恐惧或不适，是否已让你主动回避聚会、放弃机会？" },
-    { id: "body_sev", trait: "body_image", kind: "sev", text: "对体重体型的担忧是否已让体重明显下降，或影响到你的健康和生活？" },
-    { id: "somatization_sev", trait: "somatization", kind: "sev", text: "这些身体不适是否频繁到影响你的工作、学习或睡眠，甚至让你反复就医做检查？" },
-    { id: "hallucination_sev", trait: "hallucination", kind: "sev", text: "这类“听到或看到不存在之物”的经历是否反复出现，并让你困扰、害怕或影响生活？" },
-    { id: "impulse_sev", trait: "impulse", kind: "sev", text: "这类冲动失控是否反复出现，并已影响你的人际关系、工作，或带来过麻烦？" },
-    { id: "suicide_sev", trait: "suicide", kind: "sev", text: "这些念头是否频繁出现，或你已经认真想过具体的方式和计划？" },
+    { id: "low_mood_sev", trait: "low_mood", kind: "sev", text: "这种情绪低落是不是几乎天天都有，而且已经持续两个多星期，影响到工作或生活了？" },
+    { id: "anhedonia_sev", trait: "anhedonia", kind: "sev", text: "对什么都提不起劲的状态，是不是已经明显影响到你的学习、工作或者跟人来往？" },
+    { id: "mania_sev", trait: "mania", kind: "sev", text: "那种特别亢奋的状态有没有连续持续好几天，还让你做出一些平时不会做的冲动事？" },
+    { id: "panic_sev", trait: "panic", kind: "sev", text: "紧张心慌是不是发作得特别频繁，已经影响到日常活动，或者让你开始躲着某些场合？" },
+    { id: "compulsion_sev", trait: "compulsion", kind: "sev", text: "这些反复的念头或动作，是不是每天都要花掉你大把时间，想停也停不下来？" },
+    { id: "trauma_sev", trait: "trauma", kind: "sev", text: "那些不好的回忆是不是频繁冒出来，让你睡不着、躲着相关的场景，甚至影响正常生活？" },
+    { id: "sleep_sev", trait: "sleep_issue", kind: "sev", text: "睡不好是不是让你白天特别累、注意力也变差，而且已经持续好一阵子了？" },
+    { id: "focus_sev", trait: "focus_loss", kind: "sev", text: "注意力不集中的问题是不是从小就有，一直影响你的学习、工作或者做事效率？" },
+    { id: "social_sev", trait: "social_fear", kind: "sev", text: "因为害怕社交场合，你是不是已经开始躲着聚会、推掉一些机会？" },
+    { id: "body_sev", trait: "body_image", kind: "sev", text: "对体重和身材的担心，是不是已经让你体重掉了不少，或者影响到健康和生活？" },
+    { id: "somatization_sev", trait: "somatization", kind: "sev", text: "这些身体不舒服是不是频繁到影响工作、学习或睡觉，甚至让你一趟趟跑医院？" },
+    { id: "hallucination_sev", trait: "hallucination", kind: "sev", text: "这种听到或看到不存在的东西的经历，是不是反复出现，让你害怕、困扰，甚至影响生活？" },
+    { id: "impulse_sev", trait: "impulse", kind: "sev", text: "这种控制不住的冲动是不是反复出现，已经影响到你的人际关系、工作，或者给你惹过麻烦？" },
+    { id: "suicide_sev", trait: "suicide", kind: "sev", text: "这些念头是不是经常冒出来，甚至你还认真想过具体的方式和计划？" },
     /* --- 深度补充：一致性复问（第 2 组） --- */
-    { id: "low_mood_dup2", trait: "low_mood", kind: "dup", text: "即使遇到值得开心的事，你是否也常常感觉不到快乐，心里始终压着一块石头？" },
-    { id: "anhedonia_dup2", trait: "anhedonia", kind: "dup", text: "对过去的爱好（运动、游戏、阅读、追剧等），你现在是否几乎提不起劲？" },
-    { id: "mania_dup2", trait: "mania", kind: "dup", text: "你是否曾有一段时期说话比平时快很多、想法跳跃，旁人都觉得你停不下来？" },
-    { id: "panic_dup2", trait: "panic", kind: "dup", text: "你是否曾在没有明显危险时突然心跳加速、透不过气，担心自己快要失控或晕倒？" },
-    { id: "compulsion_dup2", trait: "compulsion", kind: "dup", text: "你是否觉得某些数字、顺序或东西没摆对就浑身难受，必须重新弄好才安心？" },
-    { id: "trauma_dup2", trait: "trauma", kind: "dup", text: "你是否经常做与创伤事件相关的噩梦，或在白天突然“回到”当时的情境？" },
-    { id: "sleep_dup2", trait: "sleep_issue", kind: "dup", text: "躺在床上后，你是否常常需要 30 分钟以上才能入睡，脑子里翻来覆去？" },
-    { id: "focus_dup2", trait: "focus_loss", kind: "dup", text: "开会、上课或阅读时，你是否经常走神，回过神才发现已经漏掉一大段内容？" },
-    { id: "social_dup2", trait: "social_deficits", kind: "dup", text: "你是否经常接不住别人的玩笑或话外音，事后才反应过来对方真正想表达的意思？" },
-    { id: "social_fear_dup2", trait: "social_fear", kind: "dup", text: "当众发言、吃饭或做自我介绍时，你是否会紧张到手抖、脸红或声音发颤？" },
-    { id: "body_dup2", trait: "body_image", kind: "dup", text: "照镜子或看到照片里的自己时，你是否总觉得身材或体型“不合格”，即使别人说很正常？" },
-    { id: "somatization_dup2", trait: "somatization", kind: "dup", text: "你是否常觉得浑身酸痛、发紧或莫名乏力，而医生却说各项检查都正常？" },
-    { id: "hallucination_dup2", trait: "hallucination", kind: "dup", text: "你是否听到过别人否认存在的声音，或在独处时听到清晰的说话声？" },
-    { id: "impulse_dup2", trait: "impulse", kind: "dup", text: "情绪上头时，你是否会不顾后果地摔门、砸东西或说出很伤人的话？" },
-    { id: "suicide_dup2", trait: "suicide", kind: "dup", text: "你是否曾在痛苦至极时觉得“离开才是解脱”，即使理性上知道不该这样想？" },
+    { id: "low_mood_dup2", trait: "low_mood", kind: "dup", text: "就算遇到开心的事，你是不是也笑不出来，心里总像压着块石头？" },
+    { id: "anhedonia_dup2", trait: "anhedonia", kind: "dup", text: "以前的爱好，像运动、打游戏、看书、追剧，你现在是不是都提不起劲？" },
+    { id: "mania_dup2", trait: "mania", kind: "dup", text: "有没有一段时间你说话比平时快很多、想法一个接一个，旁边的人都觉得你停不下来？" },
+    { id: "panic_dup2", trait: "panic", kind: "dup", text: "有没有明明没什么危险，你却突然心跳加速、喘不上气，觉得自己快失控或要晕倒？" },
+    { id: "compulsion_dup2", trait: "compulsion", kind: "dup", text: "数字、顺序或者东西的摆法一旦不对，你是不是就浑身难受，非得重新弄好才踏实？" },
+    { id: "trauma_dup2", trait: "trauma", kind: "dup", text: "你是不是经常做跟那件事有关的噩梦，或者白天突然感觉自己又“回到”了当时的场景？" },
+    { id: "sleep_dup2", trait: "sleep_issue", kind: "dup", text: "躺在床上是不是经常要翻来覆去半个小时以上才能睡着，脑子里乱七八糟停不下来？" },
+    { id: "focus_dup2", trait: "focus_loss", kind: "dup", text: "开会、上课或者看书时，你是不是经常走神，回过神来才发现错过了一大段？" },
+    { id: "social_dup2", trait: "social_deficits", kind: "dup", text: "别人的玩笑或者话里有话，你是不是经常接不住，过后才反应过来对方什么意思？" },
+    { id: "social_fear_dup2", trait: "social_fear", kind: "dup", text: "当众发言、跟人一起吃饭或者做自我介绍时，你会不会紧张到手抖、脸红、声音发颤？" },
+    { id: "body_dup2", trait: "body_image", kind: "dup", text: "照镜子或看照片时，你是不是总觉得自己身材“不够好”，可别人都说挺正常的？" },
+    { id: "somatization_dup2", trait: "somatization", kind: "dup", text: "你是不是常觉得浑身酸痛、发紧或者没力气，但医生说各项检查都正常？" },
+    { id: "hallucination_dup2", trait: "hallucination", kind: "dup", text: "你有没有听到过别人说不存在的声音，或者一个人待着时听到清清楚楚的说话声？" },
+    { id: "impulse_dup2", trait: "impulse", kind: "dup", text: "情绪一上头，你是不是会不管不顾地摔门、砸东西，或者说出特别伤人的话？" },
+    { id: "suicide_dup2", trait: "suicide", kind: "dup", text: "痛苦到极点的时候，你有没有觉得“离开反而是解脱”，虽然理智上知道不该这么想？" },
 
     /* --- 深度补充：严重度问（第 2 组） --- */
-    { id: "low_mood_sev2", trait: "low_mood", kind: "sev", text: "这种低落的感受是否让你觉得未来没有希望，甚至影响到吃饭、做事的基本动力？" },
-    { id: "anhedonia_sev2", trait: "anhedonia", kind: "sev", text: "提不起兴趣的状态是否已持续数周以上，让你觉得生活变得单调、没有盼头？" },
-    { id: "mania_sev2", trait: "mania", kind: "sev", text: "高涨期是否曾让你做出挥霍金钱、冒险投资或冲动辞工等事后后悔的决定？" },
-    { id: "panic_sev2", trait: "panic", kind: "sev", text: "这种紧张心慌是否频繁发作（如一周多次），并让你总在担心“下一次什么时候来”？" },
-    { id: "compulsion_sev2", trait: "compulsion", kind: "sev", text: "反复确认、清洗或整理是否每天占用你一小时以上，且明知不必要也停不下来？" },
-    { id: "trauma_sev2", trait: "trauma", kind: "sev", text: "闪回或噩梦是否频繁到让你刻意回避相关的人、地点或话题？" },
-    { id: "sleep_sev2", trait: "sleep_issue", kind: "sev", text: "睡眠不足是否让你白天头痛、烦躁、注意力下降，并已持续一个月以上？" },
-    { id: "focus_sev2", trait: "focus_loss", kind: "sev", text: "注意力问题是否从小就有，并持续影响你的成绩、工作表现或生活条理？" },
-    { id: "social_sev2", trait: "social_deficits", kind: "sev", text: "社交互动的吃力是否从小如此，并让你在集体中经常感到格格不入？" },
-    { id: "social_fear_sev2", trait: "social_fear", kind: "sev", text: "对社交场合的恐惧是否让你错过机会（聚会、面试、公开课），并为此自责？" },
-    { id: "body_sev2", trait: "body_image", kind: "sev", text: "对体重体型的执念是否已让你明显消瘦、乏力或出现闭经等健康问题？" },
-    { id: "somatization_sev2", trait: "somatization", kind: "sev", text: "身体不适是否让你反复请假、多次就医，却始终找不到明确的器质病因？" },
-    { id: "hallucination_sev2", trait: "hallucination", kind: "sev", text: "这些异常感知是否让你怀疑自己是不是出问题了，并害怕被别人知道？" },
-    { id: "impulse_sev2", trait: "impulse", kind: "sev", text: "冲动行为是否曾让你与亲友决裂、丢掉工作，或卷入冲突和纠纷？" },
-    { id: "suicide_sev2", trait: "suicide", kind: "sev", text: "这些念头是否已经影响你的正常生活，让你难以专注、吃不下饭或睡不着觉？" },
+    { id: "low_mood_sev2", trait: "low_mood", kind: "sev", text: "这种低落是不是让你觉得未来没什么希望，连吃饭、做事的劲头都没了？" },
+    { id: "anhedonia_sev2", trait: "anhedonia", kind: "sev", text: "提不起劲的状态是不是已经持续好几个星期，让你觉得日子过得没什么盼头？" },
+    { id: "mania_sev2", trait: "mania", kind: "sev", text: "亢奋的时候，你有没有乱花钱、冒险投资或者冲动辞职，事后又后悔不已？" },
+    { id: "panic_sev2", trait: "panic", kind: "sev", text: "这种心慌紧张是不是一周会发作好几次，你还总在担心“下一次什么时候来”？" },
+    { id: "compulsion_sev2", trait: "compulsion", kind: "sev", text: "反复确认、洗手或收拾，是不是每天都要占用你一个多小时，明明没必要却停不下来？" },
+    { id: "trauma_sev2", trait: "trauma", kind: "sev", text: "闪回或噩梦是不是频繁到你会刻意躲开相关的人、地方或话题？" },
+    { id: "sleep_sev2", trait: "sleep_issue", kind: "sev", text: "睡不够是不是让你白天头疼、烦躁、注意力差，而且已经持续一个多月了？" },
+    { id: "focus_sev2", trait: "focus_loss", kind: "sev", text: "注意力的问题是不是从小就有，一直影响你的成绩、工作表现或者生活条理？" },
+    { id: "social_sev2", trait: "social_deficits", kind: "sev", text: "跟人打交道的吃力是不是从小就这样，让你在人群里总觉得自己格格不入？" },
+    { id: "social_fear_sev2", trait: "social_fear", kind: "sev", text: "因为害怕社交，你是不是错过过聚会、面试、公开课这类机会，事后还责怪自己？" },
+    { id: "body_sev2", trait: "body_image", kind: "sev", text: "对体重身材的执念，是不是已经让你明显消瘦、没力气，甚至出现停经之类的健康问题？" },
+    { id: "somatization_sev2", trait: "somatization", kind: "sev", text: "身体不舒服是不是让你反复请假、跑了好几趟医院，却一直查不出明确原因？" },
+    { id: "hallucination_sev2", trait: "hallucination", kind: "sev", text: "这些奇怪的感知是不是让你怀疑自己是不是出问题了，还不敢让别人知道？" },
+    { id: "impulse_sev2", trait: "impulse", kind: "sev", text: "冲动行事有没有让你跟亲友闹翻、丢了工作，或者卷入过冲突纠纷？" },
+    { id: "suicide_sev2", trait: "suicide", kind: "sev", text: "这些念头是不是已经影响到你的正常生活，让你没法集中注意力、吃不下饭也睡不着觉？" },
 
     /* --- 深度补充：生活场景题（第 1 组） --- */
-    { id: "low_mood_life1", trait: "low_mood", kind: "life", text: "早上醒来时，你是否经常觉得比晚上更沉重、更没力气起床？" },
-    { id: "anhedonia_life1", trait: "anhedonia", kind: "life", text: "面对以前很期待的事情（聚会、旅行、新电影），你是否反而觉得麻烦、想推掉？" },
-    { id: "mania_life1", trait: "mania", kind: "life", text: "高涨时你是否觉得自己无所不能，可以同时搞定很多事情、几乎不需要休息？" },
-    { id: "panic_life1", trait: "panic", kind: "life", text: "想到即将要去人多的场合（地铁、课堂、商场），你是否会提前开始紧张？" },
-    { id: "compulsion_life1", trait: "compulsion", kind: "life", text: "你是否因为怕脏、怕出错而反复洗手、反复检查门窗或反复确认锁好？" },
-    { id: "trauma_life1", trait: "trauma", kind: "life", text: "听到某些声音、闻到某些气味或看到类似画面时，你是否会突然紧张、警觉或发抖？" },
-    { id: "sleep_life1", trait: "sleep_issue", kind: "life", text: "你是否经常在凌晨两三点醒来，之后就很难再睡着，只能干躺到天亮？" },
-    { id: "focus_life1", trait: "focus_loss", kind: "life", text: "你是否常常找不到钥匙、手机等物品，或一转身就忘记刚才打算做的事？" },
-    { id: "social_life1", trait: "social_deficits", kind: "life", text: "多人聊天时，你是否常常不知道何时插话，或说完才意识到自己说了不合时宜的话？" },
-    { id: "social_fear_life1", trait: "social_fear", kind: "life", text: "发消息或打电话之前，你是否常常反复斟酌措辞，担心说错话被人笑话？" },
-    { id: "body_life1", trait: "body_image", kind: "life", text: "你是否经常称体重，数字的上下浮动会明显影响你一天的心情？" },
-    { id: "somatization_life1", trait: "somatization", kind: "life", text: "压力大或情绪差的时候，你的胃、头或心脏是不是最先“抗议”？" },
-    { id: "hallucination_life1", trait: "hallucination", kind: "life", text: "你是否曾确信有人在监视、议论或针对你，尽管拿不出什么证据？" },
-    { id: "impulse_life1", trait: "impulse", kind: "life", text: "等红灯、排队或被人插队时，你是否常常压不住火气、想立刻发作？" },
-    { id: "suicide_life1", trait: "suicide", kind: "life", text: "你是否曾有过伤害自己的行为（如割伤、撞头等）来缓解痛苦？" },
+    { id: "low_mood_life1", trait: "low_mood", kind: "life", text: "早上刚醒来时，你是不是常觉得比睡前更沉重，连起床的力气都没有？" },
+    { id: "anhedonia_life1", trait: "anhedonia", kind: "life", text: "以前很期待的事，比如聚会、旅行、新电影，现在是不是反而觉得麻烦、想推掉？" },
+    { id: "mania_life1", trait: "mania", kind: "life", text: "亢奋的时候，你是不是觉得自己无所不能，好多事能同时搞定，几乎不用休息？" },
+    { id: "panic_life1", trait: "panic", kind: "life", text: "想到要去人多的地方，比如挤地铁、上课、逛商场，你会不会提前就开始紧张？" },
+    { id: "compulsion_life1", trait: "compulsion", kind: "life", text: "你会不会因为怕脏、怕出错，反复洗手、反复检查门窗有没有锁好？" },
+    { id: "trauma_life1", trait: "trauma", kind: "life", text: "听到某种声音、闻到某种气味或者看到类似画面时，你会不会突然紧张、警觉或者发抖？" },
+    { id: "sleep_life1", trait: "sleep_issue", kind: "life", text: "你是不是经常凌晨两三点就醒了，之后怎么也睡不着，只能干躺着到天亮？" },
+    { id: "focus_life1", trait: "focus_loss", kind: "life", text: "你是不是经常找不到钥匙、手机，或者一转身就忘了自己刚才要干嘛？" },
+    { id: "social_life1", trait: "social_deficits", kind: "life", text: "一群人聊天时，你是不是常常不知道什么时候该插话，说完才发现自己说了不合时宜的话？" },
+    { id: "social_fear_life1", trait: "social_fear", kind: "life", text: "发消息或打电话之前，你是不是总要反复斟酌措辞，怕说错了被人笑话？" },
+    { id: "body_life1", trait: "body_image", kind: "life", text: "你是不是经常称体重，体重数字稍微一浮动，就能影响你一整天的心情？" },
+    { id: "somatization_life1", trait: "somatization", kind: "life", text: "压力大或者心情不好的时候，你的胃、头或者心脏是不是最先“闹脾气”？" },
+    { id: "hallucination_life1", trait: "hallucination", kind: "life", text: "有没有过你认定有人在监视、议论或者针对你，但其实拿不出任何证据？" },
+    { id: "impulse_life1", trait: "impulse", kind: "life", text: "等红灯、排队或者被人插队时，你是不是常常压不住火，想立刻发作？" },
+    { id: "suicide_life1", trait: "suicide", kind: "life", text: "你有没有过伤害自己的行为，比如割伤自己、撞头，用这种方式来缓解痛苦？" },
 
     /* --- 深度补充：生活场景题（第 2 组） --- */
-    { id: "low_mood_life2", trait: "low_mood", kind: "life", text: "当别人安慰你时，你是否常常觉得他们不理解自己，情绪依然无法好转？" },
-    { id: "anhedonia_life2", trait: "anhedonia", kind: "life", text: "即使完成了一件事，你是否也感受不到成就感或满足感，只觉得如释重负？" },
-    { id: "mania_life2", trait: "mania", kind: "life", text: "躁动的那几天，你是否容易因为小事发火、与人大吵，过后又很快恢复平静？" },
-    { id: "panic_life2", trait: "panic", kind: "life", text: "你是否会有意回避某些场景（如拥挤的地方、密闭空间），以免触发强烈的紧张？" },
-    { id: "compulsion_life2", trait: "compulsion", kind: "life", text: "当有人打断你的检查、清洗或整理动作时，你是否会非常焦虑、必须从头再来？" },
-    { id: "trauma_life2", trait: "trauma", kind: "life", text: "你是否长期处于草木皆兵的警惕状态，很难真正放松下来？" },
-    { id: "sleep_life2", trait: "sleep_issue", kind: "life", text: "是否越是第二天有重要事情，你前一晚反而越容易失眠？" },
-    { id: "focus_life2", trait: "focus_loss", kind: "life", text: "需要长时间安静坐着不动的工作，对你来说是否格外煎熬、坐不住？" },
-    { id: "social_life2", trait: "social_deficits", kind: "life", text: "你是否很难理解别人为什么生气或难过，除非对方明确说出来？" },
-    { id: "social_deficits_dup", trait: "social_deficits", kind: "dup", text: "你是否常觉得难以体会别人的情绪和感受，不知道对方此刻在想什么？" },
-    { id: "social_deficits_sev", trait: "social_deficits", kind: "sev", text: "社交互动上的困难是否已经明显影响你的学习、工作或日常关系？" },
-    { id: "social_fear_life2", trait: "social_fear", kind: "life", text: "聚会结束后，你是否会反复回想自己刚才的表现，越想越觉得自己出了丑？" },
-    { id: "body_life2", trait: "body_image", kind: "life", text: "你是否曾在吃饱后感到强烈内疚，并想方设法通过催吐、节食或过度运动来“补偿”？" },
-    { id: "somatization_life2", trait: "somatization", kind: "life", text: "你是否有过身体不适却查不出原因，而情绪一好转症状就跟着减轻的经历？" },
-    { id: "hallucination_life2", trait: "hallucination", kind: "life", text: "异常感知出现时，你是否感到恐惧、混乱，甚至不敢一个人待在房间里？" },
-    { id: "impulse_life2", trait: "impulse", kind: "life", text: "冲动过后，你是否经常陷入强烈的懊悔，却在下一次依然难以自控？" },
-    { id: "suicide_life2", trait: "suicide", kind: "life", text: "身边没有其他人的时候，你是否更容易冒出关于死亡或离开的强烈念头？" },
+    { id: "low_mood_life2", trait: "low_mood", kind: "life", text: "别人安慰你的时候，你是不是常觉得他们根本不理解你，心情还是好不起来？" },
+    { id: "anhedonia_life2", trait: "anhedonia", kind: "life", text: "就算把一件事做完了，你是不是也没什么成就感，只觉得“总算结束了”？" },
+    { id: "mania_life2", trait: "mania", kind: "life", text: "躁动的那几天，你是不是特别容易因为一点小事就发火、跟人吵起来，过后又很快没事了？" },
+    { id: "panic_life2", trait: "panic", kind: "life", text: "你会不会刻意躲开某些场景，比如人挤人的地方、密闭的空间，就怕自己又紧张起来？" },
+    { id: "compulsion_life2", trait: "compulsion", kind: "life", text: "你在检查、洗手或收拾东西时被人打断，会不会特别焦虑，非得从头再来一遍？" },
+    { id: "trauma_life2", trait: "trauma", kind: "life", text: "你是不是一直处于一种草木皆兵的警觉状态，很难真正放松下来？" },
+    { id: "sleep_life2", trait: "sleep_issue", kind: "life", text: "是不是第二天越有重要的事，你前一晚反而越睡不着？" },
+    { id: "focus_life2", trait: "focus_loss", kind: "life", text: "需要长时间安静坐着的事，对你来说是不是特别难熬，根本坐不住？" },
+    { id: "social_life2", trait: "social_deficits", kind: "life", text: "除非别人明说，不然你是不是很难猜到对方为什么生气或者难过？" },
+    { id: "social_deficits_dup", trait: "social_deficits", kind: "dup", text: "你是不是常常觉得自己体会不到别人的情绪，也猜不到对方在想什么？" },
+    { id: "social_deficits_sev", trait: "social_deficits", kind: "sev", text: "跟人打交道的困难，是不是已经明显影响到你的学习、工作或者日常关系？" },
+    { id: "social_fear_life2", trait: "social_fear", kind: "life", text: "聚会结束后，你是不是会一遍遍回想自己当时的表现，越想越觉得自己出了丑？" },
+    { id: "body_life2", trait: "body_image", kind: "life", text: "吃饱之后你会不会特别内疚，然后想办法催吐、节食或者拼命运动来“补偿”？" },
+    { id: "somatization_life2", trait: "somatization", kind: "life", text: "你有没有过身体不舒服却查不出原因，等心情一好，症状也跟着减轻的经历？" },
+    { id: "hallucination_life2", trait: "hallucination", kind: "life", text: "出现这些奇怪的感知时，你是不是会害怕、脑子发乱，甚至不敢一个人待在房间里？" },
+    { id: "impulse_life2", trait: "impulse", kind: "life", text: "冲动过后你是不是常特别后悔，可下一次来了还是控制不住自己？" },
+    { id: "suicide_life2", trait: "suicide", kind: "life", text: "身边一个人的时候，你是不是更容易冒出关于死亡、想离开的强烈念头？" },
 
     /* --- 精力下降 energy_loss --- */
-    { id: "energy_loss_main", trait: "energy_loss", kind: "main", text: "你是否经常觉得精力不足、浑身乏力，哪怕没做什么事也提不起劲？" },
-    { id: "energy_loss_dup", trait: "energy_loss", kind: "dup", text: "早晨醒来后，你是否常感觉像没休息过，一整天都昏沉疲惫？" },
-    { id: "energy_loss_dup2", trait: "energy_loss", kind: "dup", text: "你是否发现做同样的事比以往更费劲，容易感到筋疲力尽？" },
-    { id: "energy_loss_sev", trait: "energy_loss", kind: "sev", text: "精力耗尽的感觉是否频繁到影响你的工作、学习或日常起居？" },
-    { id: "energy_loss_sev2", trait: "energy_loss", kind: "sev", text: "即使休息和睡眠都充足，你是否依然感到持续的疲乏无力？" },
-    { id: "energy_loss_life1", trait: "energy_loss", kind: "life", text: "下班或放学后，你是否常常累到什么都不想做，只想躺着？" },
-    { id: "energy_loss_life2", trait: "energy_loss", kind: "life", text: "参加完社交活动后，你是否常感到被掏空，需要很久才能恢复？" },
+    { id: "energy_loss_main", trait: "energy_loss", kind: "main", text: "你是不是常觉得精力不够、浑身发软，明明没干什么也提不起劲？" },
+    { id: "energy_loss_dup", trait: "energy_loss", kind: "dup", text: "早上醒来时，你是不是常觉得跟没睡过一样，一整天都昏昏沉沉？" },
+    { id: "energy_loss_dup2", trait: "energy_loss", kind: "dup", text: "你有没有发现，做同样的事比以前费劲多了，很容易就累得不行？" },
+    { id: "energy_loss_sev", trait: "energy_loss", kind: "sev", text: "这种累到被掏空的感觉，是不是频繁到影响工作、学习或者日常生活了？" },
+    { id: "energy_loss_sev2", trait: "energy_loss", kind: "sev", text: "就算休息和睡眠都够了，你是不是还是一直觉得疲乏、没力气？" },
+    { id: "energy_loss_life1", trait: "energy_loss", kind: "life", text: "下班或放学回到家，你是不是常常累得什么都不想干，就想瘫着？" },
+    { id: "energy_loss_life2", trait: "energy_loss", kind: "life", text: "跟人社交完之后，你是不是常觉得被掏空了，要好久才能缓过来？" },
 
     /* --- 易怒烦躁 irritability --- */
-    { id: "irritability_main", trait: "irritability", kind: "main", text: "你是否常常因为小事就感到烦躁、容易发火，事后又觉得没必要？" },
-    { id: "irritability_dup", trait: "irritability", kind: "dup", text: "别人不经意的话或动作，是否经常让你觉得被冒犯、忍不住想发怒？" },
-    { id: "irritability_dup2", trait: "irritability", kind: "dup", text: "即使没有明显理由，你是否也常处于一触即发的易怒状态？" },
-    { id: "irritability_sev", trait: "irritability", kind: "sev", text: "你是否曾因愤怒失控而摔东西、砸物品，或在情绪上来时无法收住？" },
-    { id: "irritability_sev2", trait: "irritability", kind: "sev", text: "发怒时你是否会说出或做出事后让自己后悔的事，甚至对亲近的人动怒？" },
-    { id: "irritability_life1", trait: "irritability", kind: "life", text: "排队、堵车、等待回复这类日常琐事，是否经常让你烦躁到难以忍受？" },
-    { id: "irritability_life2", trait: "irritability", kind: "life", text: "和家人或同事相处时，你是否常常因为一点小事就起争执、针锋相对？" },
+    { id: "irritability_main", trait: "irritability", kind: "main", text: "你是不是常常因为一点小事就烦躁、想发火，事后又觉得其实没必要？" },
+    { id: "irritability_dup", trait: "irritability", kind: "dup", text: "别人随口一句话、一个小动作，是不是就容易让你觉得被冒犯，忍不住想发火？" },
+    { id: "irritability_dup2", trait: "irritability", kind: "dup", text: "就算没什么特别的原因，你是不是也常处在一点就着的状态？" },
+    { id: "irritability_sev", trait: "irritability", kind: "sev", text: "你有没有过气到控制不住、摔东西砸东西的时候，情绪上来根本收不住？" },
+    { id: "irritability_sev2", trait: "irritability", kind: "sev", text: "发火的时候，你会不会说出或做出一些事后后悔的事，甚至对最亲的人也这样？" },
+    { id: "irritability_life1", trait: "irritability", kind: "life", text: "排队、堵车、等回复这种小事，是不是经常让你烦躁到受不了？" },
+    { id: "irritability_life2", trait: "irritability", kind: "life", text: "跟家人或同事相处时，你是不是常因为一点小事就吵起来、互不相让？" },
 
     /* --- 自我价值感 self_esteem --- */
-    { id: "self_esteem_main", trait: "self_esteem", kind: "main", text: "你是否经常觉得自己不如别人，怀疑自己的价值和能力？" },
-    { id: "self_esteem_dup", trait: "self_esteem", kind: "dup", text: "当事情进展顺利时，你是否也难以相信那是自己努力的结果？" },
-    { id: "self_esteem_dup2", trait: "self_esteem", kind: "dup", text: "你是否习惯性地把自己往坏处想，觉得自己什么都做不好？" },
-    { id: "self_esteem_sev", trait: "self_esteem", kind: "sev", text: "自我否定的想法是否频繁到影响你尝试新事物或与人交往？" },
-    { id: "self_esteem_sev2", trait: "self_esteem", kind: "sev", text: "你是否常常觉得自己是家人的负担，或认为自己的存在没有意义？" },
-    { id: "self_esteem_life1", trait: "self_esteem", kind: "life", text: "面对新任务或挑战时，你是否第一反应就是“我不行”？" },
-    { id: "self_esteem_life2", trait: "self_esteem", kind: "life", text: "别人的一句批评，是否会让你长时间陷入自我怀疑？" },
+    { id: "self_esteem_main", trait: "self_esteem", kind: "main", text: "你是不是常觉得自己不如别人，怀疑自己的价值和能力？" },
+    { id: "self_esteem_dup", trait: "self_esteem", kind: "dup", text: "就算事情进展得很顺利，你是不是也很难相信那是靠自己努力得来的？" },
+    { id: "self_esteem_dup2", trait: "self_esteem", kind: "dup", text: "你是不是习惯性地把自己往坏处想，觉得自己什么都做不好？" },
+    { id: "self_esteem_sev", trait: "self_esteem", kind: "sev", text: "这种自我否定的想法是不是频繁到让你不敢尝试新东西、也不敢跟人交往？" },
+    { id: "self_esteem_sev2", trait: "self_esteem", kind: "sev", text: "你是不是常觉得自己是家里人的负担，或者觉得自己活着没什么意义？" },
+    { id: "self_esteem_life1", trait: "self_esteem", kind: "life", text: "面对新任务或挑战时，你脑子里冒出来的第一个念头是不是“我不行”？" },
+    { id: "self_esteem_life2", trait: "self_esteem", kind: "life", text: "别人一句批评，会不会让你长时间陷在自我怀疑里走不出来？" },
 
     /* --- 多疑猜疑 paranoia --- */
-    { id: "paranoia_main", trait: "paranoia", kind: "main", text: "你是否常觉得别人在议论你、针对你，即使没有明显证据？" },
-    { id: "paranoia_dup", trait: "paranoia", kind: "dup", text: "你是否经常怀疑身边人的意图，觉得他们表面友善、背后另有目的？" },
-    { id: "paranoia_dup2", trait: "paranoia", kind: "dup", text: "一些普通事件（如别人看你一眼、低声说话），是否常被你解读为针对自己？" },
-    { id: "paranoia_sev", trait: "paranoia", kind: "sev", text: "这些怀疑是否已经影响到你信任他人，甚至让你难以与人正常相处？" },
-    { id: "paranoia_sev2", trait: "paranoia", kind: "sev", text: "你是否曾因为坚信被针对而与人激烈对峙，事后却发现是误会？" },
-    { id: "paranoia_life1", trait: "paranoia", kind: "life", text: "在公共场合，你是否常觉得陌生人在注意或议论你？" },
-    { id: "paranoia_life2", trait: "paranoia", kind: "life", text: "朋友或同事的玩笑，你是否常觉得是在含沙射影地针对你？" },
+    { id: "paranoia_main", trait: "paranoia", kind: "main", text: "就算没什么证据，你是不是也常觉得别人在议论你、针对你？" },
+    { id: "paranoia_dup", trait: "paranoia", kind: "dup", text: "你是不是常怀疑身边人的用意，觉得他们表面客气、背后另有目的？" },
+    { id: "paranoia_dup2", trait: "paranoia", kind: "dup", text: "别人看你一眼、低声说句话这种普通小事，你是不是常会觉得是在说自己？" },
+    { id: "paranoia_sev", trait: "paranoia", kind: "sev", text: "这些疑心是不是已经影响你信任别人，甚至让你很难跟人正常相处？" },
+    { id: "paranoia_sev2", trait: "paranoia", kind: "sev", text: "你有没有过因为认定别人针对你而跟人激烈对峙，结果发现只是一场误会？" },
+    { id: "paranoia_life1", trait: "paranoia", kind: "life", text: "在公共场合，你是不是常觉得有陌生人在注意你、议论你？" },
+    { id: "paranoia_life2", trait: "paranoia", kind: "life", text: "朋友或同事开个玩笑，你是不是常觉得是在旁敲侧击地针对你？" },
 
     /* --- 食欲变化 appetite --- */
-    { id: "appetite_main", trait: "appetite", kind: "main", text: "你的食欲是否有明显变化——要么吃不下，要么控制不住地想吃？" },
-    { id: "appetite_dup", trait: "appetite", kind: "dup", text: "体重是否在短期内明显波动，但你不太确定原因？" },
-    { id: "appetite_dup2", trait: "appetite", kind: "dup", text: "你是否会通过不吃东西或暴饮暴食来应对情绪？" },
-    { id: "appetite_sev", trait: "appetite", kind: "sev", text: "进食问题是否已经影响到你的健康、体力或日常生活？" },
-    { id: "appetite_sev2", trait: "appetite", kind: "sev", text: "对食物、体重和身材的念头，是否占据了你大量时间、难以控制？" },
-    { id: "appetite_life1", trait: "appetite", kind: "life", text: "一到饭点，你是否常常完全没有胃口，或相反总是想吃东西？" },
-    { id: "appetite_life2", trait: "appetite", kind: "life", text: "聚餐或别人劝吃时，你是否常因进食问题感到焦虑和尴尬？" },
+    { id: "appetite_main", trait: "appetite", kind: "main", text: "你的胃口是不是变化挺大的——要么什么都吃不下，要么控制不住地想吃？" },
+    { id: "appetite_dup", trait: "appetite", kind: "dup", text: "体重是不是在短时间内明显变了，你自己也说不清为什么？" },
+    { id: "appetite_dup2", trait: "appetite", kind: "dup", text: "你会不会用不吃饭或者大吃大喝的方式来应对情绪？" },
+    { id: "appetite_sev", trait: "appetite", kind: "sev", text: "吃饭的问题是不是已经影响到你的健康、体力或者日常生活了？" },
+    { id: "appetite_sev2", trait: "appetite", kind: "sev", text: "关于食物、体重和身材的念头，是不是占据了你大量时间，怎么也控制不住？" },
+    { id: "appetite_life1", trait: "appetite", kind: "life", text: "一到饭点，你是不是常常一点胃口都没有，或者反过来总想吃东西？" },
+    { id: "appetite_life2", trait: "appetite", kind: "life", text: "聚餐或者别人劝你吃饭时，你是不是常因为自己吃饭的问题感到焦虑、尴尬？" },
 
     /* --- 效度题（理想化倾向检测；答“非常符合”计效度分） --- */
-    { id: "lie_1", trait: "lie", kind: "lie", text: "我从小到大，从未对任何人说过一句谎话。" },
-    { id: "lie_2", trait: "lie", kind: "lie", text: "无论发生什么，我都能完全控制自己的情绪，从不发脾气。" },
-    { id: "lie_3", trait: "lie", kind: "lie", text: "我几乎从不感到疲惫，也几乎不需要任何休息。" },
-    { id: "lie_4", trait: "lie", kind: "lie", text: "我说过的话从不食言，任何事情都能说到做到。" },
-    { id: "lie_5", trait: "lie", kind: "lie", text: "我经常能准确预知别人接下来会说什么或做什么。" }
+    { id: "lie_1", trait: "lie", kind: "lie", text: "我长这么大，从来没对任何人说过一句谎话。" },
+    { id: "lie_2", trait: "lie", kind: "lie", text: "不管发生什么事，我都能完全管住自己的情绪，从来不会发脾气。" },
+    { id: "lie_3", trait: "lie", kind: "lie", text: "我几乎从来不觉得累，也几乎不需要什么休息。" },
+    { id: "lie_4", trait: "lie", kind: "lie", text: "我答应别人的事一定能做到，从来不会食言。" },
+    { id: "lie_5", trait: "lie", kind: "lie", text: "我经常能准确猜到别人接下来会说什么、做什么。" }
 ];
 
 const questionById = Object.fromEntries(allQuestions.map(q => [q.id, q]));
@@ -3192,7 +3034,6 @@ const els = {
     severeWarning: document.getElementById("severe-warning"),
     severeItems: document.getElementById("severe-items"),
     startArea: document.getElementById("start-area"),
-    progressRow: document.getElementById("progress-row"),
     traitsGrid: document.getElementById("traits-grid"),
     btnFast: document.getElementById("btn-fast"),
     btnLight: document.getElementById("btn-light"),
@@ -3216,11 +3057,11 @@ const els = {
     historyClearBtn: document.getElementById("history-clear-btn")
 };
 
-/* ===== 评分：按特征聚合（同一特征的多题回答取平均），特征强度加权，返回 0-100 数组 ===== */
-function getTraitScores(answers) {
+/* ===== 按特征聚合：同一特征的多题回答按题型加权平均，返回全量均值（-1..1） ===== */
+function aggregateTraitMeans(answers) {
     // 按题型加权：主问 1.0（主导）、一致性复问 0.5（仅作印证）、
     // 严重度加深题 1.2（信息最具体）、生活影响题 0.8；
-    // 效度题不计入任何疾病的特征相似度
+    // 效度题不计入任何特征
     const agg = {};
     for (const qid of Object.keys(answers)) {
         const q = questionById[qid];
@@ -3232,12 +3073,19 @@ function getTraitScores(answers) {
         (agg[q.trait] = agg[q.trait] || { sum: 0, w: 0 }).sum += answers[qid] * w;
         agg[q.trait].w += w;
     }
+    const means = {};
+    for (const t in agg) means[t] = agg[t].sum / agg[t].w;
+    return means;
+}
+
+/* ===== 评分用特征分：微弱信号（|均值| < 0.35）视为无信息，不参与疾病匹配 ===== */
+function getTraitScores(answers) {
+    const means = aggregateTraitMeans(answers);
     const traitScores = {};
-    for (const t in agg) {
-        const m = agg[t].sum / agg[t].w;
+    for (const t in means) {
         // 微弱信号（|均值| < 0.35）视为无信息，不参与评分，
         // 避免大量弱信号稀释真正的强特征画像
-        if (Math.abs(m) >= 0.35) traitScores[t] = m;
+        if (Math.abs(means[t]) >= 0.35) traitScores[t] = means[t];
     }
     return traitScores;
 }
@@ -3322,13 +3170,19 @@ function computeScores(answers) {
     });
 }
 
-/* ===== 回答回答一致性：一致性复问与主问的差异 ≤ 0.5 记为一致 ===== */
+/* ===== 回答一致性：一致性复问与同特征主问的差异 ≤ 0.5 记为一致 ===== */
 function computeCredibility() {
+    // 建立“特征 → 该特征主问题 id”映射：
+    // 15 个核心特征主问 id 与特征 id 相同，其余 5 个特征主问 id 为 `${trait}_main`
+    const mainIdByTrait = {};
+    for (const q of allQuestions) {
+        if (q.kind === "main") mainIdByTrait[q.trait] = q.id;
+    }
     const pairs = [];
     for (const q of allQuestions) {
         if (q.kind !== "dup") continue;
-        const mainId = q.trait; // 主问 id 即特征 id
-        if (userAnswers[mainId] !== undefined && userAnswers[q.id] !== undefined) {
+        const mainId = mainIdByTrait[q.trait];
+        if (mainId && userAnswers[mainId] !== undefined && userAnswers[q.id] !== undefined) {
             pairs.push([userAnswers[mainId], userAnswers[q.id]]);
         }
     }
@@ -3458,19 +3312,23 @@ function showResults() {
     finished = true;
     els.gameArea.classList.add("hidden");
     els.resultArea.classList.remove("hidden");
+    // 结果内容较长，渲染后定位到结果区顶部（滚动行为受 CSS smooth / 减少动态设置控制）
+    requestAnimationFrame(() => els.resultArea.scrollIntoView({ block: "start" }));
     els.progressFill.style.width = "100%";
     els.stepLabel.textContent = `已完成 ${MAX_QUESTIONS} 题`;
     els.stepPct.textContent = "100%";
 
     // 报告信息：评估编号 / 模式 / 完成时间 / 本次用时
-    els.metaId.textContent = "MH-" + Date.now().toString().slice(-6);
+    // 编号只生成一次，页面与打印抬头共用，避免两处取值不一致
+    const reportId = "MH-" + Date.now().toString().slice(-6);
+    els.metaId.textContent = reportId;
     els.metaMode.textContent = MODE_NAME[gameMode] || "标准评估";
     const now = new Date();
     const pad = n => String(n).padStart(2, "0");
     els.metaTime.textContent = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
     // 打印报告抬头同步
     if (els.printMeta) {
-        els.printMeta.textContent = `评估编号：MH-${Date.now().toString().slice(-6)}　评估模式：${MODE_NAME[gameMode] || "标准评估"}　完成时间：${els.metaTime.textContent}`;
+        els.printMeta.textContent = `评估编号：${reportId}　评估模式：${MODE_NAME[gameMode] || "标准评估"}　完成时间：${els.metaTime.textContent}`;
     }
     stopClock();
     els.metaDuration.textContent = formatDuration(Date.now() - quizStart);
@@ -3479,11 +3337,13 @@ function showResults() {
 
     const scores = computeScores(userAnswers);
     const traitScores = getTraitScores(userAnswers);
+    // 维度展示（网格/雷达图/统计）使用全量均值：弱信号如实显示为"正常/未见异常"，
+    // 仅完全未作答的维度显示"无数据"；疾病匹配仍使用阈值过滤后的 traitScores
+    const traitMeans = aggregateTraitMeans(userAnswers);
     const ranked = conditions
         .map((cond, i) => ({ cond, score: Math.round(scores[i]) }))
         .sort((a, b) => b.score - a.score);
 
-    const top = ranked[0];
     const gap = ranked[0].score - ranked[1].score;
 
     // 判别区分度：第一名与第二名差距越大越明确
@@ -3681,7 +3541,7 @@ function showResults() {
 
     els.traitsGrid.innerHTML = CORE_TRAITS.map(t => {
         const label = traitLabels[t] || t;
-        const s = traitScores[t];
+        const s = traitMeans[t];
         if (s === undefined) {
             return `<div class="trait-row">
                 <span class="trait-row-name">${label}</span>
@@ -3704,7 +3564,7 @@ function showResults() {
     // 维度统计：各程度项数分布
     const lvCount = {};
     CORE_TRAITS.forEach(t => {
-        const s = traitScores[t];
+        const s = traitMeans[t];
         if (s === undefined) { lvCount["无数据"] = (lvCount["无数据"] || 0) + 1; return; }
         const lv = traitLevel(s);
         lvCount[lv.text] = (lvCount[lv.text] || 0) + 1;
@@ -3715,8 +3575,8 @@ function showResults() {
     });
     els.overviewStats.textContent = statParts.length > 0 ? `程度分布：${statParts.join(" · ")}` : "";
 
-    // 特征剖面雷达图
-    renderRadar(traitScores, CORE_TRAITS);
+    // 特征剖面雷达图（使用全量均值，弱信号也有对应小点）
+    renderRadar(traitMeans, CORE_TRAITS);
 
     // 专业建议：按作答情况生成（总体分级 + 针对性 + 日常）
     els.adviceBox.classList.remove("hidden");
@@ -3846,7 +3706,7 @@ function renderRadar(scores, coreTraits) {
     </svg>`;
 }
 
-/* 中途退出：清空本次进度，返回模式选择页 */
+/* 中途退出 / 重新评估：清空本次进度，返回模式选择页 */
 function exitQuiz() {
     stopClock();
     userAnswers = {};
@@ -3860,9 +3720,10 @@ function exitQuiz() {
     els.progressRow.classList.add("hidden");
     els.progressTrack.classList.add("hidden");
     els.progressFill.style.width = "0%";
-    els.stepLabel.textContent = "第 1 / 45 题";
+    els.stepLabel.textContent = "第 1 题";
     els.stepPct.textContent = "0%";
     if (severeModal) severeModal.classList.add("hidden");
+    window.scrollTo({ top: 0 });
 }
 
 /* ===== 专业建议：20 特征针对性建议库 ===== */
@@ -4097,7 +3958,7 @@ if (exportTxtBtn) {
             P.push("");
         }
         P.push("本报告由「心理健康多维自评量表」自动生成，仅供自我了解与科普参考，不构成临床诊断或医学建议。");
-        P.push(`量表编制：AnonUsAl · 云术工作室　|　版本 V2.2　|　生成时间：${els.reportGenTime ? els.reportGenTime.textContent : ""}`);
+        P.push(`量表编制：AnonUsAl · 云术工作室　|　版本 V2.3　|　生成时间：${els.reportGenTime ? els.reportGenTime.textContent : ""}`);
         const blob = new Blob(["\ufeff" + P.join("\n")], { type: "text/plain;charset=utf-8" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -4112,7 +3973,8 @@ if (exportTxtBtn) {
 
 els.backBtn.addEventListener("click", goBack);
 els.exitBtn.addEventListener("click", exitQuiz);
-els.restartBtn.addEventListener("click", resetGame);
+/* 重新评估：返回模式选择页，可重新选择模式（并按当前乱序开关重新出题） */
+els.restartBtn.addEventListener("click", exitQuiz);
 if (els.printBtn) els.printBtn.addEventListener("click", () => window.print());
 els.btnFast.addEventListener("click", () => startQuiz("fast"));
 els.btnLight.addEventListener("click", () => startQuiz("light"));
@@ -4121,9 +3983,11 @@ els.btnDeep.addEventListener("click", () => startQuiz("deep"));
 
 document.addEventListener("keydown", e => {
     if (finished || e.metaKey || e.ctrlKey || e.altKey) return;
-    if (KEY_MAP[e.key] !== undefined) {
-        submitAnswer(KEY_MAP[e.key]);
-    }
+    if (KEY_MAP[e.key] === undefined) return;
+    // 任一弹窗打开时，数字键不穿透到背后的题目；答题区隐藏时同样忽略
+    if (document.querySelector(".modal-mask:not(.hidden)")) return;
+    if (els.gameArea.classList.contains("hidden")) return;
+    submitAnswer(KEY_MAP[e.key]);
 });
 
 /* ===== 皮肤切换（正式默认 / 夜间 / 护眼 / 学术 / 薄荷 / 雾蓝 / 暖咖 / 墨绿） ===== */
@@ -4192,6 +4056,10 @@ if (skinClose) {
     skinClose.addEventListener("click", () => skinModal.classList.add("hidden"));
 }
 
+if (skinModal) skinModal.addEventListener("click", e => {
+    if (e.target === skinModal) skinModal.classList.add("hidden");
+});
+
 // 初始皮肤：优先读取本地记忆（兼容旧 key 与旧命名）
 (function initSkin() {
     let initial = "hospital";
@@ -4258,75 +4126,6 @@ els.gameArea.classList.add("hidden");
 els.startArea.classList.remove("hidden");
 els.progressRow.classList.add("hidden");
 els.progressTrack.classList.add("hidden");
-</script>
-
-
-<script>
-(function(){
-  function makeReportId(){
-    const d=new Date();
-    const pad=n=>String(n).padStart(2,"0");
-    const rand=Math.random().toString(16).slice(2,6).toUpperCase();
-    return `MH-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${rand}`;
-  }
-  window.getFormalReportId=function(){
-    try{
-      let id=localStorage.getItem("formal_report_id");
-      if(!id){ id=makeReportId(); localStorage.setItem("formal_report_id",id); }
-      return id;
-    }catch(e){ return makeReportId(); }
-  };
-  document.addEventListener("DOMContentLoaded",function(){
-    const id=window.getFormalReportId();
-    document.querySelectorAll("[data-report-id]").forEach(el=>el.textContent=id);
-  });
-})();
-</script>
-
-
-<script>
-(function(){
-  function esc(s){
-    return String(s||"").replace(/[&<>"']/g,function(c){
-      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
-    });
-  }
-  function addReportEnhancements(){
-    const root = document.querySelector("#results, .results-page, .result-report");
-    if(!root || root.dataset.formalV2) return;
-    root.dataset.formalV2="1";
-
-    const id = (window.getFormalReportId && window.getFormalReportId()) || "";
-    const idEls = root.querySelectorAll("[data-report-id]");
-    idEls.forEach(el=>el.textContent=id);
-
-    // Insert a methodology statement near the beginning of the result area.
-    const anchor = root.querySelector("h1,h2,.results-cover,.report-cover");
-    if(anchor && !root.querySelector(".formal-report-summary")){
-      const box=document.createElement("section");
-      box.className="formal-report-summary";
-      box.innerHTML =
-        '<h3>本报告如何理解</h3>' +
-        '<p>本报告呈现的是本次自评回答所反映的相对特征信号，用于帮助了解当前状态与自我观察方向。各维度分级属于本工具内部的描述性分级，不应直接理解为疾病诊断、临床分期或医学结论。</p>' +
-        '<p>如果某些结果与近期真实体验明显不一致，应以实际生活状态、持续时间和专业评估作为更重要的参考。</p>';
-      anchor.parentNode.insertBefore(box, anchor.nextSibling);
-    }
-
-    // Add a compact disclaimer if none is present.
-    const text=root.innerText||"";
-    if(!/不构成临床诊断|不作为诊断|仅供科普/.test(text)){
-      const d=document.createElement("div");
-      d.className="formal-report-disclaimer";
-      d.textContent="说明：本工具用于自我了解与科普教育，不替代专业心理/精神卫生评估。单次自评结果不能单独用于判断是否存在某种精神心理疾病。";
-      root.appendChild(d);
-    }
-  }
-  if(document.readyState==="loading"){
-    document.addEventListener("DOMContentLoaded",addReportEnhancements);
-  }else{
-    addReportEnhancements();
-  }
-})();
 </script>
 
 </body>
