@@ -3,54 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="心理健康多维自评量表：基于多维特征模型的心理健康自评工具，覆盖20个核心特征维度。本工具仅供科普教育用途，不构成临床诊断。">
+    <meta name="description" content="心理健康多维自评量表：基于多维特征模型的心理健康自评工具，覆盖20个核心特征维度。本工具仅供科普教育用途，不构成临床诊断。本工具各维度及分级用于描述本次自评中的相对特征信号，不等同于经过临床验证的诊断标准或疾病筛查结论。">
     <title>心理健康多维自评量表</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%230b6e99'/%3E%3Cpath%20d='M16%208v16M8%2016h16'%20stroke='white'%20stroke-width='3'%20stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%23234a68'/%3E%3Cpath%20d='M16%208v16M8%2016h16'%20stroke='white'%20stroke-width='3'%20stroke-linecap='round'/%3E%3C/svg%3E">
     <style>
-        /* ===== 医院风格主题变量 ===== */
+        /* ===== 默认主题：正式机构报告 / 医疗学术风格 ===== */
         :root {
-            --primary: #0b6e99;
-            --primary-dark: #08577a;
-            --primary-deep: #06435e;
-            --primary-soft: #e9f3f9;
-            --accent: #48789b;
-            --bg: #eef3f7;
-            --surface: #ffffff;
-            --border: #d9e3ec;
-            --border-strong: #b7c8d6;
-            --text: #22303e;
-            --text-soft: #42576a;
-            --text-dim: #71879b;
-            --text-faint: #9db0c0;
-            --ok: #178a63;
-            --ok-bg: #e9f7f1;
-            --warn: #c26b1e;
-            --warn-bg: #fdf3e7;
-            --warn-border: #f0cfa2;
-            --severe: #bf3b3b;
-            --severe-bg: #fdeeee;
-            --severe-border: #f0b6b6;
-            --shadow: 0 10px 32px rgba(11, 70, 104, 0.10), 0 0 0 1px rgba(11, 70, 104, 0.05);
-            --font: "SimSun", "Songti SC", "STSong", "Noto Serif SC", "Times New Roman", serif;
-            --header-from: #0a5d8f;
-            --header-to: #0b7a9e;
+            /* 默认：正式机构报告风格 —— 藏青、冷灰、纸面白 */
+            --primary: #234a68;
+            --primary-dark: #1b3c55;
+            --primary-deep: #122f44;
+            --primary-soft: #edf2f6;
+            --accent: #5d7890;
+            --bg: #eef1f3;
+            --surface: #fbfbfa;
+            --border: #d4d9de;
+            --border-strong: #aeb8c1;
+            --text: #202a33;
+            --text-soft: #3e4b57;
+            --text-dim: #687681;
+            --text-faint: #8f9ba5;
+            --ok: #2d7659;
+            --ok-bg: #edf5f1;
+            --warn: #9b671f;
+            --warn-bg: #faf3e6;
+            --warn-border: #dfc79e;
+            --severe: #a73e3e;
+            --severe-bg: #faeeee;
+            --severe-border: #e0b8b8;
+            --shadow: 0 4px 18px rgba(30, 45, 58, 0.07), 0 0 0 1px rgba(30, 45, 58, 0.035);
+            --font: "Songti SC", "STSong", "SimSun", "Noto Serif SC", Georgia, serif;
+            --header-from: #183b55;
+            --header-to: #234a68;
             --card-bg: #ffffff;
-            --panel-soft: #f6f9fb;
-            --bar-track: #edf2f6;
-            --chip-border: #c3dcee;
-            --severe-text: #6b3b3b;
-            --warn-text: #7a4a14;
-            --bg-dot: rgba(11, 110, 153, 0.05);
-            /* ---- 风格变量（医院默认：直角、无阴影、零动画） ---- */
-            --radius: 2px;        /* 通用元素圆角 */
-            --radius-lg: 4px;     /* 卡片/弹窗圆角 */
-            --radius-bar: 0;      /* 进度条/条形图圆角 */
-            --shadow-card: none;  /* 卡片阴影 */
-            --shadow-pop: none;   /* 浮层/悬停阴影 */
-            --t-fast: 0s;         /* 快速过渡时长 */
-            --t-med: 0s;          /* 中等过渡时长 */
-            --header-bg: var(--header-from); /* 报告头背景 */
-            --bg-deco: none;      /* 页面背景装饰 */
+            --panel-soft: #f5f7f8;
+            --bar-track: #e7ebee;
+            --chip-border: #c5d0d8;
+            --severe-text: #643a3a;
+            --warn-text: #6e501f;
+            --bg-dot: rgba(35, 74, 104, 0.025);
+
+            /* 正式报告：微圆角、轻阴影、克制过渡 */
+            --radius: 3px;
+            --radius-lg: 5px;
+            --radius-bar: 1px;
+            --shadow-card: 0 2px 8px rgba(30, 45, 58, 0.045);
+            --shadow-pop: 0 8px 24px rgba(30, 45, 58, 0.10);
+            --t-fast: 0.12s;
+            --t-med: 0.20s;
+            --header-bg: linear-gradient(180deg, var(--header-from), var(--header-to));
+            --bg-deco: linear-gradient(180deg, rgba(35, 74, 104, 0.025), transparent 260px);
         }
 
         /* ===== 主题：夜间（深蓝护眼） ===== */
@@ -370,7 +372,7 @@
             --bg-deco: radial-gradient(900px 600px at 85% -5%, rgba(127, 191, 168, 0.07), transparent 60%);
         }
 
-        /* ===== 皮肤动画与交互风格（医院默认无动画，各皮肤按需启用） ===== */
+        /* ===== 皮肤动画与交互风格（正式报告无动画，各皮肤按需启用） ===== */
         /* 夜间：克制冷启动效 */
         body[data-theme="dark"] .result-item { animation: fadeUp 0.35s ease-out both; }
         body[data-theme="dark"] .result-item:nth-child(2) { animation-delay: 0.05s; }
@@ -426,6 +428,74 @@
         body[data-theme="forest"] .trait-row-fill, body[data-theme="forest"] .score-fill, body[data-theme="forest"] .severity-fill { animation: growBar 0.6s ease-out; }
         body[data-theme="forest"] .btn-option:hover { transform: translateY(-1px); }
         body[data-theme="forest"] .modal { animation: fadeIn 0.22s ease-out; }
+
+
+        /* ===== 默认正式皮肤细节 ===== */
+        body:not([data-theme]),
+        body[data-theme="hospital"] {
+            letter-spacing: 0.005em;
+        }
+
+        body[data-theme="hospital"] .sheet {
+            border-top: 3px solid var(--primary);
+        }
+
+        body[data-theme="hospital"] .report-header {
+            box-shadow: inset 0 -1px 0 rgba(255,255,255,0.12);
+        }
+
+        body[data-theme="hospital"] .brand-title {
+            letter-spacing: 0.045em;
+        }
+
+        body[data-theme="hospital"] .section-title {
+            letter-spacing: 0.025em;
+        }
+
+        body[data-theme="hospital"] .plan-card,
+        body[data-theme="hospital"] .btn-option {
+            box-shadow: none;
+        }
+
+        body[data-theme="hospital"] .plan-card:hover,
+        body[data-theme="hospital"] .btn-option:hover {
+            box-shadow: inset 0 0 0 1px var(--primary);
+        }
+
+        body[data-theme="hospital"] .module-card,
+        body[data-theme="hospital"] .side-card,
+        body[data-theme="hospital"] .traits-overview {
+            box-shadow: var(--shadow-card);
+        }
+
+        body[data-theme="hospital"] .question-box {
+            background: #f1f4f6;
+        }
+
+        body[data-theme="hospital"] .report-footer {
+            letter-spacing: 0.01em;
+        }
+
+
+        @media print {
+            body[data-theme="hospital"] {
+                background: #fff;
+                padding: 0;
+            }
+            body[data-theme="hospital"] .sheet {
+                max-width: none;
+                width: 100%;
+                border-top: 2px solid var(--primary);
+                box-shadow: none;
+            }
+            body[data-theme="hospital"] .side {
+                display: none;
+            }
+            body[data-theme="hospital"] .report-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
 
         /* ===== 大字模式：放大根字号，rem 文字随之放大 ===== */
         html[data-large="on"] { font-size: 19px; }
@@ -995,6 +1065,76 @@
 
         .report-meta b { color: var(--text-soft); font-weight: 600; }
 
+        /* 评估摘要 */
+        .summary-card { margin-bottom: 14px; }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .summary-cell {
+            background: var(--panel-soft);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .summary-label { font-size: 0.7rem; color: var(--text-faint); }
+
+        .summary-value {
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: var(--text-soft);
+            line-height: 1.45;
+        }
+
+        .summary-value.sum-ok { color: var(--ok); }
+        .summary-value.sum-warn { color: var(--warn); }
+        .summary-value.sum-severe { color: var(--severe); }
+
+        .summary-note {
+            margin: 0;
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            background: var(--panel-soft);
+            border-left: 3px solid var(--border-strong);
+            padding: 9px 12px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        /* 维度分布统计 */
+        .overview-stats {
+            margin: 0 0 10px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            background: var(--panel-soft);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius);
+            padding: 7px 12px;
+            line-height: 1.6;
+        }
+
+        /* 报告落款 */
+        .report-footer {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-top: 2px solid var(--border-strong);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        .report-footer-line { margin-bottom: 6px; }
+
+        .report-footer-meta { font-size: 0.7rem; color: var(--text-faint); }
+
         .result-head {
             display: flex;
             align-items: center;
@@ -1173,7 +1313,7 @@
             text-decoration: underline;
         }
 
-        /* 低可信度提示 */
+        /* 低回答一致性提示 */
         .cred-warning {
             margin-bottom: 14px;
             padding: 12px 14px;
@@ -2043,7 +2183,192 @@
             .report-meta { grid-template-columns: repeat(2, 1fr); }
             .summary-grid { grid-template-columns: repeat(2, 1fr); }
         }
-    </style>
+    
+/* ===== Formal psychological assessment report layer ===== */
+:root{
+  --report-ink:#1c2832;
+  --report-muted:#687681;
+  --report-line:#cfd6dc;
+  --report-paper:#fbfbfa;
+  --report-navy:#183b55;
+  --report-blue:#234a68;
+}
+.report-page,
+.results-page,
+.result-report,
+#results{
+  color:var(--report-ink);
+}
+.report-cover,
+.results-cover{
+  background:linear-gradient(135deg,#183b55 0%,#234a68 62%,#2d5876 100%) !important;
+  border-radius:8px !important;
+  box-shadow:0 8px 28px rgba(20,40,55,.12) !important;
+}
+.report-cover .eyebrow,
+.results-cover .eyebrow{
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  opacity:.82;
+}
+.report-meta,
+.results-meta{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-top:16px;
+}
+.report-meta-item,
+.results-meta-item{
+  padding:11px 13px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:5px;
+}
+.report-meta-item .label,
+.results-meta-item .label{
+  display:block;
+  font-size:11px;
+  letter-spacing:.08em;
+  opacity:.72;
+  margin-bottom:4px;
+}
+.report-section,
+.result-section{
+  position:relative;
+  background:var(--report-paper);
+  border:1px solid var(--report-line);
+  border-radius:6px;
+  box-shadow:0 3px 14px rgba(30,45,58,.045);
+}
+.report-section::before,
+.result-section::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:var(--report-navy);
+  border-radius:6px 0 0 6px;
+}
+.report-section-title,
+.result-section-title{
+  letter-spacing:.045em;
+  color:var(--report-navy);
+}
+.report-index,
+.result-index{
+  font-variant-numeric:tabular-nums;
+  color:var(--report-muted);
+}
+.report-summary,
+.result-summary{
+  background:#f2f5f7 !important;
+  border:1px solid #d7dee3 !important;
+}
+.report-note,
+.result-note{
+  border-left:3px solid #8a9aa7;
+  background:#f7f8f8;
+  color:#46545f;
+}
+.report-footer,
+.results-footer{
+  border-top:1px solid var(--report-line);
+  color:#7a858d;
+  font-size:12px;
+}
+@media (max-width:700px){
+  .report-meta,.results-meta{grid-template-columns:1fr;}
+}
+@media print{
+  body{background:#fff !important;}
+  .report-cover,.results-cover{
+    box-shadow:none !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .report-section,.result-section{
+    box-shadow:none !important;
+    break-inside:avoid;
+  }
+}
+
+
+/* ===== V2 formal report content components ===== */
+.formal-report-summary{
+  margin:18px 0;
+  padding:18px 20px;
+  border:1px solid #cfd6dc;
+  border-radius:6px;
+  background:#f5f7f8;
+}
+.formal-report-summary h3{
+  margin:0 0 8px;
+  color:#183b55;
+  font-size:16px;
+  letter-spacing:.04em;
+}
+.formal-report-summary p{
+  margin:6px 0;
+  line-height:1.75;
+  color:#46545f;
+}
+.formal-report-disclaimer{
+  margin-top:18px;
+  padding:14px 16px;
+  border:1px solid #d7dee3;
+  border-left:3px solid #6f8290;
+  background:#fafbfb;
+  border-radius:4px;
+  color:#596772;
+  font-size:12px;
+  line-height:1.7;
+}
+.formal-report-level{
+  display:inline-flex;
+  align-items:center;
+  padding:3px 9px;
+  border-radius:999px;
+  border:1px solid #cbd4da;
+  background:#f1f4f6;
+  color:#334957;
+  font-size:12px;
+}
+.formal-report-level.high{
+  background:#faf3e6;
+  border-color:#dfc79e;
+  color:#80551a;
+}
+.formal-report-level.attention{
+  background:#faeeee;
+  border-color:#e0b8b8;
+  color:#8b3636;
+}
+.formal-report-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:14px 0 4px;
+}
+.formal-report-actions button{
+  border:1px solid #bfcbd3;
+  background:#fff;
+  color:#29485e;
+  padding:8px 12px;
+  border-radius:4px;
+  cursor:pointer;
+}
+.formal-report-actions button:hover{
+  background:#f2f5f7;
+}
+@media print{
+  .formal-report-actions{display:none!important;}
+  .formal-report-summary{break-inside:avoid;}
+}
+
+</style>
 </head>
 <body>
 
@@ -2148,7 +2473,7 @@
             </div>
             <div class="brand-text">
                 <h1 class="brand-title">心理健康多维自评量表</h1>
-                <p class="brand-sub">基于多维特征模型编制 · 覆盖 20 个核心特征维度 · 内置作答效度校验</p>
+                <p class="brand-sub">基于多维特征模型编制 · 覆盖 20 个核心特征维度 · 内置回答一致性校验</p>
             </div>
         </div>
     </header>
@@ -2168,7 +2493,7 @@
         <section id="start-area">
             <div class="mode-card">
                 <h2 class="section-title">选择评估模式</h2>
-                <p class="mode-intro">四种评估模式均覆盖全部 20 个核心特征维度：极简自测每维度一题、共 20 题；其余模式题量更多、分析更细致，并内置 5 道作答效度校验题。请根据您的可用时间选择：</p>
+                <p class="mode-intro">四种评估模式均覆盖全部 20 个核心特征维度：极简自测每维度一题、共 20 题；其余模式题量更多、分析更细致，并内置 5 道回答一致性校验题。请根据您的可用时间选择：</p>
                 <div class="plan-list">
                     <button class="plan-card" id="btn-light" type="button">
                         <span class="plan-info">
@@ -2317,7 +2642,7 @@
                 <div class="severity-note">以上仅为对您回答内容的粗略概括，不构成任何诊断或医学建议。</div>
             </div>
 
-            <!-- 作答效度评估 -->
+            <!-- 回答一致性评估 -->
             <div class="module-card hidden" id="lie-box">
                 <div class="severity-row">
                     <span class="severity-label">作答真实性评估</span>
@@ -2326,14 +2651,14 @@
                 <div class="severity-detail" id="lie-detail"></div>
             </div>
 
-            <!-- 低可信度提示 -->
+            <!-- 低回答一致性提示 -->
             <div class="cred-warning hidden" id="cred-warning">
                 检测到部分回答前后不一致，本次评估结果仅供参考。建议放松心情，按真实感受重新作答一次。
             </div>
 
             <div class="traits-overview" id="traits-overview">
                 <div class="section-title">维度评估（20 项核心维度）</div>
-                <p class="overview-hint">评分基于您全部回答加权计算（−1.00 完全不符合 ～ +1.00 完全符合），程度按评分绝对值分四级：轻度 / 中度 / 重度 / 极重度。</p>
+                <p class="overview-hint">评分基于您全部回答加权计算（−1.00 完全不符合 ～ +1.00 完全符合），程度按评分绝对值分四级：轻度 / 中度 / 较高 / 明显。</p>
                 <p class="overview-stats" id="overview-stats"></p>
                 <div class="traits-grid" id="traits-grid"></div>
             </div>
@@ -2413,7 +2738,7 @@
             <div class="side-title">关于本量表</div>
             <ul class="side-list">
                 <li>覆盖全部 20 个核心特征维度，四种模式均可完整评估。</li>
-                <li>内置 5 道作答效度校验题，用于判断回答一致性。</li>
+                <li>内置 5 道回答一致性校验题，用于判断回答一致性。</li>
                 <li>结果按特征相似度给出参考排序，仅反映回答倾向。</li>
                 <li><button class="text-link text-link-inline" id="traits-desc-btn2" type="button">查看 20 个特征维度说明</button></li>
             </ul>
@@ -2532,7 +2857,7 @@ const conditions = [
 ];
 
 /* ===== 数据：问题库（主问 11 + 一致性复问 10 + 严重度问 10）=====
- * kind: main=核心特征题 / dup=同特征换措辞（校验回答一致性，用于可信度）/ sev=严重程度题（频率、时长、影响）
+ * kind: main=核心特征题 / dup=同特征换措辞（校验回答一致性，用于回答一致性）/ sev=严重程度题（频率、时长、影响）
  * trait: 该题映射回的核心特征 id
  */
 const allQuestions = [
@@ -2553,7 +2878,7 @@ const allQuestions = [
     { id: "impulse", trait: "impulse", kind: "main", text: "你是否曾因一时冲动做出过伤害他人、砸坏东西或与人激烈冲突的行为，事后又后悔？" },
     { id: "suicide", trait: "suicide", kind: "main", text: "过去两周，你是否出现过觉得活着没意思，或闪过结束自己生命念头的时刻？" },
 
-    /* --- 一致性复问（与主问同特征、换一种说法，用于判断回答可信度） --- */
+    /* --- 一致性复问（与主问同特征、换一种说法，用于判断回答回答一致性） --- */
     { id: "low_mood_dup", trait: "low_mood", kind: "dup", text: "过去两周，你是否大多数时间都情绪低沉、开心不起来，且很难靠自己的努力调整过来？" },
     { id: "anhedonia_dup", trait: "anhedonia", kind: "dup", text: "那些从前让你乐在其中的事情，现在是否几乎都提不起兴趣去做了？" },
     { id: "mania_dup", trait: "mania", kind: "dup", text: "你是否曾经连续几天几乎不需要睡觉却依然精力旺盛，思绪一个接一个停不下来？" },
@@ -2997,7 +3322,7 @@ function computeScores(answers) {
     });
 }
 
-/* ===== 回答可信度：一致性复问与主问的差异 ≤ 0.5 记为一致 ===== */
+/* ===== 回答回答一致性：一致性复问与主问的差异 ≤ 0.5 记为一致 ===== */
 function computeCredibility() {
     const pairs = [];
     for (const q of allQuestions) {
@@ -3007,7 +3332,7 @@ function computeCredibility() {
             pairs.push([userAnswers[mainId], userAnswers[q.id]]);
         }
     }
-    if (pairs.length < 2) return null; // 对数不足，不给可信度评级
+    if (pairs.length < 2) return null; // 对数不足，不给回答一致性评级
     const consistent = pairs.filter(([a, b]) => Math.abs(a - b) <= 0.5).length;
     return { rate: consistent / pairs.length, total: pairs.length, consistent };
 }
@@ -3019,9 +3344,9 @@ function computeLies() {
     if (lieIds.length === 0) return null;
     const total = lieIds.reduce((s, qid) => s + Math.max(0, userAnswers[qid]), 0);
     let level = "可信";
-    let detail = "效度题中未出现明显的理想化作答倾向，本次结果可信度较高。";
+    let detail = "效度题中未出现明显的理想化作答倾向，本次结果回答一致性较高。";
     if (total > 3) {
-        level = "可信度存疑";
+        level = "回答一致性存疑";
         detail = "您有多道效度题选择了“非常符合/比较符合”，可能存在美化回答的倾向。本次评估结果请谨慎参考，建议放松心态后重新作答。";
     } else if (total > 1.5) {
         level = "存在理想化倾向";
@@ -3168,12 +3493,12 @@ function showResults() {
     els.confidenceBadge.textContent = conf.label;
     els.confidenceBadge.className = `confidence ${conf.cls}`;
 
-    // 回答可信度：基于一致性复问与主问的吻合程度
+    // 回答回答一致性：基于一致性复问与主问的吻合程度
     const cred = computeCredibility();
     if (cred) {
-        const credConf = cred.rate >= 0.8 ? { label: "可信度 · 高", cls: "high" }
-            : cred.rate >= 0.5 ? { label: "可信度 · 中", cls: "mid" }
-            : { label: "可信度 · 低", cls: "low" };
+        const credConf = cred.rate >= 0.8 ? { label: "回答一致性 · 高", cls: "high" }
+            : cred.rate >= 0.5 ? { label: "回答一致性 · 中", cls: "mid" }
+            : { label: "回答一致性 · 低", cls: "low" };
         els.credibilityBadge.textContent = credConf.label;
         els.credibilityBadge.className = `confidence ${credConf.cls}`;
         els.credibilityBadge.classList.remove("hidden");
@@ -3272,7 +3597,7 @@ function showResults() {
         ok.className = "result-ok";
         ok.innerHTML = `
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 5-5.5"/></svg>
-            <div class="result-ok-text"><b>评估结果良好</b><p>未发现达到提示标准的疑似疾病信号，请保持良好生活节律。</p></div>`;
+            <div class="result-ok-text"><b>评估结果良好</b><p>未发现达到提示标准的需要关注的特征信号，请保持良好生活节律。</p></div>`;
         els.resultsList.appendChild(ok);
     } else {
         shown.forEach((item, idx) => {
@@ -3286,7 +3611,7 @@ function showResults() {
                 : "";
             const levelTag = severe
                 ? `<span class="chip-severe">程度较重</span>`
-                : `<span class="suspect-tag">疑似疾病</span>`;
+                : `<span class="suspect-tag">相关特征方向</span>`;
             row.innerHTML = `
                 <div class="result-top">
                     <span class="rank-badge r${idx + 1}">${idx + 1}</span>
@@ -3331,7 +3656,7 @@ function showResults() {
     }
     els.summaryNote.textContent = summaryNote;
 
-    // 维度评估：20 项核心维度，逐项显示评分与程度分级（轻度/中度/重度/极重度）
+    // 维度评估：20 项核心维度，逐项显示评分与程度分级（较低/中等/较高/明显）
     const CORE_TRAITS = ["low_mood", "anhedonia", "mania", "panic", "compulsion", "trauma",
         "sleep_issue", "focus_loss", "social_deficits", "social_fear", "body_image", "somatization",
         "hallucination", "impulse", "suicide", "energy_loss", "irritability", "self_esteem",
@@ -3751,7 +4076,7 @@ if (exportTxtBtn) {
             P.push("");
         }
         if (!els.lieBox.classList.contains("hidden")) {
-            P.push("【作答效度评估】");
+            P.push("【回答一致性评估】");
             P.push(`${els.lieLevel.textContent}：${els.lieDetail.textContent}`);
             P.push("");
         }
@@ -3801,9 +4126,9 @@ document.addEventListener("keydown", e => {
     }
 });
 
-/* ===== 皮肤切换（医院 / 夜间 / 护眼 / 学术 / 薄荷 / 雾蓝 / 暖咖 / 墨绿） ===== */
+/* ===== 皮肤切换（正式默认 / 夜间 / 护眼 / 学术 / 薄荷 / 雾蓝 / 暖咖 / 墨绿） ===== */
 const SKINS = [
-    { id: "hospital", name: "默认", swatch: ["#eef3f7", "#ffffff", "#0b6e99", "#0a5d8f"] },
+    { id: "hospital", name: "正式", swatch: ["#eef1f3", "#ffffff", "#234a68", "#183b55"] },
     { id: "dark", name: "夜间", swatch: ["#0e1c2b", "#16283a", "#58aede", "#0a3550"] },
     { id: "paper", name: "护眼", swatch: ["#f4efe6", "#fffdf8", "#2e6b62", "#2e6b62"] },
     { id: "academic", name: "学术", swatch: ["#f4f6f8", "#ffffff", "#2f5d8a", "#2f5d8a"] },
@@ -3933,6 +4258,75 @@ els.gameArea.classList.add("hidden");
 els.startArea.classList.remove("hidden");
 els.progressRow.classList.add("hidden");
 els.progressTrack.classList.add("hidden");
+</script>
+
+
+<script>
+(function(){
+  function makeReportId(){
+    const d=new Date();
+    const pad=n=>String(n).padStart(2,"0");
+    const rand=Math.random().toString(16).slice(2,6).toUpperCase();
+    return `MH-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${rand}`;
+  }
+  window.getFormalReportId=function(){
+    try{
+      let id=localStorage.getItem("formal_report_id");
+      if(!id){ id=makeReportId(); localStorage.setItem("formal_report_id",id); }
+      return id;
+    }catch(e){ return makeReportId(); }
+  };
+  document.addEventListener("DOMContentLoaded",function(){
+    const id=window.getFormalReportId();
+    document.querySelectorAll("[data-report-id]").forEach(el=>el.textContent=id);
+  });
+})();
+</script>
+
+
+<script>
+(function(){
+  function esc(s){
+    return String(s||"").replace(/[&<>"']/g,function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function addReportEnhancements(){
+    const root = document.querySelector("#results, .results-page, .result-report");
+    if(!root || root.dataset.formalV2) return;
+    root.dataset.formalV2="1";
+
+    const id = (window.getFormalReportId && window.getFormalReportId()) || "";
+    const idEls = root.querySelectorAll("[data-report-id]");
+    idEls.forEach(el=>el.textContent=id);
+
+    // Insert a methodology statement near the beginning of the result area.
+    const anchor = root.querySelector("h1,h2,.results-cover,.report-cover");
+    if(anchor && !root.querySelector(".formal-report-summary")){
+      const box=document.createElement("section");
+      box.className="formal-report-summary";
+      box.innerHTML =
+        '<h3>本报告如何理解</h3>' +
+        '<p>本报告呈现的是本次自评回答所反映的相对特征信号，用于帮助了解当前状态与自我观察方向。各维度分级属于本工具内部的描述性分级，不应直接理解为疾病诊断、临床分期或医学结论。</p>' +
+        '<p>如果某些结果与近期真实体验明显不一致，应以实际生活状态、持续时间和专业评估作为更重要的参考。</p>';
+      anchor.parentNode.insertBefore(box, anchor.nextSibling);
+    }
+
+    // Add a compact disclaimer if none is present.
+    const text=root.innerText||"";
+    if(!/不构成临床诊断|不作为诊断|仅供科普/.test(text)){
+      const d=document.createElement("div");
+      d.className="formal-report-disclaimer";
+      d.textContent="说明：本工具用于自我了解与科普教育，不替代专业心理/精神卫生评估。单次自评结果不能单独用于判断是否存在某种精神心理疾病。";
+      root.appendChild(d);
+    }
+  }
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",addReportEnhancements);
+  }else{
+    addReportEnhancements();
+  }
+})();
 </script>
 
 </body>
