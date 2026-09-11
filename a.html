@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="心理健康多维自评量表：基于多维特征模型的心理健康自评工具，覆盖20个核心特征维度。本工具仅供科普教育用途，不构成临床诊断。本工具各维度及分级用于描述本次自评中的相对特征信号，不等同于经过临床验证的诊断标准或疾病筛查结论。">
+    <meta name="description" content="心理健康多维自评量表：基于多维特征模型的心理健康自评工具，覆盖20个核心特征维度。本工具仅供娱乐与自我了解参考（科普教育用途），不构成临床诊断，不能替代专业医疗。本工具各维度及分级用于描述本次自评中的相对特征信号，不等同于经过临床验证的诊断标准或疾病筛查结论。">
     <title>心理健康多维自评量表</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%23234a68'/%3E%3Cpath%20d='M16%208v16M8%2016h16'%20stroke='white'%20stroke-width='3'%20stroke-linecap='round'/%3E%3C/svg%3E">
     <style>
@@ -683,7 +683,7 @@
             justify-content: center;
         }
 
-        .brand-logo svg { width: 30px; height: 30px; color: var(--primary-deep); }
+        .brand-logo svg { width: 30px; height: 30px; color: #e03131; }
 
         .brand-title {
             font-size: 1.32rem;
@@ -1997,6 +1997,30 @@
             border-bottom: 1px dashed var(--primary);
         }
 
+        /* ===== 免责横幅（多位置通用） ===== */
+        .disclaim-banner {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            margin: 10px 0 14px;
+            padding: 10px 12px;
+            background: var(--panel-soft);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--warn);
+            border-radius: var(--radius);
+            font-size: 0.78rem;
+            color: var(--text-soft);
+            line-height: 1.6;
+        }
+        .disclaim-banner svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: var(--warn);
+        }
+        .disclaim-banner b, .disclaim-banner strong { color: var(--text-soft); font-weight: 600; }
+
         .disclaimer .help-line a:hover { color: var(--primary-dark); }
 
         .credit-line {
@@ -2220,6 +2244,7 @@
         <div class="modal-head" id="consent-title">使用须知与知情同意</div>
         <div class="modal-body">
             <p>本量表为<strong>科普教育用途</strong>的心理健康自评工具，用于帮助您了解自身心理状态的总体倾向。开始前请阅读以下说明：</p>
+            <p class="disclaim-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 9.5V14"/><circle cx="12" cy="16.8" r="0.6" fill="currentColor"/></svg><span>本量表<strong>仅供娱乐与自我了解参考</strong>，不能替代专业医疗诊断、治疗或急救；如您正经历严重情绪困扰，请优先寻求专业帮助。</span></p>
             <ul>
                 <li>评估结果仅反映您的回答倾向，<strong>不构成任何临床诊断或医学建议</strong>，不应作为就医依据。</li>
                 <li>作答数据仅在您的浏览器本地处理，不会上传至任何服务器；关闭页面后自动清除。</li>
@@ -2335,6 +2360,7 @@
         <section id="start-area">
             <div class="mode-card">
                 <h2 class="section-title">选择评估模式</h2>
+                <div class="disclaim-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 9.5V14"/><circle cx="12" cy="16.8" r="0.6" fill="currentColor"/></svg><span>本量表<strong>仅供娱乐与自我了解参考</strong>，不构成任何临床诊断或医学建议，<strong>不能替代专业医疗</strong>；评估结果不应作为就医依据。如您正经历严重困扰，请优先寻求专业帮助。</span></div>
                 <p class="mode-intro">四种评估模式均覆盖全部 20 个核心特征维度：极简自测每维度一题、共 20 题；其余模式题量更多、分析更细致，并内置 5 道回答一致性校验题。请根据您的可用时间选择：</p>
                 <div class="plan-list">
                     <button class="plan-card" id="btn-light" type="button">
@@ -2417,7 +2443,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
                     评估结果正常
                 </div>
-                <p class="normal-body">恭喜！您的回答未显示明显的精神心理困扰信号。请继续保持规律的作息与良好的生活习惯，并定期关注自己的情绪状态。</p>
+                <p class="normal-body">您的回答未显示明显的精神心理困扰信号。请继续保持规律的作息与良好的生活习惯，并定期关注自己的情绪状态。</p>
             </div>
 
             <div class="severe-warning hidden" id="severe-warning">
@@ -2448,6 +2474,8 @@
                     <span class="confidence hidden" id="credibility-badge"></span>
                 </div>
             </div>
+
+            <div class="disclaim-banner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 9.5V14"/><circle cx="12" cy="16.8" r="0.6" fill="currentColor"/></svg><span>本报告由您的在线作答自动生成，<strong>仅供娱乐与自我了解参考</strong>，不构成诊断或医学建议，不能替代专业医疗；如存在持续困扰，请寻求精神科或心理专业人员帮助。</span></div>
 
             <!-- 评估摘要 -->
             <div class="module-card summary-card" id="summary-box">
@@ -2500,7 +2528,7 @@
 
             <div class="traits-overview" id="traits-overview">
                 <div class="section-title">维度评估（20 项核心维度）</div>
-                <p class="overview-hint">评分基于您全部回答加权计算（−1.00 完全不符合 ～ +1.00 完全符合），程度按评分绝对值分四级：轻度 / 中度 / 较高 / 明显。</p>
+                <p class="overview-hint">评分基于您全部回答加权计算（−1.00 完全不符合 ～ +1.00 完全符合），程度按评分绝对值分级：极重度 / 重度 / 中度 / 轻度 / 正常 / 未见异常 / 无数据；答“不确定”的维度按正常档显示。</p>
                 <p class="overview-stats" id="overview-stats"></p>
                 <div class="traits-grid" id="traits-grid"></div>
             </div>
@@ -2517,6 +2545,7 @@
                 <span id="traits-chips"></span>
             </div>
 
+            <p class="overview-hint result-hint">以下百分比为与常见表现模式的<b>特征吻合度</b>参考值，仅反映本次回答与该类典型特征的相似程度，不代表患病概率，也不构成诊断。</p>
             <div id="results-list"></div>
 
             <!-- 专业建议 -->
@@ -2527,8 +2556,8 @@
 
             <!-- 报告落款 -->
             <div class="report-footer">
-                <div class="report-footer-line">本报告由「心理健康多维自评量表」依据您的在线作答自动生成，仅供自我了解与科普参考，不构成临床诊断或医学建议。如存在持续困扰，请及时寻求精神科或心理专业人员的帮助。</div>
-                <div class="report-footer-meta">量表编制：AnonUsAl · 云术工作室　|　版本 V2.3　|　生成时间：<span id="report-gen-time"></span></div>
+                <div class="report-footer-line">本报告由「心理健康多维自评量表」依据您的在线作答自动生成，仅供娱乐与自我了解参考，不构成临床诊断或医学建议，不能替代专业医疗。如存在持续困扰，请及时寻求精神科或心理专业人员的帮助。</div>
+                <div class="report-footer-meta">量表编制：AnonUsAl · 云术工作室　|　版本 V2.9　|　生成时间：<span id="report-gen-time"></span></div>
             </div>
 
             <!-- 评估历史（本地保存） -->
@@ -2550,10 +2579,10 @@
         <footer class="disclaimer">
             <div class="warn-line">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 9.5V14"/><circle cx="12" cy="16.8" r="0.6" fill="currentColor"/></svg>
-                <span>本量表基于简化特征模型编制，仅供<b>科普教育用途</b>，不具备任何临床心理学或精神医学诊断功能，评估结果不应作为就医依据。</span>
+                <span>本量表基于简化特征模型编制，仅供<b>娱乐与自我了解参考（科普教育用途）</b>，不具备任何临床心理学或精神医学诊断功能，<b>不能替代专业医疗</b>，评估结果不应作为就医依据。</span>
             </div>
             <div class="help-line" id="help-line">如您或身边的人正经历情绪困扰，请及时寻求专业心理帮助，可拨打全国统一心理援助热线<a href="tel:12356">12356</a>（24 小时、免费）。</div>
-            <div class="credit-line">本量表由 AnonUsAl 编制 · 版本 V2.3</div>
+            <div class="credit-line">本量表由 AnonUsAl 编制 · 版本 V2.9</div>
             <div class="promo-line">
                 <span>云术工作室 · 免费专业量表服务：<a href="https://pt.cldery.com/" target="_blank" rel="noopener noreferrer nofollow">pt.cldery.com</a></span>
             </div>
@@ -2598,19 +2627,19 @@ const conditions = [
         id: "mdd",
         name: "重性抑郁障碍 (MDD)",
         desc: "以持续心境低落、兴趣减退和精力下降为核心表现的心境障碍。",
-        traits: { low_mood: 1.0, anhedonia: 1.0, sleep_issue: 0.8, energy_loss: 0.9, mania: -1.0, panic: 0.2, compulsion: -0.2, trauma: 0.1, social_deficits: 0.1, social_fear: 0.2, body_image: -0.2, somatization: 0.4, hallucination: 0.1, impulse: 0.1, suicide: 0.7, irritability: 0.6, self_esteem: 0.9, paranoia: 0.1, appetite: 0.6 }
+        traits: { low_mood: 1.0, anhedonia: 1.0, sleep_issue: 0.8, energy_loss: 0.9, focus_loss: 0.3, mania: -1.0, somatization: 0.4, suicide: 0.7, irritability: 0.6, self_esteem: 0.9, appetite: 0.6 }
     },
     {
         id: "gad",
         name: "广泛性焦虑障碍 (GAD)",
         desc: "以对多种日常事务的过度担忧与紧张不安为核心表现的焦虑障碍。",
-        traits: { low_mood: 0.4, anhedonia: 0.1, sleep_issue: 0.7, energy_loss: 0.5, mania: -0.8, panic: 0.9, compulsion: 0.1, trauma: 0.2, social_deficits: 0.0, social_fear: 0.5, body_image: 0.1, somatization: 0.6, hallucination: 0.05, impulse: 0.15, suicide: 0.2, energy_loss: 0.5, irritability: 0.6, self_esteem: 0.3, paranoia: 0.1, appetite: 0.3 }
+        traits: { low_mood: 0.4, anhedonia: 0.1, sleep_issue: 0.7, energy_loss: 0.5, focus_loss: 0.4, mania: -0.8, panic: 0.9, compulsion: 0.1, trauma: 0.2, social_deficits: 0.0, social_fear: 0.5, body_image: 0.1, somatization: 0.6, hallucination: 0.05, impulse: 0.15, suicide: 0.2, irritability: 0.6, self_esteem: 0.3, paranoia: 0.1, appetite: 0.3 }
     },
     {
         id: "bipolar_1",
         name: "双相情感障碍 (I型/II型)",
         desc: "以躁狂或轻躁狂发作与抑郁发作交替出现为特征的心境障碍。",
-        traits: { low_mood: 0.8, anhedonia: 0.6, sleep_issue: 0.8, energy_loss: 0.4, mania: 1.0, panic: 0.2, compulsion: -0.2, trauma: 0.2, social_deficits: -0.1, social_fear: 0.1, body_image: 0.0, somatization: 0.2, hallucination: 0.35, impulse: 0.5, suicide: 0.45, energy_loss: 0.4, irritability: 0.7, self_esteem: 0.4, paranoia: 0.4, appetite: 0.3 }
+        traits: { low_mood: 0.8, anhedonia: 0.6, sleep_issue: 0.8, energy_loss: 0.4, mania: 1.0, panic: 0.2, compulsion: -0.2, trauma: 0.2, social_deficits: -0.1, social_fear: 0.1, body_image: 0.0, somatization: 0.2, hallucination: 0.35, impulse: 0.5, suicide: 0.45, irritability: 0.7, self_esteem: 0.4, paranoia: 0.4, appetite: 0.3 }
     },
     {
         id: "ocd",
@@ -2658,7 +2687,7 @@ const conditions = [
         id: "somat",
         name: "躯体症状障碍 (Somatic)",
         desc: "以多种难以用医学解释的身体不适为主要表现的躯体症状障碍。",
-        traits: { somatization: 1.0, panic: 0.5, sleep_issue: 0.5, low_mood: 0.4, anhedonia: 0.3, energy_loss: 0.5, impulse: 0.1, suicide: 0.2, social_fear: 0.2, compulsion: 0.1, trauma: 0.1, mania: -0.5, body_image: 0.2, hallucination: 0.05, energy_loss: 0.5, irritability: 0.3, self_esteem: 0.3, paranoia: 0.1, appetite: 0.3 }
+        traits: { somatization: 1.0, panic: 0.5, sleep_issue: 0.5, low_mood: 0.4, anhedonia: 0.3, energy_loss: 0.5, impulse: 0.1, suicide: 0.2, social_fear: 0.2, compulsion: 0.1, trauma: 0.1, mania: -0.5, body_image: 0.2, hallucination: 0.05, irritability: 0.3, self_esteem: 0.3, paranoia: 0.1, appetite: 0.3 }
     },
     {
         id: "ied",
@@ -2698,7 +2727,7 @@ const conditions = [
     }
 ];
 
-/* ===== 数据：问题库（主问 11 + 一致性复问 10 + 严重度问 10）=====
+/* ===== 数据：问题库（20 个核心特征主问 + 一致性复问 dup + 严重度问 sev + 生活场景题 life + 效度题 lie）=====
  * kind: main=核心特征题 / dup=同特征换措辞（校验回答一致性，用于回答一致性）/ sev=严重程度题（频率、时长、影响）
  * trait: 该题映射回的核心特征 id
  */
@@ -2729,7 +2758,7 @@ const allQuestions = [
     { id: "trauma_dup", trait: "trauma", kind: "dup", text: "以前经历过的吓人的事，会不会突然在脑子里重演，让你像又经历了一遍一样难受？" },
     { id: "sleep_dup", trait: "sleep_issue", kind: "dup", text: "你的睡眠是不是一直不太好——难入睡、半夜醒或者醒太早，白天也没精神？" },
     { id: "focus_dup", trait: "focus_loss", kind: "dup", text: "你是不是经常走神、丢三落四，连简单的事也容易拖到最后才做？" },
-    { id: "social_dup", trait: "social_fear", kind: "dup", text: "被陌生人看着、或者要在人前说话时，你会不会紧张到手心冒汗、说话都不利索？" },
+    { id: "social_fear_dup", trait: "social_fear", kind: "dup", text: "被陌生人看着、或者要在人前说话时，你会不会紧张到手心冒汗、说话都不利索？" },
     { id: "body_dup", trait: "body_image", kind: "dup", text: "你会不会总盯着体重数字和身材看，一焦虑就刻意少吃甚至不吃饭？" },
     { id: "somatization_dup", trait: "somatization", kind: "dup", text: "一紧张或压力大，你身体就跟着出状况，比如胸闷、拉肚子、肌肉发紧，可检查又没事？" },
     { id: "hallucination_dup", trait: "hallucination", kind: "dup", text: "身边明明没人，你有没有听到过有人说话、叫你名字，或者在议论你？" },
@@ -2741,16 +2770,16 @@ const allQuestions = [
     { id: "anhedonia_sev", trait: "anhedonia", kind: "sev", text: "对什么都提不起劲的状态，是不是已经明显影响到你的学习、工作或者跟人来往？" },
     { id: "mania_sev", trait: "mania", kind: "sev", text: "那种特别亢奋的状态有没有连续持续好几天，还让你做出一些平时不会做的冲动事？" },
     { id: "panic_sev", trait: "panic", kind: "sev", text: "紧张心慌是不是发作得特别频繁，已经影响到日常活动，或者让你开始躲着某些场合？" },
-    { id: "compulsion_sev", trait: "compulsion", kind: "sev", text: "这些反复的念头或动作，是不是每天都要花掉你大把时间，想停也停不下来？" },
+    { id: "compulsion_sev", trait: "compulsion", kind: "sev", text: "反复出现的念头或动作，是不是每天都要花掉你大把时间，想停也停不下来？" },
     { id: "trauma_sev", trait: "trauma", kind: "sev", text: "那些不好的回忆是不是频繁冒出来，让你睡不着、躲着相关的场景，甚至影响正常生活？" },
     { id: "sleep_sev", trait: "sleep_issue", kind: "sev", text: "睡不好是不是让你白天特别累、注意力也变差，而且已经持续好一阵子了？" },
     { id: "focus_sev", trait: "focus_loss", kind: "sev", text: "注意力不集中的问题是不是从小就有，一直影响你的学习、工作或者做事效率？" },
     { id: "social_sev", trait: "social_fear", kind: "sev", text: "因为害怕社交场合，你是不是已经开始躲着聚会、推掉一些机会？" },
     { id: "body_sev", trait: "body_image", kind: "sev", text: "对体重和身材的担心，是不是已经让你体重掉了不少，或者影响到健康和生活？" },
-    { id: "somatization_sev", trait: "somatization", kind: "sev", text: "这些身体不舒服是不是频繁到影响工作、学习或睡觉，甚至让你一趟趟跑医院？" },
+    { id: "somatization_sev", trait: "somatization", kind: "sev", text: "身体上的不舒服是不是频繁到影响工作、学习或睡觉，甚至让你一趟趟跑医院？" },
     { id: "hallucination_sev", trait: "hallucination", kind: "sev", text: "这种听到或看到不存在的东西的经历，是不是反复出现，让你害怕、困扰，甚至影响生活？" },
     { id: "impulse_sev", trait: "impulse", kind: "sev", text: "这种控制不住的冲动是不是反复出现，已经影响到你的人际关系、工作，或者给你惹过麻烦？" },
-    { id: "suicide_sev", trait: "suicide", kind: "sev", text: "这些念头是不是经常冒出来，甚至你还认真想过具体的方式和计划？" },
+    { id: "suicide_sev", trait: "suicide", kind: "sev", text: "自杀的念头是不是经常冒出来，甚至你还认真想过具体的方式和计划？" },
     /* --- 深度补充：一致性复问（第 2 组） --- */
     { id: "low_mood_dup2", trait: "low_mood", kind: "dup", text: "就算遇到开心的事，你是不是也笑不出来，心里总像压着块石头？" },
     { id: "anhedonia_dup2", trait: "anhedonia", kind: "dup", text: "以前的爱好，像运动、打游戏、看书、追剧，你现在是不是都提不起劲？" },
@@ -2781,9 +2810,9 @@ const allQuestions = [
     { id: "social_fear_sev2", trait: "social_fear", kind: "sev", text: "因为害怕社交，你是不是错过过聚会、面试、公开课这类机会，事后还责怪自己？" },
     { id: "body_sev2", trait: "body_image", kind: "sev", text: "对体重身材的执念，是不是已经让你明显消瘦、没力气，甚至出现停经之类的健康问题？" },
     { id: "somatization_sev2", trait: "somatization", kind: "sev", text: "身体不舒服是不是让你反复请假、跑了好几趟医院，却一直查不出明确原因？" },
-    { id: "hallucination_sev2", trait: "hallucination", kind: "sev", text: "这些奇怪的感知是不是让你怀疑自己是不是出问题了，还不敢让别人知道？" },
+    { id: "hallucination_sev2", trait: "hallucination", kind: "sev", text: "奇怪的感知是不是让你怀疑自己出了问题，还不敢让别人知道？" },
     { id: "impulse_sev2", trait: "impulse", kind: "sev", text: "冲动行事有没有让你跟亲友闹翻、丢了工作，或者卷入过冲突纠纷？" },
-    { id: "suicide_sev2", trait: "suicide", kind: "sev", text: "这些念头是不是已经影响到你的正常生活，让你没法集中注意力、吃不下饭也睡不着觉？" },
+    { id: "suicide_sev2", trait: "suicide", kind: "sev", text: "自杀的念头是不是已经影响到你的正常生活，让你没法集中注意力、吃不下饭也睡不着觉？" },
 
     /* --- 深度补充：生活场景题（第 1 组） --- */
     { id: "low_mood_life1", trait: "low_mood", kind: "life", text: "早上刚醒来时，你是不是常觉得比睡前更沉重，连起床的力气都没有？" },
@@ -2817,7 +2846,7 @@ const allQuestions = [
     { id: "social_fear_life2", trait: "social_fear", kind: "life", text: "聚会结束后，你是不是会一遍遍回想自己当时的表现，越想越觉得自己出了丑？" },
     { id: "body_life2", trait: "body_image", kind: "life", text: "吃饱之后你会不会特别内疚，然后想办法催吐、节食或者拼命运动来“补偿”？" },
     { id: "somatization_life2", trait: "somatization", kind: "life", text: "你有没有过身体不舒服却查不出原因，等心情一好，症状也跟着减轻的经历？" },
-    { id: "hallucination_life2", trait: "hallucination", kind: "life", text: "出现这些奇怪的感知时，你是不是会害怕、脑子发乱，甚至不敢一个人待在房间里？" },
+    { id: "hallucination_life2", trait: "hallucination", kind: "life", text: "出现奇怪的感知时，你是不是会害怕、脑子发乱，甚至不敢一个人待在房间里？" },
     { id: "impulse_life2", trait: "impulse", kind: "life", text: "冲动过后你是不是常特别后悔，可下一次来了还是控制不住自己？" },
     { id: "suicide_life2", trait: "suicide", kind: "life", text: "身边一个人的时候，你是不是更容易冒出关于死亡、想离开的强烈念头？" },
 
@@ -2852,7 +2881,7 @@ const allQuestions = [
     { id: "paranoia_main", trait: "paranoia", kind: "main", text: "就算没什么证据，你是不是也常觉得别人在议论你、针对你？" },
     { id: "paranoia_dup", trait: "paranoia", kind: "dup", text: "你是不是常怀疑身边人的用意，觉得他们表面客气、背后另有目的？" },
     { id: "paranoia_dup2", trait: "paranoia", kind: "dup", text: "别人看你一眼、低声说句话这种普通小事，你是不是常会觉得是在说自己？" },
-    { id: "paranoia_sev", trait: "paranoia", kind: "sev", text: "这些疑心是不是已经影响你信任别人，甚至让你很难跟人正常相处？" },
+    { id: "paranoia_sev", trait: "paranoia", kind: "sev", text: "疑心是不是已经影响你信任别人，甚至让你很难跟人正常相处？" },
     { id: "paranoia_sev2", trait: "paranoia", kind: "sev", text: "你有没有过因为认定别人针对你而跟人激烈对峙，结果发现只是一场误会？" },
     { id: "paranoia_life1", trait: "paranoia", kind: "life", text: "在公共场合，你是不是常觉得有陌生人在注意你、议论你？" },
     { id: "paranoia_life2", trait: "paranoia", kind: "life", text: "朋友或同事开个玩笑，你是不是常觉得是在旁敲侧击地针对你？" },
@@ -3216,13 +3245,22 @@ function computeSeverity() {
     const sevAnswers = [];
     const strongTraits = [];
     for (const q of allQuestions) {
-        if (q.kind !== "sev" || userAnswers[q.id] === undefined) continue;
+        if (q.kind === "lie" || userAnswers[q.id] === undefined) continue;
         sevAnswers.push(userAnswers[q.id]);
         if (userAnswers[q.id] >= 0.5) strongTraits.push(traitLabels[q.trait]);
     }
     if (sevAnswers.length === 0) return null;
-    const avg = sevAnswers.reduce((a, b) => a + b, 0) / sevAnswers.length;
-    const level = avg <= -0.33 ? "轻度" : avg <= 0.33 ? "中度" : "较明显";
+    // 严重程度以"确认存在困扰"的正向回答为准：负向否认与"不确定"不稀释程度，
+    // 统计全部非效度题（主问全覆盖），消除快速模式随机抽题的波动；完全无正向确认时退回整体均值（未见异常/正常）
+    const positive = sevAnswers.filter(a => a > 0);
+    if (positive.length === 0) {
+        const avg = sevAnswers.reduce((a, b) => a + b, 0) / sevAnswers.length;
+        const level = avg < -0.25 ? "未见异常" : "正常";
+        const pct = Math.round(((avg + 1) / 2) * 100);
+        return { level, pct, strongTraits: [...new Set(strongTraits)].slice(0, 4) };
+    }
+    const avg = positive.reduce((a, b) => a + b, 0) / positive.length;
+    const level = avg < 0.45 ? "轻度" : avg < 0.65 ? "中度" : avg < 0.85 ? "重度" : "极重度";
     const pct = Math.round(((avg + 1) / 2) * 100);
     return { level, pct, strongTraits: [...new Set(strongTraits)].slice(0, 4) };
 }
@@ -3384,14 +3422,16 @@ function showResults() {
     if (sev) {
         els.severityBox.classList.remove("hidden");
         els.severityLevel.textContent = sev.level;
-        els.severityLevel.className = "severity-level " + (sev.level === "较明显" ? "lvl-high" : sev.level === "中度" ? "lvl-mid" : "lvl-low");
+        const sevHigh = sev.level === "极重度" || sev.level === "重度";
+        const sevMid = sev.level === "中度";
+        els.severityLevel.className = "severity-level " + (sevHigh ? "lvl-high" : sevMid ? "lvl-mid" : "lvl-low");
         els.severityDetail.textContent = sev.strongTraits.length > 0
             ? `您回答中强度较高的方面：${sev.strongTraits.join("、")}。`
             : "您回答的各项困扰程度整体处于较低水平。";
         requestAnimationFrame(() => {
             els.severityFill.style.width = `${sev.pct}%`;
-            // 严重程度条按级别着色：较明显 → 红、中度 → 橙、轻度 → 绿
-            els.severityFill.style.background = sev.level === "较明显" ? "var(--severe)" : sev.level === "中度" ? "var(--warn)" : "var(--ok)";
+            // 严重程度条按级别着色：极重度/重度 → 红、中度 → 橙、轻度及以下 → 绿
+            els.severityFill.style.background = sevHigh ? "var(--severe)" : sevMid ? "var(--warn)" : "var(--ok)";
         });
     } else {
         els.severityBox.classList.add("hidden");
@@ -3463,14 +3503,14 @@ function showResults() {
         shown.forEach((item, idx) => {
             const row = document.createElement("div");
             row.className = "result-item";
-            const severe = item.score >= 60; // 达到较高匹配度 → 红色"程度较重"
+            const severe = item.score >= 60; // 达到较高特征吻合度 → 红色"信号较强"
             if (severe) row.classList.add("severe");
             const reasons = topReasons(item.cond, traitScores);
             const reasonHtml = reasons.length > 0
                 ? `<div class="result-reason"><span class="reason-label">匹配依据</span>${reasons.join("、")}</div>`
                 : "";
             const levelTag = severe
-                ? `<span class="chip-severe">程度较重</span>`
+                ? `<span class="chip-severe">信号较强</span>`
                 : `<span class="suspect-tag">相关特征方向</span>`;
             row.innerHTML = `
                 <div class="result-top">
@@ -3494,16 +3534,16 @@ function showResults() {
 
     // 评估摘要：总体信号强度 / 主要特征方向 / 严重信号 / 参考匹配
     const posCount = Object.keys(traitScores).filter(t => traitScores[t] > 0.3).length;
-    const sumLevel = isNormal ? "未见明显信号" : (sev ? sev.level : "信号较弱");
+    const sumLevel = isNormal ? "正常" : (sev ? sev.level : "轻度");
     const sumLevelCls = isNormal ? "sum-ok"
-        : (sev && sev.level === "较明显") ? "sum-severe"
+        : (sev && (sev.level === "极重度" || sev.level === "重度")) ? "sum-severe"
         : (sev && sev.level === "中度") ? "sum-warn" : "sum-ok";
     els.summaryLevel.textContent = sumLevel;
     els.summaryLevel.className = `summary-value ${sumLevelCls}`;
     els.summaryTraits.textContent = topTraits.length > 0 ? topTraits.join("、") : "无明显特征方向";
     els.summarySevere.textContent = severeUnique.length > 0 ? "检出（详见安全提示）" : "未检出";
     els.summarySevere.className = `summary-value ${severeUnique.length > 0 ? "sum-severe" : "sum-ok"}`;
-    els.summaryMatch.textContent = shown.length > 0 ? `${shown[0].cond.name}（匹配度 ${shown[0].score}%）` : "未达提示阈值";
+    els.summaryMatch.textContent = shown.length > 0 ? `${shown[0].cond.name}（特征吻合度 ${shown[0].score}%）` : "未达提示阈值";
     let summaryNote;
     if (severeUnique.length > 0) {
         summaryNote = "本次回答包含需要重视的安全信号，请优先参照上方安全提示采取行动，并尽快安排专业评估。";
@@ -3516,13 +3556,14 @@ function showResults() {
     }
     els.summaryNote.textContent = summaryNote;
 
-    // 维度评估：20 项核心维度，逐项显示评分与程度分级（较低/中等/较高/明显）
+    // 维度评估：20 项核心维度，逐项显示评分与程度分级（正常/轻度/中度/重度/极重度，负向为未见异常，未作答为无数据）
     const CORE_TRAITS = ["low_mood", "anhedonia", "mania", "panic", "compulsion", "trauma",
         "sleep_issue", "focus_loss", "social_deficits", "social_fear", "body_image", "somatization",
         "hallucination", "impulse", "suicide", "energy_loss", "irritability", "self_esteem",
         "paranoia", "appetite"];
 
     function traitLevel(s) {
+        // 0 = 全部答"不确定"或正负信号相互抵消，视为无有效信息，按正常档显示（不标注异常）
         if (s < -0.25) return { text: "未见异常", cls: "lvl-none" };
         const a = Math.abs(s);
         if (a < 0.25) return { text: "正常", cls: "lvl-none" };
@@ -3763,17 +3804,17 @@ function buildAdvice(traitScores, sev, severeSignals) {
     const posAvg = posEntries.length > 0
         ? posEntries.reduce((s, x) => s + x.v, 0) / posEntries.length
         : 0;
-    const sevLevel = sev ? sev.level : (posAvg > 0.45 ? "较明显" : posAvg > 0.25 ? "中度" : "轻度");
+    const sevLevel = sev ? sev.level : (posAvg > 0.65 ? "重度" : posAvg > 0.45 ? "中度" : posAvg > 0.25 ? "轻度" : "正常");
 
     if (severeSignals.length > 0) {
         parts.push(`<div class="advice-block"><h4 class="advice-sub">总体建议</h4>
             <div class="advice-alert"><b>请优先处理安全事项：</b>您回答中出现了${severeSignals.join("、")}相关信号。请立即联系信任的亲友，或拨打全国统一心理援助热线 <b>12356</b>（24 小时、免费）；若念头强烈或已有具体计划，请拨打 <b>120</b> 或前往就近医院急诊，并尽快安排精神科评估。</div></div>`);
-    } else if (sevLevel === "较明显") {
+    } else if (sevLevel === "极重度" || sevLevel === "重度") {
         parts.push(`<div class="advice-block"><h4 class="advice-sub">总体建议</h4>
             <p class="advice-text">您回答中的多项信号较强，建议近期安排一次专业评估（精神科或心理门诊），不要独自应对。本量表结果可作为与专业人员沟通时的参考材料。</p></div>`);
     } else if (sevLevel === "中度") {
         parts.push(`<div class="advice-block"><h4 class="advice-sub">总体建议</h4>
-            <p class="advice-text">您回答中部分方面存在信号，建议在未来 2–4 周关注这些方面的变化，尝试下方针对性建议；若持续无改善，建议进行专业咨询。</p></div>`);
+            <p class="advice-text">您回答中部分方面存在信号，建议在未来 2–4 周关注对应方面的变化，尝试下方针对性建议；若持续无改善，建议进行专业咨询。</p></div>`);
     } else {
         parts.push(`<div class="advice-block"><h4 class="advice-sub">总体建议</h4>
             <p class="advice-text">您回答整体信号较弱。建议保持规律作息、适度运动与稳定的社交联结，并定期关注自己的情绪状态。</p></div>`);
@@ -3797,7 +3838,7 @@ function buildAdvice(traitScores, sev, severeSignals) {
     }
 
     // —— 日常建议 ——
-    const isMild = severeSignals.length === 0 && sevLevel === "轻度";
+    const isMild = severeSignals.length === 0 && (sevLevel === "轻度" || sevLevel === "正常" || sevLevel === "未见异常");
     const connectItem = isMild
         ? `<li><b>联结：</b>与家人、朋友保持定期联系，分享生活中的点滴，维系稳定的社会支持。</li>`
         : `<li><b>联结：</b>与家人、朋友保持定期联系；如情绪困扰持续存在，请及时寻求专业帮助。</li>`;
@@ -3811,7 +3852,7 @@ function buildAdvice(traitScores, sev, severeSignals) {
     let followUp;
     if (severeSignals.length > 0) {
         followUp = "本次回答包含需要重视的信号，建议尽快（1 周内）安排专业评估；若经评估无需干预，可在专业指导下制定复测计划。";
-    } else if (sevLevel === "较明显") {
+    } else if (sevLevel === "极重度" || sevLevel === "重度") {
         followUp = "建议 2–4 周后复测一次，观察变化趋势；若期间症状加重，请提前寻求专业评估。";
     } else if (sevLevel === "中度") {
         followUp = "建议 1 个月后复测；期间保持规律作息与适度运动，记录情绪波动的时间与诱因。";
@@ -3899,7 +3940,7 @@ if (copySummaryBtn) {
             `严重信号：${els.summarySevere.textContent}`,
             `参考匹配：${els.summaryMatch.textContent}`,
             `摘要说明：${els.summaryNote.textContent}`,
-            "本报告由「心理健康多维自评量表」自动生成，仅供自我了解与科普参考，不构成临床诊断或医学建议。"
+            "本报告由「心理健康多维自评量表」自动生成，仅供娱乐与自我了解参考，不构成临床诊断或医学建议，不能替代专业医疗。"
         ];
         copyText(lines.join("\n"), () => {
             copySummaryBtn.textContent = "已复制 ✓";
@@ -3957,8 +3998,8 @@ if (exportTxtBtn) {
             P.push(els.adviceContent.innerText.trim());
             P.push("");
         }
-        P.push("本报告由「心理健康多维自评量表」自动生成，仅供自我了解与科普参考，不构成临床诊断或医学建议。");
-        P.push(`量表编制：AnonUsAl · 云术工作室　|　版本 V2.3　|　生成时间：${els.reportGenTime ? els.reportGenTime.textContent : ""}`);
+        P.push("本报告由「心理健康多维自评量表」自动生成，仅供娱乐与自我了解参考，不构成临床诊断或医学建议，不能替代专业医疗。");
+        P.push(`量表编制：AnonUsAl · 云术工作室　|　版本 V2.9　|　生成时间：${els.reportGenTime ? els.reportGenTime.textContent : ""}`);
         const blob = new Blob(["\ufeff" + P.join("\n")], { type: "text/plain;charset=utf-8" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
