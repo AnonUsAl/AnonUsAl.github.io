@@ -630,20 +630,6 @@
   }
   body.low-performance.win11-mode .terminal,body.low-performance #win-taskbar,body.low-performance #win-start-menu{-webkit-backdrop-filter:none;backdrop-filter:none;}
 
-  #click-badge{
-    position:fixed;
-    top:16px; right:16px;
-    font-family:'Share Tech Mono','SFMono-Regular','PingFang SC',monospace;
-    font-size:12px;
-    color:var(--muted);
-    background:rgba(15,20,27,0.75);
-    border:1px solid var(--border);
-    padding:6px 10px;
-    border-radius:6px;
-    z-index:51;
-    backdrop-filter:blur(4px);
-  }
-  #click-badge b{color:var(--accent); font-weight:500;}
 
   /* ---- custom cursor ---- */
   #cursor-dot, #cursor-ring{
@@ -1082,7 +1068,6 @@
   <canvas id="fx-canvas"></canvas>
   <canvas id="matrix-canvas"></canvas>
 
-  <div id="click-badge">clicks: <b id="click-count">0</b></div>
   <div id="toast"></div>
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
@@ -1773,8 +1758,6 @@
     const ctx = canvas.getContext('2d');
     const colors = ['#8be9c1', '#ff9770', '#dbe2ea'];
     let particles = [];
-    let clickCount = 0;
-    const clickCountEl = document.getElementById('click-count');
 
     function resize(){
       canvas.width = window.innerWidth;
@@ -1805,8 +1788,6 @@
     }
 
     document.addEventListener('click', (e) => {
-      clickCount++;
-      clickCountEl.textContent = clickCount;
       if(!reduceMotion) spawnBurst(e.clientX, e.clientY, 16);
     });
 
