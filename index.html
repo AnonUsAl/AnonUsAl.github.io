@@ -819,6 +819,68 @@
     .link-row .val{font-size:14.5px;}
     .footer{font-size:14px;}
   }
+
+  /* Refined Windows desktop shell */
+  .win-window-controls{display:none;align-items:stretch;height:32px;margin:-8px -14px -8px auto;}
+  .win-window-controls span{display:grid;place-items:center;width:42px;color:#34445b;font:14px/1 "Segoe UI",sans-serif;}
+  .windows-mark{display:grid;grid-template-columns:repeat(2,8px);grid-template-rows:repeat(2,8px);gap:2px;width:max-content;margin:auto;}
+  .windows-mark i{display:block;background:#0878d1;}
+  .win-start-search{display:flex;align-items:center;gap:10px;margin:0 0 22px;padding:10px 13px;border:1px solid #d8e0eb;border-radius:7px;background:#fff;color:#728097;font-size:13px;}
+  .win-start-search span{font-size:18px;color:#526982;}
+  body.win11-mode{--text:#25334a;--muted:#64738a;min-height:100vh;padding:30px 18px 100px;background:radial-gradient(ellipse at 12% 5%,rgba(139,199,255,.34),transparent 34%),radial-gradient(ellipse at 90% 92%,rgba(200,217,255,.48),transparent 38%),linear-gradient(135deg,#eaf3fc,#dce9f6 55%,#e8eef9);font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;}
+  body.win11-mode::before{opacity:.08;}
+  body.win11-mode::after{opacity:0;}
+  body.win11-mode .stage{max-width:1000px;}
+  body.win11-mode .stage::before{display:none;}
+  body.win11-mode .terminal{overflow:hidden;border:1px solid rgba(95,121,153,.23);border-radius:12px;background:rgba(249,251,254,.96);box-shadow:0 18px 50px rgba(44,68,101,.17);transform:none;will-change:auto;backdrop-filter:none;-webkit-backdrop-filter:none;}
+  body.win11-mode .terminal::after,body.win11-mode .glare{display:none;}
+  body.win11-mode .titlebar{min-height:48px;padding:8px 14px;gap:10px;background:#f3f6fa;border-bottom:1px solid #e1e7ef;font-family:inherit;}
+  body.win11-mode .dot,body.win11-mode .shell-badge{display:none;}
+  body.win11-mode .titlebar .path{margin:0;color:#45556c;font:500 13px/1.4 "Segoe UI","Microsoft YaHei",sans-serif;}
+  body.win11-mode .titlebar .path::before{content:"▣";color:#0878d1;margin-right:9px;}
+  body.win11-mode .win-window-controls{display:flex;}
+  body.win11-mode .win-window-controls span:last-child:hover{background:#c42b1c;color:#fff;}
+  body.win11-mode .body{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);grid-template-areas:"hero hero" "role role" "about skills" "interests status" "learning affiliation" "contacts contacts" "terminal terminal";gap:12px;padding:24px;color:#25334a;font:14px/1.65 "Segoe UI","Microsoft YaHei",system-ui,sans-serif;}
+  body.win11-mode .body>.cmdline{display:none!important;}
+  body.win11-mode .body>.name{grid-area:hero;margin:0;padding:3px 4px 8px;background:none;color:#172338;-webkit-text-fill-color:#172338;text-shadow:none;filter:none;letter-spacing:-.035em;text-transform:none;font:700 clamp(32px,4vw,44px)/1.12 "Segoe UI","Microsoft YaHei",sans-serif;}
+  body.win11-mode .name::before,body.win11-mode .name::after{display:none;}
+  body.win11-mode .name .subtitle{display:block;margin-top:7px;color:#66768c;-webkit-text-fill:currentColor;font:400 14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif;letter-spacing:0;}
+  body.win11-mode .body>.role{grid-area:role;display:flex;align-items:center;gap:12px;margin:0 0 3px;padding:10px 13px;border:1px solid #e3e9f1;border-radius:9px;background:#f2f6fb;color:#56677e;font:400 14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif;}
+  body.win11-mode .role::before{content:"AU";display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#dbeeff;color:#0878d1;font-size:12px;font-weight:700;}
+  body.win11-mode .about{grid-area:about;}.win11-mode .skills-box{grid-area:skills;}.win11-mode .interests{grid-area:interests;}
+  body.win11-mode .status-line{grid-area:status;}.win11-mode .section{grid-area:learning;}.win11-mode .affil{grid-area:affiliation;}
+  body.win11-mode .links{grid-area:contacts;}.win11-mode #live-term{grid-area:terminal;}
+  body.win11-mode .about,body.win11-mode .skills-box,body.win11-mode .interests,body.win11-mode .status-line,body.win11-mode .section,body.win11-mode .affil,body.win11-mode .links,body.win11-mode #live-term{position:relative;min-width:0;margin:0;padding:16px;border:1px solid #e2e8f0;border-radius:9px;background:#fff;box-shadow:0 2px 5px rgba(40,60,87,.035);}
+  body.win11-mode .about::before,body.win11-mode .skills-box::before,body.win11-mode .interests::before,body.win11-mode .section::before,body.win11-mode .affil::before,body.win11-mode .links::before,body.win11-mode #live-term::before{display:block;margin-bottom:10px;color:#26364c;font-size:14px;font-weight:650;line-height:1.3;}
+  body.win11-mode .about::before{content:"关于我";}body.win11-mode .skills-box::before{content:"技能";}body.win11-mode .interests::before{content:"兴趣";}
+  body.win11-mode .section::before{content:"学习计划";}body.win11-mode .affil::before{content:"所属组织";}body.win11-mode .links::before{content:"联系方式";}body.win11-mode #live-term::before{content:"终端";}
+  body.win11-mode .status-line{display:block;padding-top:42px;}
+  body.win11-mode .status-line::before{content:"目前状态";position:absolute;top:16px;left:16px;color:#26364c;font-size:14px;font-weight:650;line-height:1.3;}
+  body.win11-mode .about p{margin:0 0 10px;}.win11-mode .about p:last-child{margin-bottom:0;}
+  body.win11-mode .about .quote,body.win11-mode .about .mental{margin:10px 0;padding:10px 12px;border-radius:7px;background:#f3f6fa;color:#53637a;}
+  body.win11-mode .skills-box{white-space:normal;color:#34455d;overflow-wrap:anywhere;}
+  body.win11-mode .interests{list-style:none;padding-left:16px;}.win11-mode .interests li{margin:0 0 7px;}.win11-mode .interests li:last-child{margin-bottom:0;}
+  body.win11-mode .section .cmdline{display:none!important;}body.win11-mode .chips{display:flex;flex-wrap:wrap;gap:7px;}
+  body.win11-mode .chip,body.win11-mode .pill{border:1px solid #e0e8f2;border-radius:6px;background:#f2f6fb;color:#40536d;}
+  body.win11-mode .affil{align-self:start;}.win11-mode .links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 12px;}
+  body.win11-mode .link-row{min-width:0;margin:0;border-radius:6px;}.win11-mode .link-row .val{overflow-wrap:anywhere;}
+  body.win11-mode .footer,body.win11-mode .statusbar{display:none!important;}
+  body.win11-mode #live-term{margin:0;}
+  body.win11-mode #theme-btn,body.win11-mode .ui-mode-btn{flex-shrink:0;padding:6px 10px;border:1px solid #d7e0eb;border-radius:6px;background:#fff;color:#34455d;font:500 12px "Segoe UI","Microsoft YaHei",sans-serif;}
+  body.win11-mode #theme-btn{font-size:14px;}
+  body.win11-mode #theme-pop{border:1px solid #dce4ee;border-radius:8px;background:#fff;box-shadow:0 8px 24px rgba(36,57,84,.12);}
+  body.win11-mode #win-taskbar{min-height:48px;gap:8px;padding:5px 9px;border:1px solid rgba(255,255,255,.8);border-radius:10px;background:rgba(247,250,254,.94);box-shadow:0 6px 22px rgba(43,65,96,.18);color:#27364b;backdrop-filter:none;-webkit-backdrop-filter:none;}
+  body.win11-mode #win-start-button{width:38px;height:36px;border-radius:7px;}
+  body.win11-mode .win-taskbar-app{height:36px;padding:0 11px;border-left:1px solid #e2e8f0;border-radius:5px;background:#f0f5fb;}
+  body.win11-mode #win-start-menu{padding:20px;border:1px solid #dce4ee;border-radius:11px;background:#f5f8fc;box-shadow:0 14px 40px rgba(37,59,88,.2);backdrop-filter:none;-webkit-backdrop-filter:none;}
+  body.win11-mode .win-start-search{border-color:#d8e0eb;background:#fff;}
+  body.win11-mode .win-start-head{margin-bottom:12px;font-size:14px;}
+  body.win11-mode .win-start-pins a,body.win11-mode .win-start-pins button{border-color:#e0e7f0;border-radius:7px;background:#fff;}
+  body.win11-mode .win-start-pins a:hover,body.win11-mode .win-start-pins button:hover{background:#edf5fd;}
+  body.win11-mode .win-start-footer{border-color:#e0e7f0;}
+  @media(max-width:760px){body.win11-mode{padding:14px 10px 82px;}body.win11-mode .stage{max-width:100%;}body.win11-mode .body{grid-template-columns:minmax(0,1fr);grid-template-areas:"hero" "role" "about" "skills" "interests" "status" "learning" "affiliation" "contacts" "terminal";gap:9px;padding:14px;}body.win11-mode .links{grid-template-columns:minmax(0,1fr);}body.win11-mode .titlebar{gap:6px;padding:8px;}body.win11-mode .titlebar .path{font-size:11px;}body.win11-mode .win-window-controls{margin-right:-8px;}body.win11-mode .win-window-controls span{width:30px;}body.win11-mode #win-taskbar{bottom:8px;}}
+  body.low-performance.win11-mode .terminal,body.low-performance.win11-mode #win-taskbar,body.low-performance.win11-mode #win-start-menu{backdrop-filter:none;-webkit-backdrop-filter:none;}
+
 </style>
 </head>
 <body class="preboot">
@@ -841,6 +903,7 @@
         <button id="theme-btn" title="切换主题" aria-label="切换主题">🎨</button>
         <span class="shell-badge">zsh</span>
         <button id="ui-mode-btn" class="ui-mode-btn" type="button" aria-pressed="false">Win 11 模式</button>
+        <div class="win-window-controls" aria-hidden="true"><span>−</span><span>□</span><span>×</span></div>
       </div>
       <div id="theme-pop">
         <div class="swatch" data-theme="mint" title="mint"></div>
@@ -977,13 +1040,14 @@
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
   <div id="win-taskbar" hidden>
-    <button id="win-start-button" type="button" aria-label="打开开始菜单" aria-expanded="false">⊞</button>
+    <button id="win-start-button" type="button" aria-label="打开开始菜单" aria-expanded="false"><span class="windows-mark"><i></i><i></i><i></i><i></i></span></button>
     <button class="win-taskbar-app" type="button" aria-label="当前主页">▣ <span>AnonUsAl</span></button>
     <div class="win-taskbar-spacer"></div>
     <span id="win-taskbar-clock">--:--</span>
   </div>
   <div id="win-start-menu" hidden role="dialog" aria-label="开始菜单">
-    <div class="win-start-head"><strong>开始</strong><button id="win-close-menu" type="button" aria-label="关闭开始菜单">×</button></div>
+    <div class="win-start-search"><span>⌕</span>搜索应用、设置和文档</div>
+    <div class="win-start-head"><strong>已固定</strong><button id="win-close-menu" type="button" aria-label="关闭开始菜单">×</button></div>
     <div class="win-start-pins">
       <a href="https://github.com/AnonUsAl/" target="_blank" rel="noopener"><span>⌘</span>GitHub</a>
       <a href="mailto:albusp486@gmail.com"><span>✉</span>Email</a>
