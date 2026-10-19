@@ -906,10 +906,20 @@
 
   <script>
     'use strict';
-    const lowPerformance = navigator.connection?.saveData === true ||
+    const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const deviceMayBeLowPerformance = navigator.connection?.saveData === true ||
       (matchMedia('(max-width: 559px)').matches &&
        ((navigator.hardwareConcurrency || 4) <= 4 || (navigator.deviceMemory || 4) <= 4));
-    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches || lowPerformance;
+    let savedAnimationMode = null;
+    try{ savedAnimationMode = localStorage.getItem('anon-animation-mode'); }catch(e){}
+    const shouldAskAboutAnimations = deviceMayBeLowPerformance && savedAnimationMode === null && !prefersReducedMotion;
+    let disableAnimations = savedAnimationMode === 'off';
+    if(shouldAskAboutAnimations){
+      disableAnimations = window.confirm('检测到设备可能性能有限。是否关闭动画以减少卡顿？');
+      try{ localStorage.setItem('anon-animation-mode', disableAnimations ? 'off' : 'on'); }catch(e){}
+    }
+    const lowPerformance = disableAnimations;
+    const reduceMotion = prefersReducedMotion || lowPerformance;
     if(lowPerformance) document.body.classList.add('low-performance');
     const finePointer = matchMedia('(pointer: fine)').matches;
     let mouseNX = 0, mouseNY = 0; // normalized -1..1
