@@ -840,7 +840,7 @@
   body.win11-mode .titlebar .path::before{content:"▣";color:#0878d1;margin-right:9px;}
   body.win11-mode .win-window-controls{display:flex;}
   body.win11-mode .win-window-controls span:last-child:hover{background:#c42b1c;color:#fff;}
-  body.win11-mode .body{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);grid-template-areas:"hero hero" "role role" "about skills" "interests status" "learning affiliation" "contacts contacts" "terminal terminal";gap:12px;padding:24px;color:#25334a;font:14px/1.65 "Segoe UI","Microsoft YaHei",system-ui,sans-serif;}
+  body.win11-mode .body{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);grid-template-areas:"hero hero" "role role" "about about" "skills interests" "status status" "learning affiliation" "contacts contacts" "terminal terminal";gap:12px;padding:24px;color:#25334a;font:14px/1.65 "Segoe UI","Microsoft YaHei",system-ui,sans-serif;}
   body.win11-mode .body>.cmdline{display:none!important;}
   body.win11-mode .body>.name{grid-area:hero;margin:0;padding:3px 4px 8px;background:none;color:#172338;-webkit-text-fill-color:#172338;text-shadow:none;filter:none;letter-spacing:-.035em;text-transform:none;font:700 clamp(32px,4vw,44px)/1.12 "Segoe UI","Microsoft YaHei",sans-serif;}
   body.win11-mode .name::before,body.win11-mode .name::after{display:none;}
@@ -911,6 +911,16 @@
   body.win11-mode.win-dark-mode .win-start-pins a,body.win11-mode.win-dark-mode .win-start-pins button{border-color:#3a485b;background:#283547;color:#e3eaf4;}
   body.win11-mode.win-dark-mode .win-start-pins a:hover,body.win11-mode.win-dark-mode .win-start-pins button:hover{background:#33455c;}
   body.win11-mode.win-dark-mode .win-start-footer{border-color:#3b485a;color:#aab8ca;}
+
+
+  @media(max-width:760px){
+    body.win11-mode .win-window-controls{display:none!important;}
+    body.win11-mode .titlebar{gap:6px;}
+    body.win11-mode .titlebar .path{flex:1 1 auto;min-width:0;}
+    body.win11-mode #theme-btn{box-sizing:border-box;width:32px;height:30px;padding:0;}
+    body.win11-mode #win-dark-toggle{box-sizing:border-box;width:32px;height:30px;padding:0;}
+    body.win11-mode .ui-mode-btn{white-space:nowrap;padding:6px 8px;}
+  }
 
 </style>
 </head>
