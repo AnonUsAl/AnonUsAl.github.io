@@ -881,6 +881,37 @@
   @media(max-width:760px){body.win11-mode{padding:14px 10px 82px;}body.win11-mode .stage{max-width:100%;}body.win11-mode .body{grid-template-columns:minmax(0,1fr);grid-template-areas:"hero" "role" "about" "skills" "interests" "status" "learning" "affiliation" "contacts" "terminal";gap:9px;padding:14px;}body.win11-mode .links{grid-template-columns:minmax(0,1fr);}body.win11-mode .titlebar{gap:6px;padding:8px;}body.win11-mode .titlebar .path{font-size:11px;}body.win11-mode .win-window-controls{margin-right:-8px;}body.win11-mode .win-window-controls span{width:30px;}body.win11-mode #win-taskbar{bottom:8px;}}
   body.low-performance.win11-mode .terminal,body.low-performance.win11-mode #win-taskbar,body.low-performance.win11-mode #win-start-menu{backdrop-filter:none;-webkit-backdrop-filter:none;}
 
+
+  #win-dark-toggle{display:none;flex-shrink:0;cursor:pointer;padding:6px 10px;border:1px solid #d7e0eb;border-radius:6px;background:#fff;color:#34455d;font:600 15px/1 "Segoe UI","Microsoft YaHei",sans-serif;}
+  body.win11-mode #win-dark-toggle{display:block;}
+  body.win11-mode.win-dark-mode{--text:#e6edf7;--muted:#9aaac0;background:radial-gradient(ellipse at 12% 5%,rgba(37,85,135,.28),transparent 36%),radial-gradient(ellipse at 90% 92%,rgba(58,63,119,.22),transparent 38%),linear-gradient(135deg,#111827,#151d2b 55%,#171d30);color:#e6edf7;color-scheme:dark;}
+  body.win11-mode.win-dark-mode .terminal{border-color:#303c4e;background:#1d2735;box-shadow:0 18px 50px rgba(0,0,0,.32);}
+  body.win11-mode.win-dark-mode .titlebar{background:#182230;border-color:#2d394b;}
+  body.win11-mode.win-dark-mode .titlebar .path{color:#c3cfdf;}
+  body.win11-mode.win-dark-mode .win-window-controls span{color:#d5deeb;}
+  body.win11-mode.win-dark-mode .win-window-controls span:last-child:hover{background:#c42b1c;color:#fff;}
+  body.win11-mode.win-dark-mode .body{color:#dbe5f2;}
+  body.win11-mode.win-dark-mode .body>.name{color:#f0f5fc;-webkit-text-fill-color:#f0f5fc;}
+  body.win11-mode.win-dark-mode .name .subtitle{color:#9dadc2;-webkit-text-fill:currentColor;}
+  body.win11-mode.win-dark-mode .body>.role{border-color:#334154;background:#222f40;color:#b4c2d4;}
+  body.win11-mode.win-dark-mode .role::before{background:#293d56;color:#70b7ff;}
+  body.win11-mode.win-dark-mode .about,body.win11-mode.win-dark-mode .skills-box,body.win11-mode.win-dark-mode .interests,body.win11-mode.win-dark-mode .status-line,body.win11-mode.win-dark-mode .section,body.win11-mode.win-dark-mode .affil,body.win11-mode.win-dark-mode .links,body.win11-mode.win-dark-mode #live-term{border-color:#334052;background:#232e3d;color:#d4deeb;box-shadow:0 2px 5px rgba(0,0,0,.12);}
+  body.win11-mode.win-dark-mode .about::before,body.win11-mode.win-dark-mode .skills-box::before,body.win11-mode.win-dark-mode .interests::before,body.win11-mode.win-dark-mode .section::before,body.win11-mode.win-dark-mode .affil::before,body.win11-mode.win-dark-mode .links::before,body.win11-mode.win-dark-mode #live-term::before,body.win11-mode.win-dark-mode .status-line::before{color:#edf3fb;}
+  body.win11-mode.win-dark-mode .about .quote,body.win11-mode.win-dark-mode .about .mental{background:#1b2634;color:#b7c5d7;}
+  body.win11-mode.win-dark-mode .chip,body.win11-mode.win-dark-mode .pill{border-color:#3b4a5f;background:#2c3a4d;color:#d2deed;}
+  body.win11-mode.win-dark-mode .link-row{color:#dce7f5;}
+  body.win11-mode.win-dark-mode #theme-btn,body.win11-mode.win-dark-mode .ui-mode-btn,body.win11-mode.win-dark-mode #win-dark-toggle{border-color:#3b4a5f;background:#263344;color:#e0eafa;}
+  body.win11-mode.win-dark-mode #theme-pop{border-color:#3b4a5f;background:#202b3a;color:#e1eaf6;}
+  body.win11-mode.win-dark-mode #theme-pop .swatch{border-color:#627189;}
+  body.win11-mode.win-dark-mode #win-taskbar{border-color:#3c4655;background:rgba(30,40,54,.97);color:#e3eaf4;}
+  body.win11-mode.win-dark-mode .win-taskbar-app{border-color:#3c485a;background:#273547;}
+  body.win11-mode.win-dark-mode #win-start-menu{border-color:#3b4657;background:#202b3a;color:#e4ebf5;}
+  body.win11-mode.win-dark-mode .win-start-search{border-color:#3d4b5f;background:#182331;color:#9fadc0;}
+  body.win11-mode.win-dark-mode .win-start-search span{color:#acbdd3;}
+  body.win11-mode.win-dark-mode .win-start-pins a,body.win11-mode.win-dark-mode .win-start-pins button{border-color:#3a485b;background:#283547;color:#e3eaf4;}
+  body.win11-mode.win-dark-mode .win-start-pins a:hover,body.win11-mode.win-dark-mode .win-start-pins button:hover{background:#33455c;}
+  body.win11-mode.win-dark-mode .win-start-footer{border-color:#3b485a;color:#aab8ca;}
+
 </style>
 </head>
 <body class="preboot">
@@ -901,6 +932,7 @@
         <div class="dot green"></div>
         <span class="path">anon@localhost: ~/home — whoami</span>
         <button id="theme-btn" title="切换主题" aria-label="切换主题">🎨</button>
+        <button id="win-dark-toggle" type="button" aria-label="切换深色模式" aria-pressed="false" title="切换深色模式">☾</button>
         <span class="shell-badge">zsh</span>
         <button id="ui-mode-btn" class="ui-mode-btn" type="button" aria-pressed="false">Win 11 模式</button>
         <div class="win-window-controls" aria-hidden="true"><span>−</span><span>□</span><span>×</span></div>
@@ -1074,6 +1106,19 @@
     const reduceMotion = prefersReducedMotion || lowPerformance;
     if(lowPerformance) document.body.classList.add('low-performance');
     const uiModeButton = document.getElementById('ui-mode-btn');
+    const darkModeButton = document.getElementById('win-dark-toggle');
+    function setWinDarkMode(enabled, save = true){
+      document.body.classList.toggle('win-dark-mode', enabled);
+      darkModeButton.textContent = enabled ? '☀' : '☾';
+      darkModeButton.setAttribute('aria-pressed', String(enabled));
+      darkModeButton.setAttribute('aria-label', enabled ? '切换浅色模式' : '切换深色模式');
+      darkModeButton.title = enabled ? '切换浅色模式' : '切换深色模式';
+      if(save){ try{ localStorage.setItem('anon-win-dark-mode', enabled ? 'dark' : 'light'); }catch(e){} }
+    }
+    let savedWinTheme = null;
+    try{ savedWinTheme = localStorage.getItem('anon-win-dark-mode'); }catch(e){}
+    setWinDarkMode(savedWinTheme === 'dark', false);
+    darkModeButton.addEventListener('click', () => setWinDarkMode(!document.body.classList.contains('win-dark-mode')));
     const taskbar = document.getElementById('win-taskbar');
     const startMenu = document.getElementById('win-start-menu');
     const startButton = document.getElementById('win-start-button');
