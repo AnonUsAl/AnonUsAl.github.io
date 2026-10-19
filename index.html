@@ -551,6 +551,22 @@
   #three-canvas{position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.68;}
   #fx-canvas{position:fixed; inset:0; pointer-events:none; z-index:50;}
   #matrix-canvas{position:fixed; inset:0; pointer-events:none; z-index:44; opacity:0.62; display:none;}
+  body.low-performance .terminal::after,
+  body.low-performance .pill .pulse,
+  body.low-performance .footer .cursor-block,
+  body.low-performance .name.glitching,
+  body.low-performance .name.glitching::before,
+  body.low-performance .name.glitching::after,
+  body.low-performance .body > *,
+  body.low-performance .titlebar,
+  body.low-performance .statusbar{animation:none !important; opacity:1;}
+  body.low-performance .terminal::after{display:none;}
+  body.low-performance.hyper{animation:none;}
+  body.low-performance .glare{display:none;}
+  body.low-performance #toast,
+  body.low-performance #theme-pop{-webkit-backdrop-filter:none; backdrop-filter:none;}
+  body.low-performance #three-canvas,
+  body.low-performance #fx-canvas{display:none !important;}
 
   #click-badge{
     position:fixed;
@@ -888,17 +904,22 @@
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
     'use strict';
-    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const lowPerformance = navigator.connection?.saveData === true ||
+      (matchMedia('(max-width: 559px)').matches &&
+       ((navigator.hardwareConcurrency || 4) <= 4 || (navigator.deviceMemory || 4) <= 4));
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches || lowPerformance;
+    if(lowPerformance) document.body.classList.add('low-performance');
     const finePointer = matchMedia('(pointer: fine)').matches;
     let mouseNX = 0, mouseNY = 0; // normalized -1..1
 
-    document.addEventListener('mousemove', (e) => {
-      mouseNX = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseNY = (e.clientY / window.innerHeight) * 2 - 1;
-    });
+    if(!reduceMotion){
+      document.addEventListener('mousemove', (e) => {
+        mouseNX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseNY = (e.clientY / window.innerHeight) * 2 - 1;
+      });
+    }
 
     /* ================= toast ================= */
     const toastEl = document.getElementById('toast');
@@ -1073,13 +1094,15 @@
       nameEl.classList.add('glitching');
       setTimeout(() => nameEl.classList.remove('glitching'), 450);
     }
-    (function glitchLoop(){
-      setTimeout(() => { glitchName(); glitchLoop(); }, 3500 + Math.random() * 4500);
-    })();
+    if(!reduceMotion){
+      (function glitchLoop(){
+        setTimeout(() => { glitchName(); glitchLoop(); }, 3500 + Math.random() * 4500);
+      })();
+    }
 
     /* ================= WebGL starfield (three.js) ================= */
     let threeRenderer = null, threeScene = null, threeCamera = null, threePoints = null;
-    (function initThree(){
+    function initThree(){
       const canvas = document.getElementById('three-canvas');
       if(!window.THREE){ return; }
       try{
@@ -1134,11 +1157,11 @@
         fallbackCanvas.id = 'three-canvas';
         canvas.replaceWith(fallbackCanvas);
       }
-    })();
+    }
 
     /* fallback: 2D network if WebGL unavailable */
     let ambient2D = null;
-    (function initAmbient2D(){
+    function initAmbient2D(){
       if(threeRenderer) return;
       const ac = document.getElementById('three-canvas');
       if(!ac) return;
@@ -1192,7 +1215,26 @@
         });
         requestAnimationFrame(tick);
       })();
-    })();
+    }
+
+    function loadVisualEffects(){
+      const renderLabel = document.getElementById('sb-render');
+      if(lowPerformance){
+        renderLabel.textContent = 'low-power';
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+      script.async = true;
+      script.onload = () => {
+        initThree();
+        if(!threeRenderer) initAmbient2D();
+        resize();
+      };
+      script.onerror = initAmbient2D;
+      document.head.appendChild(script);
+    }
+    loadVisualEffects();
 
     /* ================= 3D tilt + glare (CSS 3D) ================= */
     const terminal = document.getElementById('terminal');
@@ -1276,6 +1318,7 @@
     }
     function setMatrix(on){
       if(on === matrixOn) return;
+      if(on && lowPerformance){ toast('matrix effect disabled in low-power mode'); return; }
       matrixOn = on;
       if(on){
         mCanvas.style.display = 'block';
@@ -1551,7 +1594,7 @@
       if(threeRenderer && threeScene) threeRenderer.render(threeScene, threeCamera);
       terminal.style.setProperty('--rx', '0deg');
       terminal.style.setProperty('--ry', '0deg');
-      fpsEl.textContent = 'reduced';
+      fpsEl.textContent = lowPerformance ? 'low-power' : 'reduced';
     }
   </script>
 
