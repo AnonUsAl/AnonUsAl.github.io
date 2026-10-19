@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AnonUsAl — ~/home</title>
-<meta name="description" content="AnonUsAl 的个人主页 · 高中生 · 计算机爱好者">
+<meta name="description" content="AnonUsAl 的个人主页 · 跨平台开发者 · Flutter / Nuxt / .NET / C++">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -941,6 +941,16 @@
   body.win11-mode.win-dark-mode .project-card small{color:#9aaac0;}
   @media(max-width:760px){body.win11-mode .body{grid-template-areas:"hero" "role" "about" "skills" "interests" "projects" "status" "learning" "affiliation" "contacts" "terminal";}body.win11-mode .project-grid{grid-template-columns:minmax(0,1fr);}}
 
+
+  .terminal-projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 26px;}
+  .terminal-projects a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:11px 12px;border:1px solid var(--border);border-radius:7px;background:rgba(255,255,255,.022);color:var(--text);text-decoration:none;}
+  .terminal-projects a:hover{border-color:var(--border-hi);background:rgba(139,233,193,.045);}
+  .terminal-projects strong{color:var(--accent);font-weight:600;}
+  .terminal-projects span{grid-column:1/-1;color:var(--muted);font-family:'PingFang SC','SFMono-Regular',sans-serif;font-size:12.5px;line-height:1.6;}
+  .terminal-projects small{color:var(--accent2);font-size:11px;}
+  body.win11-mode .terminal-projects{display:none!important;}
+  @media(max-width:680px){.terminal-projects{grid-template-columns:minmax(0,1fr);}}
+
 </style>
 </head>
 <body class="preboot">
@@ -977,15 +987,15 @@
       <div class="body">
         <div class="cmdline"><span class="prompt">$</span> <span class="cmd">whoami</span></div>
         <div class="name" id="name" data-text="AnonUsAl">AnonUsAl</div>
-        <div class="role">// 高中生 · 计算机爱好者</div>
+        <div class="role">// 跨平台开发者 · 云术工作室成员</div>
 
         <div class="cmdline"><span class="prompt">$</span> <span class="cmd">cat about.md</span></div>
         <div class="about">
-          <p>对<span class="hl-green">计算机</span>感兴趣，喜欢捣鼓和学习新东西。从最初对着教程敲代码，到现在会自己找问题、查资料、动手试错，慢慢摸索出一点自己的节奏。</p>
+          <p>我是一名<span class="hl-green">跨平台开发者</span>，也是云术工作室成员。平时从界面一路做到系统层：做 Flutter 应用、Nuxt 网站与 .NET 服务，也会折腾 C++、MFC 和 Windows 桌面程序。</p>
           <div class="quote">
-            平时会研究一些小项目，写点脚本，折腾折腾系统和工具，享受把一个想法一步步变成能跑起来的东西的过程——哪怕大部分时间都在 debug。
+            我喜欢把一个想法做成真正能用的项目。主导开发的 mood-tab 是一款跨平台情绪记录应用，数据保存在本机；除此之外，也参与团队心理测评平台，并持续改进 Windows 原生软件。
           </div>
-          <p>除了写代码，也喜欢逛<span class="hl-orange">开源项目</span>，看看别人是怎么写的、怎么解决问题的，从中学东西。</p>
+          <p>平时会逛<span class="hl-orange">开源项目</span>、研究本地 AI 工具，也关注网络基础与隐私保护，喜欢边做边学、把遇到的问题整理清楚。</p>
           <div class="mental">
             <p>患有<span class="strong">双相情感障碍和精神分裂症</span>。</p>
             <p>关注心理健康议题，希望精神类疾病能被更多人理解，而不是被贴标签或者回避。生病不等于脆弱，也不该是被区别对待的理由。</p>
@@ -996,10 +1006,11 @@
         <div class="cmdline"><span class="prompt">$</span> <span class="cmd">cat skills.json</span></div>
         <div class="skills-box">
           <div class="skills-json">
-<span class="k">"languages"</span>: ["Python", "JavaScript", "HTML/CSS", "Bash", "C"],<br>
-<span class="k">"learning"</span>: ["算法", "Linux", "网络基础"],<br>
-<span class="k">"networking"</span>: [<span class="s">"Tor"</span>, <span class="s">"I2P"</span>, <span class="s">"代理与匿名网络"</span>],<br>
-<span class="k">"tools"</span>: ["VS Code", "Git", "终端折腾"]
+<span class="k">"apps"</span>: ["Flutter 3", "Dart", "Kotlin", "Jetpack Compose", "Swift"],<br>
+<span class="k">"web"</span>: ["Vue 3", "Nuxt 4", "React 19", "TypeScript", "Astro", "VitePress"],<br>
+<span class="k">"backend_and_data"</span>: ["C#", ".NET 10", "ASP.NET Core", "EF Core", "SQL Server", "MySQL", "SQLite"],<br>
+<span class="k">"native_and_tools"</span>: ["C++", "MFC", "Win32", "CMake", "MSBuild", "Python", "Git", "Linux"],<br>
+<span class="k">"interests"</span>: [<span class="s">"本地 AI"</span>, <span class="s">"Tor / I2P"</span>, <span class="s">"开源与隐私"</span>]
           </div>
           <div class="skills-human">
             <div class="skill-topic"><strong>跨平台应用</strong><p>主要用 Flutter 和 Dart 做应用，也在学习 Kotlin 与 Jetpack Compose。主导开发了 mood-tab，一款把记录保存在本机的情绪记录应用。</p></div>
@@ -1025,25 +1036,35 @@
           </div>
         </div>
 
+
+        <div class="cmdline"><span class="prompt">$</span> <span class="cmd">cat projects.json</span></div>
+        <div class="terminal-projects">
+          <a href="https://github.com/ClouderyStudio/mood-tab" target="_blank" rel="noopener"><strong>mood-tab</strong><span>Flutter 情绪记录应用，支持 Windows、macOS、iOS 与 Android；本地存储、提醒、统计和报告导出。</span><small>Flutter · Dart · SQLite</small></a>
+          <a href="https://github.com/ClouderyStudio/psychology" target="_blank" rel="noopener"><strong>心理测评平台</strong><span>参与云术工作室的心理健康测评平台与配套服务开发。</span><small>Nuxt · Vue · TypeScript · .NET</small></a>
+          <a href="https://github.com/AnonUsAl/can-i-run-ai" target="_blank" rel="noopener"><strong>can-i-run-ai</strong><span>桌面工具，检测本机适合运行哪些 AI 模型，并估算运行速度。</span><small>Tauri · React · Rust</small></a>
+          <a href="https://github.com/AnonUsAl/SimpleRemoter" target="_blank" rel="noopener"><strong>SimpleRemoter</strong><span>参与开源远控程序改进，涉及 MFC 深色主题、高 DPI 适配与 Windows 构建。</span><small>C++ · MFC · Win32</small></a>
+        </div>
+
         <div class="cmdline"><span class="prompt">$</span> <span class="cmd">cat interests.txt</span></div>
         <ul class="interests">
-          <li>捣鼓电脑、装系统、折腾各种小工具</li>
-          <li>写点小脚本自动化生活里的琐事</li>
-          <li>逛开源项目，学别人的代码</li>
+          <li>把应用从一个代码库带到桌面端和手机端，处理不同系统的适配细节</li>
+          <li>改进 Windows 原生程序的界面、高清屏缩放和构建流程</li>
+          <li>研究本地 AI、开源软件，以及 Tor / I2P 等网络与隐私技术</li>
         </ul>
 
         <div class="cmdline"><span class="prompt">$</span> <span class="cmd">echo $STATUS</span></div>
         <div class="status-line">
-          <span class="ok">✓</span> 目前是高中生，课余时间自学计算机相关知识，欢迎交流 👋
+          <span class="ok">✓</span> 目前主要在做跨平台应用与 Web / 后端项目，也在继续探索 Windows 原生开发和本地 AI，欢迎交流 👋
         </div>
 
         <div class="section">
           <div class="cmdline" style="margin-bottom:10px;"><span class="prompt">$</span> <span class="cmd">uptime --learning</span></div>
           <div class="chips">
-            <span class="chip">算法</span>
-            <span class="chip">Linux</span>
-            <span class="chip">网络基础</span>
-            <span class="chip">Tor / I2P</span>
+            <span class="chip">Flutter 多端适配</span>
+            <span class="chip">Nuxt / .NET</span>
+            <span class="chip">C++ / MFC</span>
+            <span class="chip">本地 AI</span>
+            <span class="chip">Linux · Tor / I2P</span>
             <span class="pill"><span class="pulse"></span>正在学习中</span>
           </div>
         </div>
@@ -1310,7 +1331,7 @@
         'EMAIL;TYPE=INTERNET:albusp486@gmail.com',
         'URL:https://github.com/AnonUsAl/',
         'ORG:ClouderyStudio',
-        'NOTE:高中生 · 计算机爱好者 · 云术工作室成员',
+        'NOTE:跨平台开发者 · 云术工作室成员 · Flutter / Nuxt / .NET / C++',
         'END:VCARD'
       ].join('\r\n');
       const blob = new Blob([v], { type: 'text/vcard;charset=utf-8' });
@@ -1690,9 +1711,9 @@
         '      copy（复制联系方式） · vcard（下载名片） · theme <名称>',
         '趣味: matrix · hyper · glitch · sudo · clear'
       ].join('\n'),
-      whoami: () => 'AnonUsAl — 高中生 · 计算机爱好者 · 云术工作室成员',
-      about: () => '对计算机感兴趣，喜欢捣鼓和学习新东西，关注心理健康议题。',
-      skills: () => 'Python, JavaScript, HTML/CSS, Bash, C · 网络: Tor / I2P / 代理与匿名网络 · 正在学 算法 / Linux',
+      whoami: () => 'AnonUsAl — 跨平台开发者 · 云术工作室成员 · Flutter / Nuxt / .NET / C++',
+      about: () => '从界面到系统层做项目：跨平台应用、Web 与后端服务，也关注 Windows 原生开发。主导开发 mood-tab，并参与云术工作室的心理测评平台。',
+      skills: () => 'Flutter / Dart · Vue / Nuxt / React / TypeScript · C# / .NET / ASP.NET Core · C++ / MFC / Win32 · Python · Kotlin / Compose · Git / Linux · Tor / I2P',
       contact: () => 'Email: albusp486@gmail.com · QQ: 3353739856 · Telegram/LINE/WhatsApp: @AnonUsAl（或输入 copy 一键复制）',
       keys: () => '快捷键: / 聚焦输入框 · ↑↓ 历史命令 · Tab 补全 · Esc 清空退出 · ↑↑↓↓←→←→BA 有惊喜',
       date: () => new Date().toLocaleString('zh-CN', { hour12: false }),
