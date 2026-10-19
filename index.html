@@ -913,6 +913,34 @@
   @media(prefers-reduced-motion:reduce){.dock-app{transition:none;}}
   @media(max-width:520px){body:not(.win11-mode){padding-bottom:96px;}#mac-dock{bottom:10px;gap:7px;padding:7px 9px;border-radius:14px;}.dock-app{width:50px;height:54px;flex-basis:50px;}.dock-app svg{width:34px;height:34px;}}
 
+
+  body:not(.win11-mode) .skills-human,body:not(.win11-mode) .win-projects{display:none;}
+  body.win11-mode .body{grid-template-areas:"hero hero" "role role" "about about" "skills interests" "projects projects" "status status" "learning affiliation" "contacts contacts" "terminal terminal";}
+  body.win11-mode .skills-box{grid-area:skills;}
+  body.win11-mode .skills-json{display:none;}
+  body.win11-mode .skills-box::before{content:"技术方向与能力";}
+  body.win11-mode .skills-human{display:grid;gap:11px;}
+  body.win11-mode .skill-topic strong{display:block;margin-bottom:2px;color:#31445d;font-size:13px;}
+  body.win11-mode .skill-topic p{margin:0;color:#56677e;font-size:12.5px;line-height:1.6;}
+  body.win11-mode .win-projects{grid-area:projects;position:relative;min-width:0;margin:0;padding:16px;border:1px solid #e2e8f0;border-radius:9px;background:#fff;box-shadow:0 2px 5px rgba(40,60,87,.035);}
+  body.win11-mode .win-projects::before{content:"代表项目";display:block;margin-bottom:10px;color:#26364c;font-size:14px;font-weight:650;line-height:1.3;}
+  body.win11-mode .project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+  body.win11-mode .project-card{display:block;min-width:0;padding:12px;border:1px solid #e4eaf2;border-radius:7px;background:#f8fafd;color:#41536c;text-decoration:none;transition:background .15s,border-color .15s,transform .15s;}
+  body.win11-mode .project-card:hover{transform:translateY(-2px);border-color:#b7d5f2;background:#f0f7ff;}
+  body.win11-mode .project-card strong{display:flex;justify-content:space-between;gap:8px;color:#1d5fa9;font-size:13px;}
+  body.win11-mode .project-card p{margin:6px 0;color:#53637a;font-size:12.5px;line-height:1.55;}
+  body.win11-mode .project-card small{color:#7a899d;font-size:11px;}
+  body.win11-mode.win-dark-mode .skill-topic strong{color:#e8eff8;}
+  body.win11-mode.win-dark-mode .skill-topic p{color:#c2cedd;}
+  body.win11-mode.win-dark-mode .win-projects{border-color:#334052;background:#232e3d;box-shadow:0 2px 5px rgba(0,0,0,.12);}
+  body.win11-mode.win-dark-mode .win-projects::before{color:#edf3fb;}
+  body.win11-mode.win-dark-mode .project-card{border-color:#3b4a5f;background:#1d2938;color:#d4deeb;}
+  body.win11-mode.win-dark-mode .project-card:hover{border-color:#577da8;background:#26384c;}
+  body.win11-mode.win-dark-mode .project-card strong{color:#8cc6ff;}
+  body.win11-mode.win-dark-mode .project-card p{color:#c4d0df;}
+  body.win11-mode.win-dark-mode .project-card small{color:#9aaac0;}
+  @media(max-width:760px){body.win11-mode .body{grid-template-areas:"hero" "role" "about" "skills" "interests" "projects" "status" "learning" "affiliation" "contacts" "terminal";}body.win11-mode .project-grid{grid-template-columns:minmax(0,1fr);}}
+
 </style>
 </head>
 <body class="preboot">
@@ -967,10 +995,34 @@
 
         <div class="cmdline"><span class="prompt">$</span> <span class="cmd">cat skills.json</span></div>
         <div class="skills-box">
+          <div class="skills-json">
 <span class="k">"languages"</span>: ["Python", "JavaScript", "HTML/CSS", "Bash", "C"],<br>
 <span class="k">"learning"</span>: ["算法", "Linux", "网络基础"],<br>
 <span class="k">"networking"</span>: [<span class="s">"Tor"</span>, <span class="s">"I2P"</span>, <span class="s">"代理与匿名网络"</span>],<br>
 <span class="k">"tools"</span>: ["VS Code", "Git", "终端折腾"]
+          </div>
+          <div class="skills-human">
+            <div class="skill-topic"><strong>跨平台应用</strong><p>主要用 Flutter 和 Dart 做应用，也在学习 Kotlin 与 Jetpack Compose。主导开发了 mood-tab，一款把记录保存在本机的情绪记录应用。</p></div>
+            <div class="skill-topic"><strong>网站与后端</strong><p>使用 Vue、Nuxt、React 和 TypeScript 做网页，也用 C#、.NET、ASP.NET Core 和 EF Core 参与服务端开发。</p></div>
+            <div class="skill-topic"><strong>桌面与系统</strong><p>熟悉 Python、JavaScript、C++，会用 MFC、Win32、CMake；平时也折腾 Linux、Git 和开源项目。</p></div>
+            <div class="skill-topic"><strong>关注方向</strong><p>喜欢研究本地 AI 工具、网络基础和隐私保护，也会探索 Tor、I2P 等匿名网络。</p></div>
+          </div>
+        </div>
+        <div class="win-projects">
+          <div class="project-grid">
+            <a class="project-card" href="https://github.com/ClouderyStudio/mood-tab" target="_blank" rel="noopener">
+              <strong>mood-tab <span>↗</span></strong><p>跨平台情绪记录应用。支持本地保存、日历和趋势统计、提醒与报告导出，重视隐私。</p><small>Flutter · Windows / macOS / iOS / Android</small>
+            </a>
+            <a class="project-card" href="https://github.com/ClouderyStudio/psychology" target="_blank" rel="noopener">
+              <strong>心理测评平台 <span>↗</span></strong><p>和团队一起开发心理健康测评平台，整理测评流程与网页体验。</p><small>Nuxt · Vue · TypeScript</small>
+            </a>
+            <a class="project-card" href="https://github.com/AnonUsAl/can-i-run-ai" target="_blank" rel="noopener">
+              <strong>can-i-run-ai <span>↗</span></strong><p>桌面小工具，帮助判断这台电脑适合运行哪些 AI 模型、速度大概如何。</p><small>Tauri · React · Rust</small>
+            </a>
+            <a class="project-card" href="https://github.com/AnonUsAl/SimpleRemoter" target="_blank" rel="noopener">
+              <strong>SimpleRemoter <span>↗</span></strong><p>参与开源远程控制程序的改进，处理 MFC 深色界面、高 DPI 显示和构建说明。</p><small>C++ · MFC · Windows</small>
+            </a>
+          </div>
         </div>
 
         <div class="cmdline"><span class="prompt">$</span> <span class="cmd">cat interests.txt</span></div>
