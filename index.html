@@ -568,6 +568,78 @@
   body.low-performance #three-canvas,
   body.low-performance #fx-canvas{display:none !important;}
 
+  /* Windows 11-inspired desktop mode */
+  body.win11-mode{
+    --panel:rgba(247,250,255,0.82); --panel-2:rgba(236,243,252,0.90);
+    --border:rgba(43,64,92,0.12); --border-hi:rgba(43,64,92,0.18);
+    --text:#1b2432; --muted:#526176; --accent:#1768d2;
+    --accent-dim:rgba(23,104,210,0.10); --accent2:#0876d1;
+    background:
+      radial-gradient(ellipse 50% 60% at 82% 14%, rgba(86,163,255,0.42), transparent 72%),
+      radial-gradient(ellipse 55% 70% at 10% 85%, rgba(133,113,237,0.28), transparent 72%),
+      linear-gradient(135deg,#d8e9ff 0%,#eaf2ff 46%,#dceaff 100%);
+    color:var(--text);
+    font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+    align-items:center;
+    padding:32px 18px 92px;
+  }
+  body.win11-mode::before{opacity:.12; mask-image:none; -webkit-mask-image:none;}
+  body.win11-mode::after{opacity:.025;}
+  body.win11-mode .stage{max-width:1120px;}
+  body.win11-mode .stage::before{inset:-24px;filter:blur(38px);opacity:.45;background:radial-gradient(ellipse at 40% 0%,rgba(255,255,255,.7),transparent 65%);}
+  body.win11-mode .terminal{background:var(--panel);border:1px solid rgba(255,255,255,.7);border-radius:14px;box-shadow:0 28px 90px rgba(29,57,95,.22),0 2px 8px rgba(31,55,87,.08);transform:none;will-change:auto;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);}
+  body.win11-mode .terminal::after{display:none;}
+  body.win11-mode .titlebar{min-height:48px;padding:8px 14px;gap:10px;background:rgba(255,255,255,.54);border-bottom:1px solid rgba(47,70,102,.10);font-family:inherit;}
+  body.win11-mode .dot,body.win11-mode .shell-badge{display:none;}
+  body.win11-mode .titlebar .path{margin-left:0;color:#26354a;font:500 13px/1.4 "Segoe UI","Microsoft YaHei",sans-serif;}
+  body.win11-mode .titlebar .path::before{content:"▣";color:#0878d1;margin-right:9px;}
+  body.win11-mode .body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 18px;padding:26px;color:var(--text);font:14px/1.65 "Segoe UI","Microsoft YaHei",system-ui,sans-serif;}
+  body.win11-mode .body > :nth-child(1){grid-area:who;} body.win11-mode .body > :nth-child(2){grid-area:name;} body.win11-mode .body > :nth-child(3){grid-area:role;}
+  body.win11-mode .body > :nth-child(4){grid-area:about-title;} body.win11-mode .body > :nth-child(5){grid-area:about;}
+  body.win11-mode .body > :nth-child(6){grid-area:skills-title;} body.win11-mode .body > :nth-child(7){grid-area:skills;}
+  body.win11-mode .body > :nth-child(8){grid-area:interests-title;} body.win11-mode .body > :nth-child(9){grid-area:interests;}
+  body.win11-mode .body > :nth-child(10){grid-area:status-title;} body.win11-mode .body > :nth-child(11){grid-area:status;}
+  body.win11-mode .body > :nth-child(12){grid-area:learning;} body.win11-mode .body > :nth-child(13){grid-area:affil-title;}
+  body.win11-mode .body > :nth-child(14){grid-area:affil;} body.win11-mode .body > :nth-child(15){grid-area:contact-title;}
+  body.win11-mode .body > :nth-child(16){grid-area:contacts;} body.win11-mode .body > :nth-child(17){grid-area:footer;}
+  body.win11-mode .body > :nth-child(18){grid-area:live;}
+  body.win11-mode .body{grid-template-areas:"who who" "name name" "role role" "about-title skills-title" "about skills" "interests-title status-title" "interests status" "learning affil-title" "learning affil" "contact-title contact-title" "contacts contacts" "footer footer" "live live";}
+  body.win11-mode .cmdline{margin:4px 0 0;color:#47617f;font:600 11px/1.4 "Segoe UI",sans-serif;letter-spacing:.02em;}
+  body.win11-mode .prompt,body.win11-mode .cmd{color:inherit;}
+  body.win11-mode .name{display:block;margin:3px 0 0;filter:none;font:700 clamp(30px,4vw,42px)/1.12 "Segoe UI","Microsoft YaHei",sans-serif;letter-spacing:-.035em;text-transform:none;background:none;color:#172338;-webkit-text-fill-color:#172338;text-shadow:none;}
+  body.win11-mode .name .subtitle{color:#526176;font:400 14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif;margin-top:5px;}
+  body.win11-mode .role{color:#526176;font:400 14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif;}
+  body.win11-mode .about,body.win11-mode .skills-box,body.win11-mode .interests,body.win11-mode .status-line,body.win11-mode .section,body.win11-mode .affil,body.win11-mode .links,body.win11-mode #live-term{min-width:0;margin:0;padding:15px 16px;border:1px solid rgba(53,76,107,.10);border-radius:11px;background:rgba(255,255,255,.52);box-shadow:0 2px 8px rgba(36,59,89,.035);}
+  body.win11-mode .about p{margin-bottom:10px;}
+  body.win11-mode .about .quote,body.win11-mode .about .mental{background:rgba(230,239,251,.68);border-radius:8px;padding:10px 12px;}
+  body.win11-mode .skills-box{color:#26354a;white-space:normal;} body.win11-mode .interests{list-style:none;}
+  body.win11-mode .status-line{display:flex;align-items:flex-start;} body.win11-mode .section .cmdline{margin:0 0 8px !important;}
+  body.win11-mode .chips{gap:7px;} body.win11-mode .chip,body.win11-mode .pill{background:#edf4fc;border-color:rgba(55,91,134,.14);border-radius:7px;}
+  body.win11-mode .affil{align-self:start;} body.win11-mode .links{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;padding-top:12px;}
+  body.win11-mode .link-row{margin:0;border-radius:7px;} body.win11-mode .footer,body.win11-mode .statusbar{display:none;} body.win11-mode #live-term{margin:0;}
+  body.win11-mode #theme-btn,body.win11-mode .ui-mode-btn{color:#26354a;background:rgba(255,255,255,.58);border:1px solid rgba(54,77,107,.16);border-radius:7px;padding:5px 9px;font:500 12px "Segoe UI","Microsoft YaHei",sans-serif;}
+  body.win11-mode #theme-pop{background:rgba(249,252,255,.94);border-color:rgba(54,77,107,.15);}
+  .ui-mode-btn{flex-shrink:0;cursor:pointer;color:var(--accent);background:var(--accent-dim);border:1px solid rgba(139,233,193,.25);border-radius:6px;padding:4px 8px;font:11px 'Share Tech Mono',monospace;}
+  #win-taskbar[hidden],#win-start-menu[hidden]{display:none !important;}
+  #win-taskbar{position:fixed;z-index:85;left:50%;bottom:12px;transform:translateX(-50%);min-height:54px;display:flex;align-items:center;gap:9px;padding:7px 12px;border:1px solid rgba(255,255,255,.72);border-radius:13px;background:rgba(246,250,255,.76);box-shadow:0 8px 30px rgba(28,53,86,.18);color:#27364b;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);font:13px "Segoe UI","Microsoft YaHei",sans-serif;}
+  #win-taskbar button,#win-start-menu button,#win-start-menu a{font:inherit;color:inherit;text-decoration:none;}
+  #win-start-button{width:40px;height:38px;border:0;border-radius:8px;background:transparent;color:#0878d1 !important;font-size:24px !important;cursor:pointer;}
+  #win-start-button:hover,.win-taskbar-app:hover{background:rgba(67,128,205,.12);}
+  .win-taskbar-app{height:38px;padding:0 12px;border:0;border-radius:8px;background:transparent;cursor:pointer;}
+  .win-taskbar-spacer{width:clamp(8px,14vw,110px);} #win-taskbar-clock{font-size:12px;text-align:right;min-width:60px;}
+  #win-start-menu{position:fixed;z-index:84;left:50%;bottom:78px;transform:translateX(-50%);width:min(540px,calc(100vw - 24px));padding:22px;border:1px solid rgba(255,255,255,.82);border-radius:15px;background:rgba(246,250,255,.88);box-shadow:0 20px 60px rgba(27,52,86,.24);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);color:#1d2b40;font:14px "Segoe UI","Microsoft YaHei",sans-serif;}
+  .win-start-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;font-size:16px;font-weight:600;}
+  .win-start-head button{width:30px;height:30px;border:0;border-radius:6px;background:transparent;cursor:pointer;font-size:20px !important;}
+  .win-start-pins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+  .win-start-pins a,.win-start-pins button{display:flex;min-height:76px;flex-direction:column;align-items:center;justify-content:center;gap:7px;border:1px solid rgba(54,77,107,.10);border-radius:9px;background:rgba(255,255,255,.55);cursor:pointer;font-size:12px !important;}
+  .win-start-pins a span:first-child{font-size:21px;} .win-start-footer{margin-top:20px;padding-top:14px;border-top:1px solid rgba(54,77,107,.12);color:#5b6a7e;font-size:12px;}
+  @media (max-width:760px){
+    body.win11-mode{padding:18px 10px 82px;} body.win11-mode .stage{max-width:100%;}
+    body.win11-mode .body{grid-template-columns:minmax(0,1fr);grid-template-areas:"who" "name" "role" "about-title" "about" "skills-title" "skills" "interests-title" "interests" "status-title" "status" "learning" "affil-title" "affil" "contact-title" "contacts" "footer" "live";padding:18px 14px;gap:6px;}
+    body.win11-mode .links{grid-template-columns:1fr;} #win-taskbar{bottom:8px;} #win-start-menu{bottom:70px;padding:18px;}
+  }
+  body.low-performance.win11-mode .terminal,body.low-performance #win-taskbar,body.low-performance #win-start-menu{-webkit-backdrop-filter:none;backdrop-filter:none;}
+
   #click-badge{
     position:fixed;
     top:16px; right:16px;
@@ -768,6 +840,7 @@
         <span class="path">anon@localhost: ~/home — whoami</span>
         <button id="theme-btn" title="切换主题" aria-label="切换主题">🎨</button>
         <span class="shell-badge">zsh</span>
+        <button id="ui-mode-btn" class="ui-mode-btn" type="button" aria-pressed="false">Win 11 模式</button>
       </div>
       <div id="theme-pop">
         <div class="swatch" data-theme="mint" title="mint"></div>
@@ -903,6 +976,21 @@
   <div id="toast"></div>
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
+  <div id="win-taskbar" hidden>
+    <button id="win-start-button" type="button" aria-label="打开开始菜单" aria-expanded="false">⊞</button>
+    <button class="win-taskbar-app" type="button" aria-label="当前主页">▣ <span>AnonUsAl</span></button>
+    <div class="win-taskbar-spacer"></div>
+    <span id="win-taskbar-clock">--:--</span>
+  </div>
+  <div id="win-start-menu" hidden role="dialog" aria-label="开始菜单">
+    <div class="win-start-head"><strong>开始</strong><button id="win-close-menu" type="button" aria-label="关闭开始菜单">×</button></div>
+    <div class="win-start-pins">
+      <a href="https://github.com/AnonUsAl/" target="_blank" rel="noopener"><span>⌘</span>GitHub</a>
+      <a href="mailto:albusp486@gmail.com"><span>✉</span>Email</a>
+      <button id="win-terminal-mode" type="button"><span>▤</span>终端模式</button>
+    </div>
+    <div class="win-start-footer">AnonUsAl · 个人主页</div>
+  </div>
 
   <script>
     'use strict';
@@ -921,6 +1009,50 @@
     const lowPerformance = disableAnimations;
     const reduceMotion = prefersReducedMotion || lowPerformance;
     if(lowPerformance) document.body.classList.add('low-performance');
+    const uiModeButton = document.getElementById('ui-mode-btn');
+    const taskbar = document.getElementById('win-taskbar');
+    const startMenu = document.getElementById('win-start-menu');
+    const startButton = document.getElementById('win-start-button');
+    const pageTitle = document.title;
+    const pathLabel = document.querySelector('.titlebar .path');
+    const originalPathLabel = pathLabel.textContent;
+    function setUiMode(useWin11, save = true){
+      document.body.classList.toggle('win11-mode', useWin11);
+      uiModeButton.textContent = useWin11 ? '终端模式' : 'Win 11 模式';
+      uiModeButton.setAttribute('aria-pressed', String(useWin11));
+      taskbar.hidden = !useWin11;
+      startMenu.hidden = true;
+      startButton.setAttribute('aria-expanded', 'false');
+      pathLabel.textContent = useWin11 ? 'AnonUsAl — 个人主页' : originalPathLabel;
+      document.title = useWin11 ? 'AnonUsAl — 个人主页' : pageTitle;
+      if(save){ try{ localStorage.setItem('anon-ui-mode', useWin11 ? 'win11' : 'terminal'); }catch(e){} }
+    }
+    let savedUiMode = null;
+    try{ savedUiMode = localStorage.getItem('anon-ui-mode'); }catch(e){}
+    setUiMode(savedUiMode === 'win11', false);
+    uiModeButton.addEventListener('click', () => setUiMode(!document.body.classList.contains('win11-mode')));
+    startButton.addEventListener('click', () => {
+      startMenu.hidden = !startMenu.hidden;
+      startButton.setAttribute('aria-expanded', String(!startMenu.hidden));
+    });
+    document.getElementById('win-close-menu').addEventListener('click', () => {
+      startMenu.hidden = true; startButton.setAttribute('aria-expanded', 'false');
+    });
+    document.getElementById('win-terminal-mode').addEventListener('click', () => setUiMode(false));
+    document.addEventListener('click', (e) => {
+      if(!e.target.closest('#win-start-menu, #win-start-button')){
+        startMenu.hidden = true; startButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && !startMenu.hidden){
+        startMenu.hidden = true; startButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+    const taskbarClock = document.getElementById('win-taskbar-clock');
+    function updateTaskbarClock(){ taskbarClock.textContent = new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'}); }
+    updateTaskbarClock();
+    setInterval(updateTaskbarClock, 30000);
     const finePointer = matchMedia('(pointer: fine)').matches;
     let mouseNX = 0, mouseNY = 0; // normalized -1..1
 
