@@ -1217,7 +1217,7 @@
     }
     let savedWinTheme = null;
     try{ savedWinTheme = localStorage.getItem('anon-win-dark-mode'); }catch(e){}
-    setWinDarkMode(savedWinTheme === 'dark', false);
+    setWinDarkMode(savedWinTheme !== 'light', false);
     darkModeButton.addEventListener('click', () => setWinDarkMode(!document.body.classList.contains('win-dark-mode')));
     const taskbar = document.getElementById('win-taskbar');
     const startMenu = document.getElementById('win-start-menu');
