@@ -922,6 +922,21 @@
     body.win11-mode .ui-mode-btn{white-space:nowrap;padding:6px 8px;}
   }
 
+
+  #mac-dock{display:none;position:fixed;z-index:80;left:50%;bottom:16px;transform:translateX(-50%);align-items:flex-end;gap:10px;padding:9px 12px;border:1px solid rgba(255,255,255,.13);border-radius:16px;background:rgba(18,24,32,.82);box-shadow:0 10px 36px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.08);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);}
+  body:not(.win11-mode) #mac-dock{display:flex;}
+  body:not(.win11-mode){padding-bottom:112px;}
+  .dock-app{position:relative;display:flex;width:54px;height:58px;flex:0 0 54px;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;padding:5px 3px 0;border:0;border-radius:11px;background:transparent;color:var(--text);text-decoration:none;cursor:pointer;transition:transform .16s ease,background .16s ease;}
+  .dock-app svg{display:block;width:36px;height:36px;padding:7px;border-radius:10px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;background:linear-gradient(145deg,rgba(139,233,193,.2),rgba(130,170,255,.14));box-shadow:inset 0 1px rgba(255,255,255,.14);}
+  .dock-home svg{color:#8be9c1;}.dock-github svg{fill:#e4eaf1;stroke:none;padding:6px;}.dock-mail svg{color:#82aaff;background:linear-gradient(145deg,rgba(130,170,255,.28),rgba(122,245,255,.12));}.dock-terminal svg{color:#ffb08c;background:linear-gradient(145deg,rgba(255,151,112,.22),rgba(255,203,107,.12));}
+  .dock-app span{color:#dbe2ea;font:10px/1.2 "Segoe UI","PingFang SC",sans-serif;text-shadow:0 1px 4px rgba(0,0,0,.7);white-space:nowrap;}
+  .dock-app:hover,.dock-app:focus-visible{z-index:1;transform:translateY(-7px) scale(1.12);background:rgba(255,255,255,.1);outline:none;}
+  .dock-app:active{transform:translateY(-3px) scale(1.04);}
+  body.low-performance #mac-dock{backdrop-filter:none;-webkit-backdrop-filter:none;}
+  body.low-performance .dock-app{transition:none;}
+  @media(prefers-reduced-motion:reduce){.dock-app{transition:none;}}
+  @media(max-width:520px){body:not(.win11-mode){padding-bottom:96px;}#mac-dock{bottom:10px;gap:7px;padding:7px 9px;border-radius:14px;}.dock-app{width:50px;height:54px;flex-basis:50px;}.dock-app svg{width:34px;height:34px;}}
+
 </style>
 </head>
 <body class="preboot">
@@ -1081,6 +1096,24 @@
   <div id="toast"></div>
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
+  <nav id="mac-dock" aria-label="Mac 程序坞">
+    <a class="dock-app dock-home" href="#stage" aria-label="主页" title="主页">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+      <span>主页</span>
+    </a>
+    <a class="dock-app dock-github" href="https://github.com/AnonUsAl/" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.68-3.76-1.32-3.76-1.32-.5-1.3-1.24-1.64-1.24-1.64-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.62 1.22 3.26.93.1-.72.39-1.22.71-1.5-2.48-.28-5.08-1.24-5.08-5.52 0-1.22.44-2.22 1.16-3-.12-.29-.5-1.43.11-2.98 0 0 .95-.3 3.05 1.15a10.6 10.6 0 0 1 5.55 0c2.1-1.45 3.04-1.15 3.04-1.15.61 1.55.23 2.69.12 2.98.72.78 1.15 1.78 1.15 3.01 0 4.29-2.6 5.23-5.09 5.5.4.35.76 1.03.76 2.08v3.09c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg>
+      <span>GitHub</span>
+    </a>
+    <a class="dock-app dock-mail" href="mailto:albusp486@gmail.com" aria-label="邮件" title="邮件">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.5 6 8.5 7 8.5-7"/></svg>
+      <span>邮件</span>
+    </a>
+    <button class="dock-app dock-terminal" id="dock-terminal" type="button" aria-label="打开终端输入框" title="终端">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="3.5" width="19" height="17" rx="2.5"/><path d="m6.5 9 3 3-3 3m6 0h5"/></svg>
+      <span>终端</span>
+    </button>
+  </nav>
   <div id="win-taskbar" hidden>
     <button id="win-start-button" type="button" aria-label="打开开始菜单" aria-expanded="false"><span class="windows-mark"><i></i><i></i><i></i><i></i></span></button>
     <button class="win-taskbar-app" type="button" aria-label="当前主页">▣ <span>AnonUsAl</span></button>
@@ -1150,6 +1183,7 @@
     try{ savedUiMode = localStorage.getItem('anon-ui-mode'); }catch(e){}
     setUiMode(savedUiMode === 'win11', false);
     uiModeButton.addEventListener('click', () => setUiMode(!document.body.classList.contains('win11-mode')));
+    document.getElementById('dock-terminal').addEventListener('click', () => document.getElementById('term-input').focus());
     startButton.addEventListener('click', () => {
       startMenu.hidden = !startMenu.hidden;
       startButton.setAttribute('aria-expanded', String(!startMenu.hidden));
